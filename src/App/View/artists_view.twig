@@ -1,0 +1,15 @@
+{# artists_view.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Artists</title>
+</head>
+<body>
+<h1>All Artists</h1>
+<ul>
+    {% for artist in artists %}
+    <li>ID: {{ artist.id }}, First Name: {{ artist.first_name }}, Last Name: {{ artist.last_name }}, Date of Birth: {{ artist.date_of_birth }}, Date of Death: {{ artist.date_of_death }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

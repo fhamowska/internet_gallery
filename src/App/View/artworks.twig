@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artworks Gallery</title>
+</head>
+<body>
+<h1>Artworks Gallery</h1>
+<div class="gallery">
+    {% if artworks %}
+        <ul>
+            {% for artwork in artworks %}
+                <li>
+                    <h2>{{ artwork.title }}</h2>
+                    <p>Artist: {{ artwork.artistName }}</p>
+                    <p>Genre: {{ artwork.genreName }}</p>
+                    <p>Creation Year: {{ artwork.creationYear }}</p>
+                    <p>Dimensions: {{ artwork.dimensions }}</p>
+                    <img src="{{ artwork.imagePath }}" alt="Artwork Image">
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No artworks found.</p>
+    {% endif %}
+</div>
+</body>
+</html>
