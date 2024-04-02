@@ -21,6 +21,13 @@
                 </li>
             {% endfor %}
         </ul>
+        {% if currentPage > 1 %}
+            <a href="?page={{ currentPage - 1 }}">Previous</a>
+        {% endif %}
+
+        {% if currentPage < totalPages %}
+            <a href="?page={{ currentPage + 1 }}">Next</a>
+        {% endif %}
     {% else %}
         <p>No artworks found.</p>
     {% endif %}

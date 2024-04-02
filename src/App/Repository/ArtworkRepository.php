@@ -14,15 +14,21 @@ class ArtworkRepository
         $this->pdo = $pdo;
     }
 
-    public function getAllArtworks(): array
+    public function getAllArtworks(int $page, int $perPage): array
     {
+        $offset = ($page - 1) * $perPage;
+
         $query = "SELECT * FROM Artworks 
-                  LEFT JOIN Artists ON Artworks.artist_id = Artists.id
-                  LEFT JOIN Genres ON Artworks.genre_id = Genres.id
-                  LEFT JOIN Images ON Artworks.image_id = Images.id
-                  LEFT JOIN Admins ON Artworks.created_by = Admins.id";
+              LEFT JOIN Artists ON Artworks.artist_id = Artists.id
+              LEFT JOIN Genres ON Artworks.genre_id = Genres.id
+              LEFT JOIN Images ON Artworks.image_id = Images.id
+              LEFT JOIN Admins ON Artworks.created_by = Admins.id
+              LIMIT :perPage OFFSET :offset";
 
         $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+
         $stmt->execute();
 
         $artworks = [];
@@ -37,38 +43,16 @@ class ArtworkRepository
                 $row['image_id'],
                 $row['created_by']
             );
-
             $artworks[] = $artwork;
         }
 
         return $artworks;
     }
 
-    public function getArtistNameById(int $artistId): ?string
+    public function getTotalArtworksCount(): int
     {
-        $query = "SELECT name FROM Artists WHERE id = :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':id', $artistId, PDO::PARAM_INT);
-        $stmt->execute();
+        $query = "SELECT COUNT(*) FROM Artworks";
+        $stmt = $this->pdo->query($query);
         return $stmt->fetchColumn();
     }
-
-    public function getGenreNameById(int $genreId): ?string
-    {
-        $query = "SELECT name FROM Genres WHERE id = :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':id', $genreId, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchColumn();
-    }
-
-    public function getImagePathById(int $imageId): ?string
-    {
-        $query = "SELECT path FROM Images WHERE id = :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':id', $imageId, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchColumn();
-    }
-
 }

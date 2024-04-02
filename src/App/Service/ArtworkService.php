@@ -27,9 +27,10 @@ class ArtworkService
         $this->imageRepository = $imageRepository;
     }
 
-    public function getAllArtworksWithDetails(): array
+    public function getAllArtworksWithDetails(int $page, int $perPage): array
     {
-        $artworks = $this->artworkRepository->getAllArtworks();
+        // Fetch artworks for the specified page and perPage limit
+        $artworks = $this->artworkRepository->getAllArtworks($page, $perPage);
         $artworkDetails = [];
 
         foreach ($artworks as $artwork) {
@@ -49,5 +50,10 @@ class ArtworkService
         }
 
         return $artworkDetails;
+    }
+
+    public function getTotalArtworksCount(): int
+    {
+        return $this->artworkRepository->getTotalArtworksCount();
     }
 }
