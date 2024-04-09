@@ -13,10 +13,10 @@ class ArtistRepository {
         $this->pdo = $pdo;
     }
 
-    public function getAllArtists() {
+    public function getAllArtists(): array
+    {
         $query = "SELECT * FROM Artists";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
+        $stmt = $this->pdo->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -29,9 +29,9 @@ class ArtistRepository {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($result) {
-            return $result['first_name'] . ' ' . $result['last_name']; // Concatenate first and last names
+            return $result['first_name'] . ' ' . $result['last_name'];
         } else {
-            return ''; // Return an empty string if artist not found
+            return '';
         }
     }
 }

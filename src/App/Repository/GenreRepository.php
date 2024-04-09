@@ -22,4 +22,11 @@ class GenreRepository
         $result = $stmt->fetchColumn();
         return $result ?? ''; // Return the genre name or an empty string if not found
     }
+
+    public function getAllGenres(): array
+    {
+        $query = "SELECT * FROM Genres";
+        $stmt = $this->pdo->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

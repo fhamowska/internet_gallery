@@ -10,7 +10,9 @@ use App\Repository\ArtistRepository;
 use App\Repository\ArtworkRepository;
 use App\Repository\GenreRepository;
 use App\Repository\ImageRepository;
+use App\Service\ArtistService;
 use App\Service\ArtworkService;
+use App\Service\GenreService;
 
 $artworkRepository = new ArtworkRepository($pdo);
 $artistRepository = new ArtistRepository($pdo);
@@ -22,5 +24,7 @@ $artworkService = new ArtworkService(
     $genreRepository,
     $imageRepository,
 );
-$artworkController = new ArtworkController($artworkService, $twig);
+$artistService = new ArtistService($artistRepository);
+$genreService = new GenreService($genreRepository);
+$artworkController = new ArtworkController($artworkService, $artistService, $genreService, $twig);
 $artworkController->index();

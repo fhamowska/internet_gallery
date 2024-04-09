@@ -11,7 +11,8 @@ class ArtistService {
         $this->artistRepository = $artistRepository;
     }
 
-    public function getAllArtists() {
+    public function getAllArtists(): array
+    {
         return $this->artistRepository->getAllArtists();
     }
 }

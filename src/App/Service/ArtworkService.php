@@ -56,4 +56,33 @@ class ArtworkService
     {
         return $this->artworkRepository->getTotalArtworksCount();
     }
+
+    public function getFilteredArtworksWithDetails(int $page, int $perPage, array $filters): array
+    {
+        $artworks = $this->artworkRepository->getFilteredArtworks($page, $perPage, $filters);
+        $artworkDetails = [];
+
+        foreach ($artworks as $artwork) {
+            $artistName = $this->artistRepository->getArtistNameById($artwork->getArtistId());
+            $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
+            $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
+
+            $artworkDetails[] = new ArtworkDetailsDTO(
+                $artwork->getId(),
+                $artwork->getTitle(),
+                $artistName,
+                $genreName,
+                $artwork->getCreationYear(),
+                $artwork->getDimensions(),
+                $imagePath
+            );
+        }
+
+        return $artworkDetails;
+    }
+
+    public function getTotalFilteredArtworksCount(array $filters): int
+    {
+        return $this->artworkRepository->getTotalFilteredArtworksCount($filters);
+    }
 }
