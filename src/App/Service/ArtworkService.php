@@ -85,4 +85,28 @@ class ArtworkService
     {
         return $this->artworkRepository->getTotalFilteredArtworksCount($filters);
     }
+
+    public function searchArtworks(string $searchTerm, int $page, int $perPage): array
+    {
+        $artworks = $this->artworkRepository->searchArtworks($searchTerm, $page, $perPage);
+        $artworkDetails = [];
+
+        foreach ($artworks as $artwork) {
+            $artistName = $this->artistRepository->getArtistNameById($artwork->getArtistId());
+            $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
+            $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
+
+            $artworkDetails[] = new ArtworkDetailsDTO(
+                $artwork->getId(),
+                $artwork->getTitle(),
+                $artistName,
+                $genreName,
+                $artwork->getCreationYear(),
+                $artwork->getDimensions(),
+                $imagePath
+            );
+        }
+
+        return $artworkDetails;
+    }
 }

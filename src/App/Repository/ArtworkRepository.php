@@ -58,24 +58,18 @@ class ArtworkRepository
 
     public function getFilteredArtworks(int $page, int $perPage, array $filters): array
     {
-        // Construct the query based on the applied filters
         $query = "SELECT * FROM Artworks 
-              LEFT JOIN Artists ON Artworks.artist_id = Artists.id
-              LEFT JOIN Genres ON Artworks.genre_id = Genres.id
-              LEFT JOIN Images ON Artworks.image_id = Images.id
-              LEFT JOIN Admins ON Artworks.created_by = Admins.id
-              WHERE 1=1"; // Placeholder for dynamic conditions
+          LEFT JOIN Artists ON Artworks.artist_id = Artists.id
+          LEFT JOIN Genres ON Artworks.genre_id = Genres.id
+          LEFT JOIN Images ON Artworks.image_id = Images.id
+          LEFT JOIN Admins ON Artworks.created_by = Admins.id
+          WHERE 1=1";
 
         $params = [];
 
         if (!empty($filters['genre'])) {
             $query .= " AND Artworks.genre_id = :genre";
             $params[':genre'] = $filters['genre'];
-        }
-
-        if (!empty($filters['artist'])) {
-            $query .= " AND Artworks.artist_id = :artist";
-            $params[':artist'] = $filters['artist'];
         }
 
         if (!empty($filters['creationYearFrom'])) {
@@ -86,6 +80,11 @@ class ArtworkRepository
         if (!empty($filters['creationYearTo'])) {
             $query .= " AND Artworks.creation_year <= :creationYearTo";
             $params[':creationYearTo'] = $filters['creationYearTo'];
+        }
+
+        if (!empty($filters['searchTerm'])) {
+            $query .= " AND (Artworks.title LIKE :searchTerm OR Artists.first_name LIKE :searchTerm OR Artists.last_name LIKE :searchTerm)";
+            $params[':searchTerm'] = '%' . $filters['searchTerm'] . '%';
         }
 
         // Add pagination
@@ -123,29 +122,23 @@ class ArtworkRepository
             $artworks[] = $artwork;
         }
 
-        //var_dump($filters['creationYearFrom'], $params[':creationYearFrom']);
         return $artworks;
     }
 
     public function getTotalFilteredArtworksCount(array $filters): int
     {
         $query = "SELECT COUNT(*) FROM Artworks 
-              LEFT JOIN Artists ON Artworks.artist_id = Artists.id
-              LEFT JOIN Genres ON Artworks.genre_id = Genres.id
-              LEFT JOIN Images ON Artworks.image_id = Images.id
-              LEFT JOIN Admins ON Artworks.created_by = Admins.id
-              WHERE 1=1"; // Placeholder for dynamic conditions
+          LEFT JOIN Artists ON Artworks.artist_id = Artists.id
+          LEFT JOIN Genres ON Artworks.genre_id = Genres.id
+          LEFT JOIN Images ON Artworks.image_id = Images.id
+          LEFT JOIN Admins ON Artworks.created_by = Admins.id
+          WHERE 1=1";
 
         $params = [];
 
         if (!empty($filters['genre'])) {
             $query .= " AND Artworks.genre_id = :genre";
             $params[':genre'] = $filters['genre'];
-        }
-
-        if (!empty($filters['artist'])) {
-            $query .= " AND Artworks.artist_id = :artist";
-            $params[':artist'] = $filters['artist'];
         }
 
         if (!empty($filters['creationYearFrom'])) {
@@ -158,9 +151,13 @@ class ArtworkRepository
             $params[':creationYearTo'] = $filters['creationYearTo'];
         }
 
+        if (!empty($filters['searchTerm'])) {
+            $query .= " AND (Artworks.title LIKE :searchTerm OR Artists.first_name LIKE :searchTerm OR Artists.last_name LIKE :searchTerm)";
+            $params[':searchTerm'] = '%' . $filters['searchTerm'] . '%';
+        }
+
         $stmt = $this->pdo->prepare($query);
 
-        // Bind parameters
         foreach ($params as $param => $value) {
             $stmt->bindValue($param, $value);
         }
@@ -168,5 +165,51 @@ class ArtworkRepository
         $stmt->execute();
 
         return $stmt->fetchColumn();
+    }
+
+    public function searchArtworks(string $searchTerm, int $page, int $perPage): array
+    {
+        // Construct the query to search artworks by title and artist names
+        $query = "SELECT * FROM Artworks 
+          LEFT JOIN Artists ON Artworks.artist_id = Artists.id
+          LEFT JOIN Genres ON Artworks.genre_id = Genres.id
+          LEFT JOIN Images ON Artworks.image_id = Images.id
+          LEFT JOIN Admins ON Artworks.created_by = Admins.id
+          WHERE Artworks.title LIKE :searchTerm 
+          OR Artists.first_name LIKE :searchTerm 
+          OR Artists.last_name LIKE :searchTerm";
+
+        // Add pagination
+        $offset = ($page - 1) * $perPage;
+        $query .= " LIMIT :limit OFFSET :offset";
+
+        // Prepare the query
+        $stmt = $this->pdo->prepare($query);
+
+        // Bind parameters
+        $stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
+        $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Fetch and return artworks
+        $artworks = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $artwork = new Artwork(
+                $row['id'],
+                $row['title'],
+                $row['artist_id'],
+                $row['genre_id'],
+                $row['creation_year'],
+                $row['dimensions'],
+                $row['image_id'],
+                $row['created_by']
+            );
+            $artworks[] = $artwork;
+        }
+
+        return $artworks;
     }
 }

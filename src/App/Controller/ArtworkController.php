@@ -25,13 +25,12 @@ class ArtworkController
     public function index()
     {
         $genres = $this->genreService->getAllGenres();
-        $artists = $this->artistService->getAllArtists();
 
         $filters = [
-            'artist' => isset($_GET['artist']) ? (int)$_GET['artist'] : null,
             'genre' => isset($_GET['genre']) ? (int)$_GET['genre'] : null,
             'creationYearFrom' => isset($_GET['creationYearFrom']) ? (int)$_GET['creationYearFrom'] : null,
             'creationYearTo' => isset($_GET['creationYearTo']) ? (int)$_GET['creationYearTo'] : null,
+            'searchTerm' => $_GET['searchTerm'] ?? null,
         ];
 
         $queryString = http_build_query($filters);
@@ -54,8 +53,8 @@ class ArtworkController
             'currentPage' => $page,
             'totalPages' => $totalPages,
             'filters' => $filters,
-            'artists' => $artists,
             'genres' => $genres,
+            'searchTerm' => $filters['searchTerm'],
         ]);
     }
 
