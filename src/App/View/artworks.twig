@@ -8,17 +8,15 @@
 <body>
 <h1>Artworks Gallery</h1>
 <div class="filter">
-    <form action="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
-        <label for="searchTerm">Search:</label>
+    <form action="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
+    <label for="searchTerm">Search:</label>
         <input type="text" name="searchTerm" id="searchTerm" value="{{ filters.searchTerm ?? '' }}">
 
-        <label for="genre">Genre:</label>
-        <select name="genre" id="genre">
-            <option value="">Select Genre</option>
-            {% for genre in genres %}
-                <option value="{{ genre.id }}" {% if filters.genre == genre.id %} selected {% endif %}>{{ genre.name }}</option>
-            {% endfor %}
-        </select>
+        <label>Genre:</label><br>
+        {% for genre in genres %}
+            <input type="checkbox" name="genre[]" id="genre{{ genre.id }}" value="{{ genre.id }}" {% if genre.id in filters.genre %} checked {% endif %}>
+            <label for="genre{{ genre.id }}">{{ genre.name }}</label><br>
+        {% endfor %}
 
         <label for="creationYearFrom">Creation Year From:</label>
         <input type="number" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}">
@@ -58,11 +56,11 @@
             {% endfor %}
         </ul>
         {% if currentPage > 1 %}
-            <a href="?page={{ currentPage - 1 }}{% if filters.genre %}&genre={{ filters.genre }}{% endif %}{% if filters.creationYearFrom %}&creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearTo %}&creationYearTo={{ filters.creationYearTo }}{% endif %}{% if filters.searchTerm %}&searchTerm={{ filters.searchTerm }}{% endif %}">Previous</a>
+            <a href="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage - 1 }}">Previous</a>
         {% endif %}
 
         {% if currentPage < totalPages %}
-            <a href="?page={{ currentPage + 1 }}{% if filters.genre %}&genre={{ filters.genre }}{% endif %}{% if filters.creationYearFrom %}&creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearTo %}&creationYearTo={{ filters.creationYearTo }}{% endif %}{% if filters.searchTerm %}&searchTerm={{ filters.searchTerm }}{% endif %}">Next</a>
+            <a href="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage + 1 }}">Next</a>
         {% endif %}
     {% else %}
         <p>No artworks found.</p>

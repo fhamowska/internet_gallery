@@ -26,8 +26,16 @@ class ArtworkController
     {
         $genres = $this->genreService->getAllGenres();
 
+        $genreArray = $_GET['genre'] ?? [];
+
+        if (!is_array($genreArray)) {
+            $genreArray = explode(',', $genreArray);
+            $genreArray = array_map('trim', $genreArray);
+            $genreArray = array_map('strval', $genreArray);
+        }
+
         $filters = [
-            'genre' => isset($_GET['genre']) ? (int)$_GET['genre'] : null,
+            'genre' => $genreArray,
             'creationYearFrom' => isset($_GET['creationYearFrom']) ? (int)$_GET['creationYearFrom'] : null,
             'creationYearTo' => isset($_GET['creationYearTo']) ? (int)$_GET['creationYearTo'] : null,
             'searchTerm' => $_GET['searchTerm'] ?? null,
@@ -48,6 +56,10 @@ class ArtworkController
         $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);
         $totalPages = ceil($totalArtworks / $perPage);
 
+        if (isset($filters['genre']) && is_array($filters['genre'])) {
+            $filters['genre'] = implode(',', $filters['genre']);
+        }
+
         echo $this->twig->render('artworks.twig', [
             'artworks' => $artworks,
             'currentPage' => $page,
@@ -57,5 +69,4 @@ class ArtworkController
             'searchTerm' => $filters['searchTerm'],
         ]);
     }
-
 }

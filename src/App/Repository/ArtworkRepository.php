@@ -59,17 +59,23 @@ class ArtworkRepository
     public function getFilteredArtworks(int $page, int $perPage, array $filters): array
     {
         $query = "SELECT * FROM Artworks 
-          LEFT JOIN Artists ON Artworks.artist_id = Artists.id
-          LEFT JOIN Genres ON Artworks.genre_id = Genres.id
-          LEFT JOIN Images ON Artworks.image_id = Images.id
-          LEFT JOIN Admins ON Artworks.created_by = Admins.id
-          WHERE 1=1";
+              LEFT JOIN Artists ON Artworks.artist_id = Artists.id
+              LEFT JOIN Genres ON Artworks.genre_id = Genres.id
+              LEFT JOIN Images ON Artworks.image_id = Images.id
+              LEFT JOIN Admins ON Artworks.created_by = Admins.id
+              WHERE 1=1";
 
         $params = [];
 
         if (!empty($filters['genre'])) {
-            $query .= " AND Artworks.genre_id = :genre";
-            $params[':genre'] = $filters['genre'];
+            $genres = is_array($filters['genre']) ? $filters['genre'] : [$filters['genre']];
+            $genrePlaceholders = implode(',', array_map(function($genre) {
+                return ':genre_' . $genre;
+            }, array_keys($genres)));
+            $query .= " AND Artworks.genre_id IN ($genrePlaceholders)";
+            foreach ($genres as $index => $genre) {
+                $params[':genre_' . $index] = $genre;
+            }
         }
 
         if (!empty($filters['creationYearFrom'])) {
@@ -87,26 +93,20 @@ class ArtworkRepository
             $params[':searchTerm'] = '%' . $filters['searchTerm'] . '%';
         }
 
-        // Add pagination
         $offset = ($page - 1) * $perPage;
         $query .= " LIMIT :limit OFFSET :offset";
 
-        // Prepare the query
         $stmt = $this->pdo->prepare($query);
 
-        // Bind other parameters
         foreach ($params as $param => $value) {
             $stmt->bindValue($param, $value);
         }
 
-        // Bind pagination parameters
         $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 
-        // Execute the query
         $stmt->execute();
 
-        // Fetch and return artworks
         $artworks = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $artwork = new Artwork(
@@ -137,8 +137,14 @@ class ArtworkRepository
         $params = [];
 
         if (!empty($filters['genre'])) {
-            $query .= " AND Artworks.genre_id = :genre";
-            $params[':genre'] = $filters['genre'];
+            $genres = is_array($filters['genre']) ? $filters['genre'] : [$filters['genre']];
+            $genrePlaceholders = implode(',', array_map(function($genre) {
+                return ':genre_' . $genre;
+            }, array_keys($genres)));
+            $query .= " AND Artworks.genre_id IN ($genrePlaceholders)";
+            foreach ($genres as $index => $genre) {
+                $params[':genre_' . $index] = $genre;
+            }
         }
 
         if (!empty($filters['creationYearFrom'])) {
