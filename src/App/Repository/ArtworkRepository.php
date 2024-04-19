@@ -218,4 +218,35 @@ class ArtworkRepository
 
         return $artworks;
     }
+
+    public function getArtworkById(int $artworkId): ?Artwork
+    {
+        $query = "SELECT * FROM Artworks 
+            LEFT JOIN Artists ON Artworks.artist_id = Artists.id
+            LEFT JOIN Genres ON Artworks.genre_id = Genres.id
+            LEFT JOIN Images ON Artworks.image_id = Images.id
+            LEFT JOIN Admins ON Artworks.created_by = Admins.id
+            WHERE Artworks.id = :artworkId";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':artworkId', $artworkId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            return null;
+        }
+
+        return new Artwork(
+            $row['id'],
+            $row['title'],
+            $row['artist_id'],
+            $row['genre_id'],
+            $row['creation_year'],
+            $row['dimensions'],
+            $row['image_id'],
+            $row['created_by']
+        );
+    }
 }

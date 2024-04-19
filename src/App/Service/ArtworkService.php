@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Artwork;
 use App\Repository\ArtworkRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\GenreRepository;
@@ -84,6 +85,25 @@ class ArtworkService
     public function getTotalFilteredArtworksCount(array $filters): int
     {
         return $this->artworkRepository->getTotalFilteredArtworksCount($filters);
+    }
+
+    public function getArtworkById(int $artworkId): ArtworkDetailsDTO
+    {
+        $artwork = $this->artworkRepository->getArtworkById($artworkId);
+
+        $artistName = $this->artistRepository->getArtistNameById($artwork->getArtistId());
+        $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
+        $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
+
+        return new ArtworkDetailsDTO(
+            $artwork->getId(),
+            $artwork->getTitle(),
+            $artistName,
+            $genreName,
+            $artwork->getCreationYear(),
+            $artwork->getDimensions(),
+            $imagePath
+        );
     }
 
     public function searchArtworks(string $searchTerm, int $page, int $perPage): array

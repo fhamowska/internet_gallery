@@ -9,7 +9,7 @@
 <h1>Artworks Gallery</h1>
 <div class="filter">
     <form action="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
-    <label for="searchTerm">Search:</label>
+        <label for="searchTerm">Search:</label>
         <input type="text" name="searchTerm" id="searchTerm" value="{{ filters.searchTerm ?? '' }}">
 
         <label>Genre:</label><br>
@@ -46,12 +46,14 @@
         <ul>
             {% for artwork in artworks %}
                 <li>
-                    <h2>{{ artwork.title }}</h2>
-                    <p>Artist: {{ artwork.artistName }}</p>
-                    <p>Genre: {{ artwork.genreName }}</p>
-                    <p>Creation Year: {{ artwork.creationYear }}</p>
-                    <p>Dimensions: {{ artwork.dimensions }}</p>
-                    <img src="{{ artwork.imagePath }}" alt="Artwork Image">
+                        <h2>{{ artwork.title }}</h2>
+                        <p>Artist: {{ artwork.artistName }}</p>
+                        <p>Genre: {{ artwork.genreName }}</p>
+                        <p>Creation Year: {{ artwork.creationYear }}</p>
+                        <p>Dimensions: {{ artwork.dimensions }}</p>
+                    <a href="single_artwork.php?id={{ artwork.id }}">
+                        <img src="{{ artwork.imagePath }}" alt="Artwork Image">
+                    </a>
                 </li>
             {% endfor %}
         </ul>

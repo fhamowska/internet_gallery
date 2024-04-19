@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Artwork</title>
+</head>
+<body>
+<h1>{{ artwork.title }}</h1>
+<p>Artist: {{ artwork.artistName }}</p>
+<p>Genre: {{ artwork.genreName }}</p>
+<p>Creation Year: {{ artwork.creationYear }}</p>
+<p>Dimensions: {{ artwork.dimensions }}</p>
+<img src="{{ artwork.imagePath }}" alt="Artwork Image">
+</body>
+</html>
