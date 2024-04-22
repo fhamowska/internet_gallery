@@ -249,4 +249,32 @@ class ArtworkRepository
             $row['created_by']
         );
     }
+
+    public function editArtwork(string $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, ?int $imageId)
+    {
+        $query = "UPDATE Artworks 
+              SET title = :title, artist_id = :artistId, genre_id = :genreId, creation_year = :creationYear, dimensions = :dimensions";
+
+        // Include image ID only if a new image is uploaded
+        if ($imageId !== null) {
+            $query .= ", image_id = :imageId";
+        }
+
+        $query .= " WHERE id = :artworkId";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':artworkId', $artworkId, PDO::PARAM_INT);
+        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->bindParam(':artistId', $artistId, PDO::PARAM_INT);
+        $stmt->bindParam(':genreId', $genreId, PDO::PARAM_INT);
+        $stmt->bindParam(':creationYear', $creationYear, PDO::PARAM_INT);
+        $stmt->bindParam(':dimensions', $dimensions, PDO::PARAM_STR);
+
+        // Bind image ID only if a new image is uploaded
+        if ($imageId !== null) {
+            $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+    }
 }

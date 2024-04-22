@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Service\ArtistService;
 use App\Service\ArtworkService;
 use App\Service\GenreService;
+use App\Service\ImageService;
 use Twig\Environment;
 
 class ArtworkController
@@ -13,12 +14,14 @@ class ArtworkController
     private Environment $twig;
     private ArtistService $artistService;
     private GenreService $genreService;
+    private ImageService $imageService;
 
-    public function __construct(ArtworkService $artworkService, ArtistService $artistService, GenreService $genreService, Environment $twig)
+    public function __construct(ArtworkService $artworkService, ArtistService $artistService, GenreService $genreService, ?ImageService $imageService, Environment $twig)
     {
         $this->artworkService = $artworkService;
         $this->artistService = $artistService;
         $this->genreService = $genreService;
+        $this->imageService = $imageService;
         $this->twig = $twig;
     }
 
@@ -69,4 +72,20 @@ class ArtworkController
             'searchTerm' => $filters['searchTerm'],
         ]);
     }
+
+    public function editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId, ?int $oldImageId, $updateImage = true)
+    {
+        if (!$updateImage) {
+            $imageId = null;
+        }
+
+        $this->artworkService->editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId);
+        if($oldImageId !== null)
+        {
+            $this->imageService->deleteImage($oldImageId);
+        }
+        header("Location: admin.php");
+        exit();
+    }
+
 }

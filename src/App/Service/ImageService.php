@@ -17,4 +17,14 @@ class ImageService
     {
         return $this->imageRepository->getAllImages();
     }
+
+    public function saveImage(string $imagePath, string $altText): int
+    {
+        return $this->imageRepository->saveImage($imagePath, $altText);
+    }
+
+    public function deleteImage(int $imageId): void
+    {
+        $this->imageRepository->deleteImage($imageId);
+    }
 }

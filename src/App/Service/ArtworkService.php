@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Entity\Artwork;
 use App\Repository\ArtworkRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\GenreRepository;
@@ -128,5 +127,10 @@ class ArtworkService
         }
 
         return $artworkDetails;
+    }
+
+    public function editArtwork(int $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, ?string $imageId): void
+    {
+        $this->artworkRepository->editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId);
     }
 }

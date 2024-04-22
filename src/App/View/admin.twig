@@ -52,7 +52,7 @@
                     <p>Creation Year: {{ artwork.creationYear }}</p>
                     <p>Dimensions: {{ artwork.dimensions }}</p>
                     <a href="single_artwork.php?id={{ artwork.id }}">
-                        <img src="{{ artwork.imagePath }}" alt="Artwork Image">
+                        <img src="{{ artwork.imagePath }}" alt="{{ artwork.imagePath }}">
                     </a>
                     <div>
                         <a href="edit_artwork.php?id={{ artwork.id }}">Edit</a>

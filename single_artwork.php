@@ -26,7 +26,7 @@ $artworkService = new ArtworkService(
 );
 $artistService = new ArtistService($artistRepository);
 $genreService = new GenreService($genreRepository);
-$artworkController = new ArtworkController($artworkService, $artistService, $genreService, $twig);
+$artworkController = new ArtworkController($artworkService, $artistService, $genreService, null, $twig);
 
 $artworkId = $_GET['id'] ?? null;
 
