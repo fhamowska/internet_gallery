@@ -53,7 +53,7 @@ class ArtworkController
         }
 
         $page = max(1, (int)$_GET['page']);
-        $perPage = 1;
+        $perPage = 2;
 
         $artworks = $this->artworkService->getFilteredArtworksWithDetails($page, $perPage, $filters);
         $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);

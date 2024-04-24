@@ -37,6 +37,7 @@ class LoginController
 
             if ($admin && ($password === $admin->getPassword())) {
                 $_SESSION['admin_logged_in'] = true;
+                $_SESSION['admin_id'] = $admin->getId();
 
                 header("Location: admin.php");
                 exit();

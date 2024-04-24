@@ -1,10 +1,4 @@
 <?php
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-require_once (__DIR__) . '/vendor/autoload.php';
-require_once 'bootstrap.php';
-
 use App\Controller\ArtworkController;
 use App\Repository\ArtistRepository;
 use App\Repository\ArtworkRepository;
@@ -14,6 +8,9 @@ use App\Service\ArtistService;
 use App\Service\ArtworkService;
 use App\Service\GenreService;
 use App\Service\ImageService;
+
+require_once(__DIR__) . '/vendor/autoload.php';
+require_once 'bootstrap.php';
 
 $artworkRepository = new ArtworkRepository($pdo);
 $artistRepository = new ArtistRepository($pdo);
@@ -29,4 +26,18 @@ $artistService = new ArtistService($artistRepository);
 $genreService = new GenreService($genreRepository);
 $imageService = new ImageService($imageRepository);
 $artworkController = new ArtworkController($artworkService, $artistService, $genreService, $imageService, $twig);
-$artworkController->index();
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
+    $artworkId = $_POST['id'];
+
+    $artwork = $artworkRepository->getArtworkById($artworkId);
+    $imageId = $artwork->getImageId();
+    if ($imageId) {
+        $imageService->deleteImage($imageId);
+    }
+    $artworkRepository->deleteArtwork($artworkId);
+}
+
+header("Location: admin.php");
+exit();

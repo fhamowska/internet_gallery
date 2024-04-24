@@ -28,45 +28,38 @@ $genreService = new GenreService($genreRepository);
 $imageService = new ImageService($imageRepository);
 $artworkController = new ArtworkController($artworkService, $artistService, $genreService, $imageService, $twig);
 
+require_once(__DIR__) . '/vendor/autoload.php';
+require_once 'bootstrap.php';
+
+session_start();
+
+if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
+    header("Location: login.php");
+    exit();
+}
+$loggedInAdminId = $_SESSION['admin_id'];
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $artworkId = $_POST['id'] ?? null;
     $title = $_POST['title'] ?? '';
     $artistId = $_POST['artistId'] ?? '';
     $genreId = $_POST['genreId'] ?? '';
     $creationYear = $_POST['creationYear'] ?? '';
     $dimensions = $_POST['dimensions'] ?? '';
-    $imageId = $_POST['imageId'] ?? '';
+    $altText = $_POST['altText'] ?? '';
 
-    $image = $_FILES['image']['name'] ?? null;
+    // Save the uploaded image
+    $imagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name']);
+    $imageId = $imageRepository->saveImage($imagePath, $altText);
 
-    $genreId = (int) $genreId;
-    $imageId = (int) $imageId;
+    // Add artwork
+    $artworkRepository->addArtwork($title, $artistId, $genreId, $creationYear, $dimensions, $imageId, $loggedInAdminId);
 
-    $newImagePath = null;
-
-    if (!empty($image)) {
-        $newImagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name']);
-        if ($newImagePath) {
-            $imageId = $imageService->saveImage($newImagePath, 'alt text:)');
-        }
-        $oldImageId = $artworkRepository->getArtworkById($artworkId)->getImageId();
-    }
-
-    $artworkController->editArtwork(
-        (int)$artworkId,
-        $title,
-        (int)$artistId,
-        $genreId,
-        $creationYear,
-        $dimensions,
-        $imageId,
-        $oldImageId ?? null,
-        !empty($newImagePath),
-    );
+    // Redirect to the artwork list page
+    header("Location: admin.php");
+    exit();
 }
-$artworkId = $_GET['id'] ?? null;
-$artwork = $artworkService->getArtworkById($artworkId);
+
+
 $artists = $artistService->getAllArtists();
 $genres = $genreService->getAllGenres();
 
-echo $twig->render('edit_artwork.twig', ['artwork' => $artwork, 'artists' => $artists, 'genres' => $genres]);
+echo $twig->render('add_artwork.twig', ['artists' => $artists, 'genres' => $genres]);

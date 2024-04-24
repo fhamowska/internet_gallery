@@ -58,12 +58,36 @@ class ArtworkRepository
 
     public function getFilteredArtworks(int $page, int $perPage, array $filters): array
     {
-        $query = "SELECT * FROM Artworks 
+        $query = "SELECT 
+              Artworks.id AS artwork_id, 
+              Artworks.title, 
+              Artworks.artist_id, 
+              Artworks.genre_id, 
+              Artworks.creation_year, 
+              Artworks.dimensions, 
+              Artworks.created_by,
+              Artworks.image_id AS artwork_image_id, 
+              Artworks.created_by AS artwork_created_by, 
+              Artists.id AS artist_id, 
+              Artists.first_name, 
+              Artists.last_name, 
+              Artists.date_of_birth, 
+              Artists.place_of_birth,
+              Genres.id AS genre_id, 
+              Genres.name AS genre_name,
+              Images.id AS image_id, 
+              Images.image_path, 
+              Images.alt_text,
+              Admins.id AS admin_id, 
+              Admins.username, 
+              Admins.password
+          FROM 
+              Artworks 
               LEFT JOIN Artists ON Artworks.artist_id = Artists.id
               LEFT JOIN Genres ON Artworks.genre_id = Genres.id
               LEFT JOIN Images ON Artworks.image_id = Images.id
               LEFT JOIN Admins ON Artworks.created_by = Admins.id
-              WHERE 1=1";
+          WHERE 1=1";
 
         $params = [];
 
@@ -110,7 +134,7 @@ class ArtworkRepository
         $artworks = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $artwork = new Artwork(
-                $row['id'],
+                $row['artwork_id'],
                 $row['title'],
                 $row['artist_id'],
                 $row['genre_id'],
@@ -221,12 +245,36 @@ class ArtworkRepository
 
     public function getArtworkById(int $artworkId): ?Artwork
     {
-        $query = "SELECT * FROM Artworks 
-            LEFT JOIN Artists ON Artworks.artist_id = Artists.id
-            LEFT JOIN Genres ON Artworks.genre_id = Genres.id
-            LEFT JOIN Images ON Artworks.image_id = Images.id
-            LEFT JOIN Admins ON Artworks.created_by = Admins.id
-            WHERE Artworks.id = :artworkId";
+        $query = "SELECT 
+              Artworks.id AS artwork_id, 
+              Artworks.title, 
+              Artworks.artist_id, 
+              Artworks.genre_id, 
+              Artworks.creation_year, 
+              Artworks.dimensions, 
+              Artworks.created_by,
+              Artworks.image_id AS artwork_image_id, 
+              Artists.id AS artist_id, 
+              Artists.first_name, 
+              Artists.last_name, 
+              Artists.date_of_birth, 
+              Artists.place_of_birth,
+              Genres.id AS genre_id, 
+              Genres.name AS genre_name,
+              Images.id AS image_id, 
+              Images.image_path, 
+              Images.alt_text,
+              Admins.id AS admin_id, 
+              Admins.username
+          FROM 
+              Artworks 
+              LEFT JOIN Artists ON Artworks.artist_id = Artists.id
+              LEFT JOIN Genres ON Artworks.genre_id = Genres.id
+              LEFT JOIN Images ON Artworks.image_id = Images.id
+              LEFT JOIN Admins ON Artworks.created_by = Admins.id
+          WHERE 
+              Artworks.id = :artworkId";
+
 
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':artworkId', $artworkId, PDO::PARAM_INT);
@@ -239,7 +287,7 @@ class ArtworkRepository
         }
 
         return new Artwork(
-            $row['id'],
+            $row['artwork_id'],
             $row['title'],
             $row['artist_id'],
             $row['genre_id'],
@@ -275,6 +323,29 @@ class ArtworkRepository
             $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
         }
 
+        $stmt->execute();
+    }
+
+    public function deleteArtwork(int $artworkId)
+    {
+        $query = "DELETE FROM Artworks WHERE id = :artworkId";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':artworkId', $artworkId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    public function addArtwork(string $title, int $artistId, int $genreId, ?int $creationYear, ?string $dimensions, int $imageId, int $createdBy)
+    {
+        $query = "INSERT INTO Artworks (title, artist_id, genre_id, creation_year, dimensions, image_id, created_by) 
+              VALUES (:title, :artistId, :genreId, :creationYear, :dimensions, :imageId, :createdBy)";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->bindParam(':artistId', $artistId, PDO::PARAM_INT);
+        $stmt->bindParam(':genreId', $genreId, PDO::PARAM_INT);
+        $stmt->bindParam(':creationYear', $creationYear, PDO::PARAM_INT);
+        $stmt->bindParam(':dimensions', $dimensions, PDO::PARAM_STR);
+        $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
+        $stmt->bindParam(':createdBy', $createdBy, PDO::PARAM_INT); // Bind the createdBy parameter
         $stmt->execute();
     }
 }

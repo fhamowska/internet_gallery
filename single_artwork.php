@@ -13,6 +13,7 @@ use App\Repository\ImageRepository;
 use App\Service\ArtistService;
 use App\Service\ArtworkService;
 use App\Service\GenreService;
+use App\Service\ImageService;
 
 $artworkRepository = new ArtworkRepository($pdo);
 $artistRepository = new ArtistRepository($pdo);
@@ -26,7 +27,8 @@ $artworkService = new ArtworkService(
 );
 $artistService = new ArtistService($artistRepository);
 $genreService = new GenreService($genreRepository);
-$artworkController = new ArtworkController($artworkService, $artistService, $genreService, null, $twig);
+$imageService = new ImageService($imageRepository);
+$artworkController = new ArtworkController($artworkService, $artistService, $genreService, $imageService, $twig);
 
 $artworkId = $_GET['id'] ?? null;
 
