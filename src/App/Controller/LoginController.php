@@ -30,12 +30,10 @@ class LoginController
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $username = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
-            var_dump($username, $password);
 
             $admin = $this->adminService->findByUsername($username);
-            var_dump($admin->getPassword());
 
-            if ($admin && ($password === $admin->getPassword())) {
+            if ($admin && password_verify($password, $admin->getPassword())) {
                 $_SESSION['admin_logged_in'] = true;
                 $_SESSION['admin_id'] = $admin->getId();
 
