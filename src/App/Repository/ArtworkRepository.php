@@ -199,7 +199,6 @@ class ArtworkRepository
 
     public function searchArtworks(string $searchTerm, int $page, int $perPage): array
     {
-        // Construct the query to search artworks by title and artist names
         $query = "SELECT * FROM Artworks 
           LEFT JOIN Artists ON Artworks.artist_id = Artists.id
           LEFT JOIN Genres ON Artworks.genre_id = Genres.id
@@ -209,22 +208,17 @@ class ArtworkRepository
           OR Artists.first_name LIKE :searchTerm 
           OR Artists.last_name LIKE :searchTerm";
 
-        // Add pagination
         $offset = ($page - 1) * $perPage;
         $query .= " LIMIT :limit OFFSET :offset";
 
-        // Prepare the query
         $stmt = $this->pdo->prepare($query);
 
-        // Bind parameters
         $stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
         $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 
-        // Execute the query
         $stmt->execute();
 
-        // Fetch and return artworks
         $artworks = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $artwork = new Artwork(
@@ -345,7 +339,7 @@ class ArtworkRepository
         $stmt->bindParam(':creationYear', $creationYear, PDO::PARAM_INT);
         $stmt->bindParam(':dimensions', $dimensions, PDO::PARAM_STR);
         $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
-        $stmt->bindParam(':createdBy', $createdBy, PDO::PARAM_INT); // Bind the createdBy parameter
+        $stmt->bindParam(':createdBy', $createdBy, PDO::PARAM_INT);
         $stmt->execute();
     }
 }

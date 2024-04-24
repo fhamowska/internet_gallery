@@ -10,6 +10,9 @@
 <div class="add-artwork">
     <a href="add_artwork.php"><button>Add Artwork</button></a>
 </div>
+<div class="genres-list">
+    <a href="genres.php"><button>Genres List</button></a>
+</div>
 <div class="filter">
     <form action="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
         <label for="searchTerm">Search:</label>
