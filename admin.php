@@ -6,23 +6,12 @@ require_once (__DIR__) . '/vendor/autoload.php';
 require_once 'bootstrap.php';
 
 use App\Controller\AdminController;
-use App\Repository\ArtistRepository;
-use App\Repository\ArtworkRepository;
+use App\Factory\ArtworkServiceFactory;
 use App\Repository\GenreRepository;
-use App\Repository\ImageRepository;
-use App\Service\ArtworkService;
 use App\Service\GenreService;
 
-$artworkRepository = new ArtworkRepository($pdo);
-$artistRepository = new ArtistRepository($pdo);
+$artworkService = ArtworkServiceFactory::create($pdo);
 $genreRepository = new GenreRepository($pdo);
-$imageRepository = new ImageRepository($pdo);
-$artworkService = new ArtworkService(
-    $artworkRepository,
-    $artistRepository,
-    $genreRepository,
-    $imageRepository,
-);
 $genreService = new GenreService($genreRepository);
 
 $adminController = new AdminController($twig, $artworkService, $genreService);
