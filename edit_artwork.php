@@ -3,6 +3,7 @@
 use App\Controller\ArtworkController;
 use App\Factory\ArtworkServiceFactory;
 use App\Repository\ArtistRepository;
+use App\Repository\ArtworkRepository;
 use App\Repository\GenreRepository;
 use App\Repository\ImageRepository;
 use App\Service\ArtistService;
@@ -16,6 +17,7 @@ $artworkService = ArtworkServiceFactory::create($pdo);
 $artistRepository = new ArtistRepository($pdo);
 $genreRepository = new GenreRepository($pdo);
 $imageRepository = new ImageRepository($pdo);
+$artworkRepository = new ArtworkRepository($pdo);
 $artistService = new ArtistService($artistRepository, $artworkService);
 $genreService = new GenreService($genreRepository);
 $imageService = new ImageService($imageRepository);

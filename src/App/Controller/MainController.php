@@ -18,7 +18,6 @@ class MainController
 
     public function index()
     {
-        // Render the main.twig template
         echo $this->twig->render('main.twig');
     }
 }

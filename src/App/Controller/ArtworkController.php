@@ -16,7 +16,7 @@ class ArtworkController
     private GenreService $genreService;
     private ImageService $imageService;
 
-    public function __construct(ArtworkService $artworkService, ArtistService $artistService, GenreService $genreService, ?ImageService $imageService, Environment $twig)
+    public function __construct(ArtworkService $artworkService, ArtistService $artistService, GenreService $genreService, ImageService $imageService, Environment $twig)
     {
         $this->artworkService = $artworkService;
         $this->artistService = $artistService;
@@ -80,7 +80,7 @@ class ArtworkController
         }
 
         $this->artworkService->editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId);
-        if($oldImageId !== null)
+        if($oldImageId !== null && $updateImage)
         {
             $this->imageService->deleteImage($oldImageId);
         }

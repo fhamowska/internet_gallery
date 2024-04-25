@@ -15,11 +15,15 @@ use App\Service\GenreService;
 use App\Service\ImageService;
 
 $artworkService = ArtworkServiceFactory::create($pdo);
+
 $artistRepository = new ArtistRepository($pdo);
-$genreRepository = new GenreRepository($pdo);
-$imageRepository = new ImageRepository($pdo);
 $artistService = new ArtistService($artistRepository, $artworkService);
+
+$genreRepository = new GenreRepository($pdo);
 $genreService = new GenreService($genreRepository);
+
+$imageRepository = new ImageRepository($pdo);
 $imageService = new ImageService($imageRepository);
+
 $artworkController = new ArtworkController($artworkService, $artistService, $genreService, $imageService, $twig);
 $artworkController->index();

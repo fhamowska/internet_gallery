@@ -1,88 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-</head>
-<body>
-<h1>Admin Panel</h1>
-<div class="add-artwork">
-    <a href="add_artwork.php"><button>Add Artwork</button></a>
-</div>
-<div class="genres-list">
-    <a href="genres.php"><button>Genres List</button></a>
-</div>
-<div class="artists-list">
-    <a href="artists.php"><button>Artists List</button></a>
-</div>
-<div class="filter">
-    <form action="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
-        <label for="searchTerm">Search:</label>
-        <input type="text" name="searchTerm" id="searchTerm" value="{{ filters.searchTerm ?? '' }}">
+{% extends 'admin_base.twig' %}
 
-        <label>Genre:</label><br>
-        {% for genre in genres %}
-            <input type="checkbox" name="genre[]" id="genre{{ genre.id }}" value="{{ genre.id }}" {% if genre.id in filters.genre %} checked {% endif %}>
-            <label for="genre{{ genre.id }}">{{ genre.name }}</label><br>
-        {% endfor %}
+{% block title %}
+    Admin Panel
+{% endblock %}
 
-        <label for="creationYearFrom">Creation Year From:</label>
-        <input type="number" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}">
+{% block content %}
+    <h1>Admin Panel</h1>
+    <div class="add-artwork">
+        <a href="add_artwork.php"><button>Add Artwork</button></a>
+    </div>
+    <div class="filter">
+        <form action="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
+            <label for="searchTerm">Search:</label>
+            <input type="text" name="searchTerm" id="searchTerm" value="{{ filters.searchTerm ?? '' }}">
 
-        <label for="creationYearTo">Creation Year To:</label>
-        <input type="number" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}">
-
-        <button type="submit">Apply Filters</button>
-    </form>
-</div>
-
-<div class="applied-filters">
-    {% if filters %}
-        <p>Applied Filters:</p>
-        <ul>
-            {% for key, value in filters %}
-                {% if value is not empty %}
-                    <li>{{ key }}: {{ value }}</li>
-                {% endif %}
+            <label>Genre:</label><br>
+            {% for genre in genres %}
+                <input type="checkbox" name="genre[]" id="genre{{ genre.id }}" value="{{ genre.id }}" {% if genre.id in filters.genre %} checked {% endif %}>
+                <label for="genre{{ genre.id }}">{{ genre.name }}</label><br>
             {% endfor %}
-        </ul>
-    {% endif %}
-</div>
 
-<div class="gallery">
-    {% if artworks %}
-        <ul>
-            {% for artwork in artworks %}
-                <li>
-                    <h2>{{ artwork.title }}</h2>
-                    <p>Artist: {{ artwork.artistName }}</p>
-                    <p>Genre: {{ artwork.genreName }}</p>
-                    <p>Creation Year: {{ artwork.creationYear }}</p>
-                    <p>Dimensions: {{ artwork.dimensions }}</p>
-                    <a href="single_artwork.php?id={{ artwork.id }}">
-                        <img src="{{ artwork.imagePath }}" alt="{{ artwork.imagePath }}">
-                    </a>
-                    <div>
-                        <a href="edit_artwork.php?id={{ artwork.id }}">Edit</a>
-                        <form action="delete_artwork.php" method="post">
-                            <input type="hidden" name="id" value="{{ artwork.id }}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-        {% if currentPage > 1 %}
-            <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage - 1 }}">Previous</a>
-        {% endif %}
+            <label for="creationYearFrom">Creation Year From:</label>
+            <input type="number" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}">
 
-        {% if currentPage < totalPages %}
-            <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage + 1 }}">Next</a>
+            <label for="creationYearTo">Creation Year To:</label>
+            <input type="number" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}">
+
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+
+    <div class="applied-filters">
+        {% if filters %}
+            <p>Applied Filters:</p>
+            <ul>
+                {% for key, value in filters %}
+                    {% if value is not empty %}
+                        <li>{{ key }}: {{ value }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         {% endif %}
-    {% else %}
-        <p>No artworks found.</p>
-    {% endif %}
-</div>
-</body>
-</html>
+    </div>
+
+    <div class="gallery">
+        {% if artworks %}
+            <ul>
+                {% for artwork in artworks %}
+                    <li>
+                        <h2>{{ artwork.title }}</h2>
+                        <p>Artist: {{ artwork.artistName }}</p>
+                        <p>Genre: {{ artwork.genreName }}</p>
+                        <p>Creation Year: {{ artwork.creationYear }}</p>
+                        <p>Dimensions: {{ artwork.dimensions }}</p>
+                        <a href="single_artwork_admin.php?id={{ artwork.id }}">
+                            <img src="{{ artwork.imagePath }}" alt="{{ artwork.imagePath }}">
+                        </a>
+                        <div>
+                            <a href="edit_artwork.php?id={{ artwork.id }}">Edit</a>
+                            <form action="delete_artwork.php" method="post">
+                                <input type="hidden" name="id" value="{{ artwork.id }}">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if currentPage > 1 %}
+                <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage - 1 }}">Previous</a>
+            {% endif %}
+
+            {% if currentPage < totalPages %}
+                <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage + 1 }}">Next</a>
+            {% endif %}
+        {% else %}
+            <p>No artworks found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,72 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artworks Gallery</title>
-</head>
-<body>
-<h1>Artworks Gallery</h1>
-<div class="filter">
-    <form action="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
-        <label for="searchTerm">Search:</label>
-        <input type="text" name="searchTerm" id="searchTerm" value="{{ filters.searchTerm ?? '' }}">
+{% extends 'base.twig' %}
 
-        <label>Genre:</label><br>
-        {% for genre in genres %}
-            <input type="checkbox" name="genre[]" id="genre{{ genre.id }}" value="{{ genre.id }}" {% if genre.id in filters.genre %} checked {% endif %}>
-            <label for="genre{{ genre.id }}">{{ genre.name }}</label><br>
-        {% endfor %}
+{% block title %}Artworks Gallery{% endblock %}
 
-        <label for="creationYearFrom">Creation Year From:</label>
-        <input type="number" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}">
+{% block content %}
+    <h1>Artworks Gallery</h1>
+    <div class="filter">
+        <form action="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
+            <label for="searchTerm">Search:</label>
+            <input type="text" name="searchTerm" id="searchTerm" value="{{ filters.searchTerm ?? '' }}">
 
-        <label for="creationYearTo">Creation Year To:</label>
-        <input type="number" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}">
-
-        <button type="submit">Apply Filters</button>
-    </form>
-</div>
-
-<div class="applied-filters">
-    {% if filters %}
-        <p>Applied Filters:</p>
-        <ul>
-            {% for key, value in filters %}
-                {% if value is not empty %}
-                    <li>{{ key }}: {{ value }}</li>
-                {% endif %}
+            <label>Genre:</label><br>
+            {% for genre in genres %}
+                <input type="checkbox" name="genre[]" id="genre{{ genre.id }}" value="{{ genre.id }}" {% if genre.id in filters.genre %} checked {% endif %}>
+                <label for="genre{{ genre.id }}">{{ genre.name }}</label><br>
             {% endfor %}
-        </ul>
-    {% endif %}
-</div>
 
-<div class="gallery">
-    {% if artworks %}
-        <ul>
-            {% for artwork in artworks %}
-                <li>
+            <label for="creationYearFrom">Creation Year From:</label>
+            <input type="number" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}">
+
+            <label for="creationYearTo">Creation Year To:</label>
+            <input type="number" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}">
+
+            <button type="submit">Apply Filters</button>
+        </form>
+    </div>
+
+    <div class="applied-filters">
+        {% if filters %}
+            <p>Applied Filters:</p>
+            <ul>
+                {% for key, value in filters %}
+                    {% if value is not empty %}
+                        <li>{{ key }}: {{ value }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="gallery">
+        {% if artworks %}
+            <ul>
+                {% for artwork in artworks %}
+                    <li>
                         <h2>{{ artwork.title }}</h2>
                         <p>Artist: {{ artwork.artistName }}</p>
                         <p>Genre: {{ artwork.genreName }}</p>
                         <p>Creation Year: {{ artwork.creationYear }}</p>
                         <p>Dimensions: {{ artwork.dimensions }}</p>
-                    <a href="single_artwork.php?id={{ artwork.id }}">
-                        <img src="{{ artwork.imagePath }}" alt="Artwork Image">
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-        {% if currentPage > 1 %}
-            <a href="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage - 1 }}">Previous</a>
-        {% endif %}
+                        <a href="single_artwork.php?id={{ artwork.id }}">
+                            <img src="{{ artwork.imagePath }}" alt="Artwork Image">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if currentPage > 1 %}
+                <a href="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage - 1 }}">Previous</a>
+            {% endif %}
 
-        {% if currentPage < totalPages %}
-            <a href="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage + 1 }}">Next</a>
+            {% if currentPage < totalPages %}
+                <a href="gallery.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage + 1 }}">Next</a>
+            {% endif %}
+        {% else %}
+            <p>No artworks found.</p>
         {% endif %}
-    {% else %}
-        <p>No artworks found.</p>
-    {% endif %}
-</div>
-</body>
-</html>
+    </div>
+{% endblock %}

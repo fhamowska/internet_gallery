@@ -297,7 +297,6 @@ class ArtworkRepository
         $query = "UPDATE Artworks 
               SET title = :title, artist_id = :artistId, genre_id = :genreId, creation_year = :creationYear, dimensions = :dimensions";
 
-        // Include image ID only if a new image is uploaded
         if ($imageId !== null) {
             $query .= ", image_id = :imageId";
         }
@@ -306,13 +305,12 @@ class ArtworkRepository
 
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':artworkId', $artworkId, PDO::PARAM_INT);
-        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->bindParam(':title', $title);
         $stmt->bindParam(':artistId', $artistId, PDO::PARAM_INT);
         $stmt->bindParam(':genreId', $genreId, PDO::PARAM_INT);
         $stmt->bindParam(':creationYear', $creationYear, PDO::PARAM_INT);
-        $stmt->bindParam(':dimensions', $dimensions, PDO::PARAM_STR);
+        $stmt->bindParam(':dimensions', $dimensions);
 
-        // Bind image ID only if a new image is uploaded
         if ($imageId !== null) {
             $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
         }
@@ -349,5 +347,12 @@ class ArtworkRepository
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['artist_id' => $artistId]);
         return (int)$stmt->fetchColumn();
+    }
+
+    public function getRandomArtworkId()
+    {
+        $query = "SELECT id FROM Artworks ORDER BY RAND() LIMIT 1";
+        $stmt = $this->pdo->query($query);
+        return $stmt->fetchColumn();
     }
 }

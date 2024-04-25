@@ -24,10 +24,10 @@ $artworkController = new ArtworkController($artworkService, $artistService, $gen
 $artworkId = $_GET['id'] ?? null;
 
 if ($artworkId === 'random') {
-    header("Location: single_artwork.php?id=" . $artworkService->getRandomArtworkId());
+    header("Location: single_artwork_admin.php?id=" . $artworkService->getRandomArtworkId());
     exit();
 }
 
 $artwork = $artworkService->getArtworkById($artworkId);
 
-echo $twig->render('single_artwork.twig', ['artwork' => $artwork]);
+echo $twig->render('single_artwork_admin.twig', ['artwork' => $artwork]);

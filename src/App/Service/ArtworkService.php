@@ -137,4 +137,9 @@ class ArtworkService
     {
         return $this->artworkRepository->getArtworkCountByArtistId($artistId);
     }
+
+    public function getRandomArtworkId()
+    {
+        return $this->artworkRepository->getRandomArtworkId();
+    }
 }

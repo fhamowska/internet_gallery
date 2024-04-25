@@ -1,25 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genres List</title>
-</head>
-<body>
-<h1>Genres List</h1>
-<div class="genres">
-    <a href="add_genre.php"><button>Add Genre</button></a>
-    <ul>
-        {% for genre in genres %}
-            <li>{{ genre.id }} - {{ genre.name }}
-                <a href="edit_genre.php?id={{ genre.id }}">Edit</a>
-                <form action="delete_genre.php" method="post">
-                    <input type="hidden" name="id" value="{{ genre.id }}">
-                    <button type="submit">Delete</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-</div>
-</body>
-</html>
+{% extends 'admin_base.twig' %}
+
+{% block title %}
+    Genres List
+{% endblock %}
+
+{% block content %}
+    <h1>Genres List</h1>
+    <div class="genres">
+        <a href="add_genre.php"><button>Add Genre</button></a>
+        <ul>
+            {% for genre in genres %}
+                <li>{{ genre.id }} - {{ genre.name }}
+                    <a href="edit_genre.php?id={{ genre.id }}">Edit</a>
+                    <form action="delete_genre.php" method="post">
+                        <input type="hidden" name="id" value="{{ genre.id }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

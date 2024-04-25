@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Main Page{% endblock %}</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="admin.php">Manage Artworks</a></li>
+        <li><a href="genres.php">Manage Genres</a></li>
+        <li><a href="artists.php">Manage Artists</a></li>
+        <li><a href="#">Logout</a></li>
+    </ul>
+</nav>
+
+{% block content %}{% endblock %}
+</body>
+</html>
+

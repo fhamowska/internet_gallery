@@ -6,20 +6,21 @@
     <title>Login</title>
 </head>
 <body>
-<h1>Login</h1>
-
-{% if error is defined %}
-    <p>{{ error }}</p>
+{% if is_logged_in %}
+    <p>You are already logged in.</p>
+    <a href="admin.php">Go to Dashboard</a>
+{% else %}
+    <h1>Login</h1>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    <form action="login.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Login</button>
+    </form>
 {% endif %}
-
-<form method="post" action="{{ app.request.uri }}">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-
-    <button type="submit">Login</button>
-</form>
 </body>
 </html>

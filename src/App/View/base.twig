@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Main Page{% endblock %}</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="gallery.php">Gallery</a></li>
+        <li><a href="single_artwork.php?id=random">Get Random Artwork</a></li>
+    </ul>
+</nav>
+
+{% block content %}{% endblock %}
+</body>
+</html>
