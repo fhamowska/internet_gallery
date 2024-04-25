@@ -3,25 +3,30 @@
 namespace App\Controller;
 
 use App\Service\ArtistService;
+use http\Env;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 class ArtistController {
-    private $artistService;
-    private $twig;
+    private ArtistService $artistService;
+    private Environment $twig;
 
-    public function __construct(ArtistService $artistService) {
+    public function __construct(ArtistService $artistService, Environment $twig) {
         $this->artistService = $artistService;
-
-        // Initialize Twig environment
-        $loader = new FilesystemLoader(__DIR__ . '/../View');
-        $this->twig = new Environment($loader);
+        $this->twig = $twig;
     }
 
-    public function showAllArtists() {
+    public function listArtists()
+    {
         $artists = $this->artistService->getAllArtists();
-        // Render the view using Twig
-        echo $this->twig->render('artists_view.twig', ['artists' => $artists]);
+        echo $this->twig->render('artists.twig', ['artists' => $artists]);
+    }
+
+    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): void
+    {
+        $this->artistService->editArtist($artistId, $firstName, $lastName, $dateOfBirth, $dateOfDeath);
+        header("Location: artists.php");
+        exit();
     }
 }
 

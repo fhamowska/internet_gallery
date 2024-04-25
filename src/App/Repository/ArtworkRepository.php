@@ -72,7 +72,7 @@ class ArtworkRepository
               Artists.first_name, 
               Artists.last_name, 
               Artists.date_of_birth, 
-              Artists.place_of_birth,
+              Artists.date_of_death,
               Genres.id AS genre_id, 
               Genres.name AS genre_name,
               Images.id AS image_id, 

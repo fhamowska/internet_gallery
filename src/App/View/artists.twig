@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artists List</title>
+</head>
+<body>
+<h1>Artists List</h1>
+<div class="artists">
+    <a href="add_artist.php"><button>Add Artist</button></a>
+    <ul>
+        {% for artist in artists %}
+            <li>{{ artist.id }} - {{ artist.first_name }} - {{ artist.last_name }} - {{ artist.date_of_birth }} - {{ artist.date_of_death }}
+                <a href="edit_artist.php?id={{ artist.id }}">Edit</a>
+                <form action="delete_artist.php" method="post">
+                    <input type="hidden" name="id" value="{{ artist.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>

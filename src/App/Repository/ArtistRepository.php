@@ -13,11 +13,18 @@ class ArtistRepository {
         $this->pdo = $pdo;
     }
 
-    public function getAllArtists(): array
+    public function getAllArtists()
     {
-        $query = "SELECT * FROM Artists";
-        $stmt = $this->pdo->query($query);
+        $stmt = $this->pdo->query("SELECT * FROM Artists");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getArtistById(int $artistId): ?array
+    {
+        $query = "SELECT * FROM Artists WHERE id = :artistId";
+        $statement = $this->pdo->prepare($query);
+        $statement->execute(['artistId' => $artistId]);
+        return $statement->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
     public function getArtistNameById(int $artistId): string
@@ -33,5 +40,23 @@ class ArtistRepository {
         } else {
             return '';
         }
+    }
+
+    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): void
+    {
+        $query = "UPDATE Artists 
+              SET first_name = :firstName, 
+                  last_name = :lastName, 
+                  date_of_birth = :dateOfBirth, 
+                  date_of_death = :dateOfDeath 
+              WHERE id = :artistId";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':artistId', $artistId, PDO::PARAM_INT);
+        $stmt->bindParam(':firstName', $firstName, PDO::PARAM_STR);
+        $stmt->bindParam(':lastName', $lastName, PDO::PARAM_STR);
+        $stmt->bindParam(':dateOfBirth', $dateOfBirth, PDO::PARAM_STR);
+        $stmt->bindParam(':dateOfDeath', $dateOfDeath, PDO::PARAM_STR);
+        $stmt->execute();
+
     }
 }

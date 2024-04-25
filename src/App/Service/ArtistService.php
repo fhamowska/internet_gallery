@@ -15,5 +15,15 @@ class ArtistService {
     {
         return $this->artistRepository->getAllArtists();
     }
+
+    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): void
+    {
+        $this->artistRepository->editArtist($artistId, $firstName, $lastName, $dateOfBirth, $dateOfDeath);
+    }
+
+    public function getArtistById(int $artistId): ?array
+    {
+        return $this->artistRepository->getArtistById($artistId);
+    }
 }
 

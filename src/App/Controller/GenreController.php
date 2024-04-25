@@ -29,13 +29,8 @@ class GenreController
         exit();
     }
 
-    public function addGenre(string $name): ?string
+    public function addGenre(string $name)
     {
-        $existingGenre = $this->genreService->getGenreByName($name);
-        if ($existingGenre) {
-            return 'Genre with the same name already exists.';
-        }
-        $this->genreService->addGenre($name);
-        return null;
+        return $this->genreService->addGenre($name);
     }
 }

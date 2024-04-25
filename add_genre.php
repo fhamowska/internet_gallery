@@ -15,8 +15,12 @@ $error = null;
 $name = $_POST['name'] ?? '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $genreController->addGenre($name);
-} else {
-    echo $twig->render('add_genre.twig', ['error' => $error]);
+    $error = $genreController->addGenre($name);
+    if ($error === null) {
+        header("Location: genres.php");
+        exit();
+    }
 }
 
+echo $twig->render('add_genre.twig', ['error' => $error]);
+?>
