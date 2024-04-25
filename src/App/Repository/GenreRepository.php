@@ -20,7 +20,7 @@ class GenreRepository
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getGenreById(int $genreId)
+    public function getGenreById(int $genreId): mixed
     {
         $query = "SELECT * FROM Genres WHERE id = :id";
         $stmt = $this->pdo->prepare($query);
@@ -40,11 +40,11 @@ class GenreRepository
         return $result ?? '';
     }
 
-    public function updateGenre(int $genreId, string $name)
+    public function updateGenre(int $genreId, string $name): void
     {
         $query = "UPDATE Genres SET name = :name WHERE id = :id";
         $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':name', $name);
         $stmt->bindParam(':id', $genreId, PDO::PARAM_INT);
         $stmt->execute();
     }
@@ -64,7 +64,7 @@ class GenreRepository
         return (int)$stmt->fetchColumn();
     }
 
-    public function addGenre(string $name)
+    public function addGenre(string $name): void
     {
         $stmt = $this->pdo->prepare("INSERT INTO Genres (name) VALUES (:name)");
         $stmt->execute(['name' => $name]);
@@ -78,4 +78,3 @@ class GenreRepository
         return $stmt->fetch();
     }
 }
-

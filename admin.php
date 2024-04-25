@@ -10,9 +10,10 @@ use App\Factory\ArtworkServiceFactory;
 use App\Repository\GenreRepository;
 use App\Service\GenreService;
 
-$artworkService = ArtworkServiceFactory::create($pdo);
 $genreRepository = new GenreRepository($pdo);
 $genreService = new GenreService($genreRepository);
+
+$artworkService = ArtworkServiceFactory::create($pdo);
 
 $adminController = new AdminController($twig, $artworkService, $genreService);
 $adminController->index();
