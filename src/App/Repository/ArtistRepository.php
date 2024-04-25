@@ -57,6 +57,29 @@ class ArtistRepository {
         $stmt->bindParam(':dateOfBirth', $dateOfBirth, PDO::PARAM_STR);
         $stmt->bindParam(':dateOfDeath', $dateOfDeath, PDO::PARAM_STR);
         $stmt->execute();
+    }
 
+    public function addArtist(string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): void
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO Artists (first_name, last_name, date_of_birth, date_of_death) VALUES (:firstName, :lastName, :dateOfBirth, :dateOfDeath)");
+        $stmt->execute([
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'dateOfBirth' => $dateOfBirth,
+            'dateOfDeath' => $dateOfDeath,
+        ]);
+    }
+
+    public function getArtistByNameAndDates(string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath)
+    {
+        $query = "SELECT * FROM Artists WHERE first_name = :firstName AND last_name = :lastName AND date_of_birth = :dateOfBirth AND date_of_death = :dateOfDeath";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'dateOfBirth' => $dateOfBirth,
+            'dateOfDeath' => $dateOfDeath,
+        ]);
+        return $stmt->fetch();
     }
 }

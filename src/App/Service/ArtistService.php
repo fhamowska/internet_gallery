@@ -25,5 +25,17 @@ class ArtistService {
     {
         return $this->artistRepository->getArtistById($artistId);
     }
+
+    public function addArtist(string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): ?string
+    {
+        $existingArtist = $this->artistRepository->getArtistByNameAndDates($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+
+        if ($existingArtist) {
+            return 'An artist with the same name and dates already exists.';
+        }
+
+        $this->artistRepository->addArtist($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+        return null;
+    }
 }
 

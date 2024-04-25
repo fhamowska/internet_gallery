@@ -28,5 +28,17 @@ class ArtistController {
         header("Location: artists.php");
         exit();
     }
+
+    public function addArtist(string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath)
+    {
+        $error = $this->artistService->addArtist($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+
+        if ($error === null) {
+            header("Location: artists.php");
+            exit();
+        }
+
+        return $error;
+    }
 }
 
