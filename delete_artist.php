@@ -1,4 +1,5 @@
 <?php
+
 use App\Controller\ArtistController;
 use App\Repository\ArtistRepository;
 use App\Repository\ArtworkRepository;
@@ -9,7 +10,6 @@ use App\Service\ArtworkService;
 
 require_once(__DIR__) . '/vendor/autoload.php';
 require_once 'bootstrap.php';
-
 
 $artworkRepository = new ArtworkRepository($pdo);
 $artistRepository = new ArtistRepository($pdo);
@@ -24,14 +24,11 @@ $artworkService = new ArtworkService(
 $artistService = new ArtistService($artistRepository, $artworkService);
 $artistController = new ArtistController($artistService, $twig);
 
-$error = null;
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-$firstName = $_POST['first_name'] ?? '';
-$lastName = $_POST['last_name'] ?? '';
-$dateOfBirth = $_POST['date_of_birth'] ?? null;
-$dateOfDeath = $_POST['date_of_death'] ?? null;
+$artistId = $_POST['id'] ?? null;
 
-$error = $artistController->addArtist($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && $artistId !== null) {
+    $artistController->deleteArtist((int)$artistId);
 }
 
-echo $twig->render('add_artist.twig', ['error' => $error]);
+header("Location: artists.php");
+exit();

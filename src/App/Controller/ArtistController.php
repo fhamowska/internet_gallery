@@ -40,5 +40,16 @@ class ArtistController {
 
         return $error;
     }
+
+    public function deleteArtist(int $artistId)
+    {
+        $error = $this->artistService->deleteArtist($artistId);
+        if ($error !== null) {
+            echo $error;
+            exit();
+        }
+        header("Location: artists.php");
+        exit();
+    }
 }
 

@@ -252,7 +252,7 @@ class ArtworkRepository
               Artists.first_name, 
               Artists.last_name, 
               Artists.date_of_birth, 
-              Artists.place_of_birth,
+              Artists.date_of_death,
               Genres.id AS genre_id, 
               Genres.name AS genre_name,
               Images.id AS image_id, 
@@ -341,5 +341,13 @@ class ArtworkRepository
         $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
         $stmt->bindParam(':createdBy', $createdBy, PDO::PARAM_INT);
         $stmt->execute();
+    }
+
+    public function getArtworkCountByArtistId(int $artistId): int
+    {
+        $query = "SELECT COUNT(*) FROM Artworks WHERE artist_id = :artist_id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['artist_id' => $artistId]);
+        return (int)$stmt->fetchColumn();
     }
 }

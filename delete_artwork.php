@@ -22,7 +22,7 @@ $artworkService = new ArtworkService(
     $genreRepository,
     $imageRepository,
 );
-$artistService = new ArtistService($artistRepository);
+$artistService = new ArtistService($artistRepository, $artworkService);
 $genreService = new GenreService($genreRepository);
 $imageService = new ImageService($imageRepository);
 $artworkController = new ArtworkController($artworkService, $artistService, $genreService, $imageService, $twig);

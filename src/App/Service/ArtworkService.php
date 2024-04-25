@@ -29,7 +29,6 @@ class ArtworkService
 
     public function getAllArtworksWithDetails(int $page, int $perPage): array
     {
-        // Fetch artworks for the specified page and perPage limit
         $artworks = $this->artworkRepository->getAllArtworks($page, $perPage);
         $artworkDetails = [];
 
@@ -132,5 +131,10 @@ class ArtworkService
     public function editArtwork(int $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, ?string $imageId): void
     {
         $this->artworkRepository->editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId);
+    }
+
+    public function getArtworkCountByArtistId(int $artistId): int
+    {
+        return $this->artworkRepository->getArtworkCountByArtistId($artistId);
     }
 }

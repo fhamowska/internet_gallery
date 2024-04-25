@@ -5,10 +5,14 @@ namespace App\Service;
 use App\Repository\ArtistRepository;
 
 class ArtistService {
-    private $artistRepository;
 
-    public function __construct(ArtistRepository $artistRepository) {
+    private ArtistRepository $artistRepository;
+    private ArtworkService $artworkService;
+
+    public function __construct(ArtistRepository $artistRepository, ArtworkService $artworkService)
+    {
         $this->artistRepository = $artistRepository;
+        $this->artworkService = $artworkService;
     }
 
     public function getAllArtists(): array
@@ -35,6 +39,18 @@ class ArtistService {
         }
 
         $this->artistRepository->addArtist($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+        return null;
+    }
+
+    public function deleteArtist(int $artistId)
+    {
+        $artworksUsingArtist = $this->artworkService->getArtworkCountByArtistId($artistId);
+
+        if ($artworksUsingArtist > 0) {
+            return 'Cannot delete the artist. The artist is associated with one or more artworks.';
+        }
+
+        $this->artistRepository->deleteArtist($artistId);
         return null;
     }
 }

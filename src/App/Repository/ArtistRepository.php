@@ -82,4 +82,11 @@ class ArtistRepository {
         ]);
         return $stmt->fetch();
     }
+
+    public function deleteArtist(int $artistId): void
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM Artists WHERE id = :id");
+        $stmt->bindParam(':id', $artistId, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 }
