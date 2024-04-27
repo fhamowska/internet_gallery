@@ -84,23 +84,27 @@ class ImageRepository
 
     private function deleteArtwork($artworkId)
     {
-        // Get the image id before deleting the artwork
         $query = "SELECT image_id FROM Artworks WHERE id = :artworkId";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':artworkId', $artworkId, PDO::PARAM_INT);
         $stmt->execute();
         $imageId = $stmt->fetchColumn();
 
-        // Delete the artwork
         $query = "DELETE FROM Artworks WHERE id = :artworkId";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':artworkId', $artworkId, PDO::PARAM_INT);
         $stmt->execute();
 
-        // If the artwork had an image, delete it as well
         if ($imageId) {
             $this->deleteImage($imageId);
         }
     }
 
+    public function getAltTextById(int $imageId): ?string
+    {
+        $query = "SELECT alt_text FROM Images WHERE id = :image_id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':image_id' => $imageId]);
+        return $stmt->fetchColumn();
+    }
 }

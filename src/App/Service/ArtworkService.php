@@ -27,35 +27,6 @@ class ArtworkService
         $this->imageRepository = $imageRepository;
     }
 
-    public function getAllArtworksWithDetails(int $page, int $perPage): array
-    {
-        $artworks = $this->artworkRepository->getAllArtworks($page, $perPage);
-        $artworkDetails = [];
-
-        foreach ($artworks as $artwork) {
-            $artistName = $this->artistRepository->getArtistNameById($artwork->getArtistId());
-            $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
-            $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
-
-            $artworkDetails[] = new ArtworkDetailsDTO(
-                $artwork->getId(),
-                $artwork->getTitle(),
-                $artistName,
-                $genreName,
-                $artwork->getCreationYear(),
-                $artwork->getDimensions(),
-                $imagePath
-            );
-        }
-
-        return $artworkDetails;
-    }
-
-    public function getTotalArtworksCount(): int
-    {
-        return $this->artworkRepository->getTotalArtworksCount();
-    }
-
     public function getFilteredArtworksWithDetails(int $page, int $perPage, array $filters): array
     {
         $artworks = $this->artworkRepository->getFilteredArtworks($page, $perPage, $filters);
@@ -65,6 +36,7 @@ class ArtworkService
             $artistName = $this->artistRepository->getArtistNameById($artwork->getArtistId());
             $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
             $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
+            $altText = $this->imageRepository->getAltTextById($artwork->getImageId());
 
             $artworkDetails[] = new ArtworkDetailsDTO(
                 $artwork->getId(),
@@ -73,7 +45,8 @@ class ArtworkService
                 $genreName,
                 $artwork->getCreationYear(),
                 $artwork->getDimensions(),
-                $imagePath
+                $imagePath,
+                $altText,
             );
         }
 
@@ -102,30 +75,6 @@ class ArtworkService
             $artwork->getDimensions(),
             $imagePath
         );
-    }
-
-    public function searchArtworks(string $searchTerm, int $page, int $perPage): array
-    {
-        $artworks = $this->artworkRepository->searchArtworks($searchTerm, $page, $perPage);
-        $artworkDetails = [];
-
-        foreach ($artworks as $artwork) {
-            $artistName = $this->artistRepository->getArtistNameById($artwork->getArtistId());
-            $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
-            $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
-
-            $artworkDetails[] = new ArtworkDetailsDTO(
-                $artwork->getId(),
-                $artwork->getTitle(),
-                $artistName,
-                $genreName,
-                $artwork->getCreationYear(),
-                $artwork->getDimensions(),
-                $imagePath
-            );
-        }
-
-        return $artworkDetails;
     }
 
     public function editArtwork(int $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, ?string $imageId): void

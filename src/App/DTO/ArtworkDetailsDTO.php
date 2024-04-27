@@ -11,8 +11,9 @@ class ArtworkDetailsDTO
     private ?int $creationYear;
     private ?string $dimensions;
     private string $imagePath;
+    private string $altText;
 
-    public function __construct(int $id, string $title, string $artistName, string $genreName, ?int $creationYear, ?string $dimensions, string $imagePath)
+    public function __construct(int $id, string $title, string $artistName, string $genreName, ?int $creationYear, ?string $dimensions, string $imagePath, string $altText)
     {
         $this->id = $id;
         $this->title = $title;
@@ -21,6 +22,7 @@ class ArtworkDetailsDTO
         $this->creationYear = $creationYear;
         $this->dimensions = $dimensions;
         $this->imagePath = $imagePath;
+        $this->altText = $altText;
     }
 
     public function getId(): int
@@ -56,5 +58,10 @@ class ArtworkDetailsDTO
     public function getImagePath(): string
     {
         return $this->imagePath;
+    }
+
+    public function getAltText(): string
+    {
+        return $this->altText;
     }
 }

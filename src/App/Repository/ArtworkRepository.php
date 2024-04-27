@@ -14,48 +14,6 @@ class ArtworkRepository
         $this->pdo = $pdo;
     }
 
-    public function getAllArtworks(int $page, int $perPage): array
-    {
-        $offset = ($page - 1) * $perPage;
-
-        $query = "SELECT * FROM Artworks 
-              LEFT JOIN Artists ON Artworks.artist_id = Artists.id
-              LEFT JOIN Genres ON Artworks.genre_id = Genres.id
-              LEFT JOIN Images ON Artworks.image_id = Images.id
-              LEFT JOIN Admins ON Artworks.created_by = Admins.id
-              LIMIT :perPage OFFSET :offset";
-
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-
-        $stmt->execute();
-
-        $artworks = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $artwork = new Artwork(
-                $row['id'],
-                $row['title'],
-                $row['artist_id'],
-                $row['genre_id'],
-                $row['creation_year'],
-                $row['dimensions'],
-                $row['image_id'],
-                $row['created_by']
-            );
-            $artworks[] = $artwork;
-        }
-
-        return $artworks;
-    }
-
-    public function getTotalArtworksCount(): int
-    {
-        $query = "SELECT COUNT(*) FROM Artworks";
-        $stmt = $this->pdo->query($query);
-        return $stmt->fetchColumn();
-    }
-
     public function getFilteredArtworks(int $page, int $perPage, array $filters): array
     {
         $query = "SELECT 
@@ -113,9 +71,16 @@ class ArtworkRepository
         }
 
         if (!empty($filters['searchTerm'])) {
-            $query .= " AND (Artworks.title LIKE :searchTerm OR Artists.first_name LIKE :searchTerm OR Artists.last_name LIKE :searchTerm)";
-            $params[':searchTerm'] = '%' . $filters['searchTerm'] . '%';
+            $searchTerms = explode(' ', $filters['searchTerm']);
+            $searchCondition = '(';
+            foreach ($searchTerms as $index => $term) {
+                $searchCondition .= ($index > 0 ? ' AND ' : '') . "(Artworks.title LIKE :searchTerm$index OR Artists.first_name LIKE :searchTerm$index OR Artists.last_name LIKE :searchTerm$index)";
+                $params[":searchTerm$index"] = '%' . $term . '%';
+            }
+            $searchCondition .= ')';
+            $query .= " AND $searchCondition";
         }
+
 
         $offset = ($page - 1) * $perPage;
         $query .= " LIMIT :limit OFFSET :offset";
@@ -182,8 +147,14 @@ class ArtworkRepository
         }
 
         if (!empty($filters['searchTerm'])) {
-            $query .= " AND (Artworks.title LIKE :searchTerm OR Artists.first_name LIKE :searchTerm OR Artists.last_name LIKE :searchTerm)";
-            $params[':searchTerm'] = '%' . $filters['searchTerm'] . '%';
+            $searchTerms = explode(' ', $filters['searchTerm']);
+            $searchCondition = '(';
+            foreach ($searchTerms as $index => $term) {
+                $searchCondition .= ($index > 0 ? ' AND ' : '') . "(Artworks.title LIKE :searchTerm$index OR Artists.first_name LIKE :searchTerm$index OR Artists.last_name LIKE :searchTerm$index)";
+                $params[":searchTerm$index"] = '%' . $term . '%';
+            }
+            $searchCondition .= ')';
+            $query .= " AND $searchCondition";
         }
 
         $stmt = $this->pdo->prepare($query);
@@ -195,46 +166,6 @@ class ArtworkRepository
         $stmt->execute();
 
         return $stmt->fetchColumn();
-    }
-
-    public function searchArtworks(string $searchTerm, int $page, int $perPage): array
-    {
-        $query = "SELECT * FROM Artworks 
-          LEFT JOIN Artists ON Artworks.artist_id = Artists.id
-          LEFT JOIN Genres ON Artworks.genre_id = Genres.id
-          LEFT JOIN Images ON Artworks.image_id = Images.id
-          LEFT JOIN Admins ON Artworks.created_by = Admins.id
-          WHERE Artworks.title LIKE :searchTerm 
-          OR Artists.first_name LIKE :searchTerm 
-          OR Artists.last_name LIKE :searchTerm";
-
-        $offset = ($page - 1) * $perPage;
-        $query .= " LIMIT :limit OFFSET :offset";
-
-        $stmt = $this->pdo->prepare($query);
-
-        $stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
-        $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-
-        $stmt->execute();
-
-        $artworks = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $artwork = new Artwork(
-                $row['id'],
-                $row['title'],
-                $row['artist_id'],
-                $row['genre_id'],
-                $row['creation_year'],
-                $row['dimensions'],
-                $row['image_id'],
-                $row['created_by']
-            );
-            $artworks[] = $artwork;
-        }
-
-        return $artworks;
     }
 
     public function getArtworkById(int $artworkId): ?Artwork

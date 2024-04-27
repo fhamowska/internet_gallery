@@ -46,4 +46,13 @@ class LoginController
 
         echo $this->twig->render('login.twig', ['error' => $error]);
     }
+
+    public function logout()
+    {
+        session_start();
+        session_unset();
+        session_destroy();
+        echo $this->twig->render('login.twig');
+    }
 }
+

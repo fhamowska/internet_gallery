@@ -49,12 +49,12 @@
                 {% for artwork in artworks %}
                     <li>
                         <h2>{{ artwork.title }}</h2>
-                        <p>Artist: {{ artwork.artistName }}</p>
+                        <p>Artist: <a href="admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }}</a></p>
                         <p>Genre: {{ artwork.genreName }}</p>
                         <p>Creation Year: {{ artwork.creationYear }}</p>
                         <p>Dimensions: {{ artwork.dimensions }}</p>
                         <a href="single_artwork_admin.php?id={{ artwork.id }}">
-                            <img src="{{ artwork.imagePath }}" alt="{{ artwork.imagePath }}">
+                            <img src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                         </a>
                         <div>
                             <a href="edit_artwork.php?id={{ artwork.id }}">Edit</a>
@@ -66,13 +66,18 @@
                     </li>
                 {% endfor %}
             </ul>
-            {% if currentPage > 1 %}
-                <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage - 1 }}">Previous</a>
-            {% endif %}
+            <div class="pagination">
+                <div class="pagination-info">
+                    Page {{ currentPage }} of {{ totalPages }}
+                </div>
+                {% if currentPage > 1 %}
+                    <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage - 1 }}{% if filters.searchTerm %}&searchTerm={{ filters.searchTerm }}{% endif %}">Previous</a>
+                {% endif %}
 
-            {% if currentPage < totalPages %}
-                <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage + 1 }}">Next</a>
-            {% endif %}
+                {% if currentPage < totalPages %}
+                    <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage + 1 }}{% if filters.searchTerm %}&searchTerm={{ filters.searchTerm }}{% endif %}">Next</a>
+                {% endif %}
+            </div>
         {% else %}
             <p>No artworks found.</p>
         {% endif %}
