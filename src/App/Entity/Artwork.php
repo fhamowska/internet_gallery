@@ -20,10 +20,12 @@ class Artwork
         string $title,
         int $artistId,
         int $genreId,
+        int $createdBy,
+        string $createdAt,
+        int $imageId,
         int $creationYear = null,
         string $dimensions = null,
-        int $imageId = null,
-        int $createdBy = null
+        string $editedAt = null,
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -32,6 +34,8 @@ class Artwork
         $this->creationYear = $creationYear;
         $this->dimensions = $dimensions;
         $this->imageId = $imageId;
+        $this->createdAt = $createdAt;
+        $this->editedAt = $editedAt;
         $this->createdBy = $createdBy;
     }
 

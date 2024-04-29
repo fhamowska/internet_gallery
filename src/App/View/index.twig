@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona Główna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/public/css/index.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Internetowa Galeria Sztuki</h1>
+        <p>Odkrywaj twórczość z całego świata.</p>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <form action="gallery.php" method="get">
+                    <input type="text" name="searchTerm" placeholder="Wpisz tytuł dzieła lub artystę">
+                    <button type="submit">Znajdź dzieło</button>
+                </form>
+            </li>
+            <li>
+                <a class="nav-link" href="gallery.php">Przeglądaj dzieła</a>
+            </li>
+            <li>
+                <a class="nav-link" href="single_artwork.php?id=random">Losowe dzieło</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

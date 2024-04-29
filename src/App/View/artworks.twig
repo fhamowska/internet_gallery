@@ -2,6 +2,10 @@
 
 {% block title %}Artworks Gallery{% endblock %}
 
+{% block stylesheets %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
     <h1>Artworks Gallery</h1>
     <div class="filter">
@@ -9,11 +13,12 @@
             <label for="searchTerm">Search:</label>
             <input type="text" name="searchTerm" id="searchTerm" value="{{ filters.searchTerm ?? '' }}">
 
-            <label>Genre:</label><br>
-            {% for genre in genres %}
-                <input type="checkbox" name="genre[]" id="genre{{ genre.id }}" value="{{ genre.id }}" {% if genre.id in filters.genre %} checked {% endif %}>
-                <label for="genre{{ genre.id }}">{{ genre.name }}</label><br>
-            {% endfor %}
+            <label for="genre">Genre:</label><br>
+            <select name="genre[]" id="genre" multiple placeholder="Choose genre">
+                {% for genre in genres %}
+                    <option value="{{ genre.id }}" {% if genre.id in filters.genre %} selected {% endif %}>{{ genre.name }}</option>
+                {% endfor %}
+            </select>
 
             <label for="creationYearFrom">Creation Year From:</label>
             <input type="number" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}">
@@ -44,7 +49,7 @@
                 {% for artwork in artworks %}
                     <li>
                         <h2>{{ artwork.title }}</h2>
-                        <p>Artist: {{ artwork.artistName }}</p>
+                        <p>Artist: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }}</a></p>
                         <p>Genre: {{ artwork.genreName }}</p>
                         <p>Creation Year: {{ artwork.creationYear }}</p>
                         <p>Dimensions: {{ artwork.dimensions }}</p>
@@ -70,4 +75,41 @@
             <p>No artworks found.</p>
         {% endif %}
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var $select = $('#genre').selectize({
+                plugins: ['remove_button'],
+                delimiter: ',',
+                persist: false,
+                create: function(input) {
+                    return {
+                        value: input,
+                        text: input
+                    }
+                },
+                placeholder: 'Choose genre',
+                onDropdownOpen: function() {
+                    this.$control_input.prop('readonly', true);
+                    var self = this;
+                    this.$dropdown.on('mouseleave', function() {
+                        self.close();
+                    });
+                },
+                onDropdownClose: function() {
+                    this.$control_input.prop('readonly', false);
+                }
+            });
+        });
+    </script>
+    <style>
+        .selectize-dropdown-content {
+            pointer-events: auto !important;
+        }
+        .selectize-input, .selectize-input * {
+            cursor: pointer !important;
+        }
+    </style>
 {% endblock %}

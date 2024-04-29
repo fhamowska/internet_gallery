@@ -24,6 +24,8 @@ class ArtworkRepository
               Artworks.creation_year, 
               Artworks.dimensions, 
               Artworks.created_by,
+              Artworks.created_at,
+              Artworks.edited_at,
               Artworks.image_id AS artwork_image_id, 
               Artworks.created_by AS artwork_created_by, 
               Artists.id AS artist_id, 
@@ -83,7 +85,7 @@ class ArtworkRepository
 
 
         $offset = ($page - 1) * $perPage;
-        $query .= " LIMIT :limit OFFSET :offset";
+        $query .= " ORDER BY Artworks.created_at DESC LIMIT :limit OFFSET :offset";
 
         $stmt = $this->pdo->prepare($query);
 
@@ -103,10 +105,12 @@ class ArtworkRepository
                 $row['title'],
                 $row['artist_id'],
                 $row['genre_id'],
+                $row['created_by'],
+                $row['created_at'],
+                $row['image_id'],
                 $row['creation_year'],
                 $row['dimensions'],
-                $row['image_id'],
-                $row['created_by']
+                $row['edited_at'],
             );
             $artworks[] = $artwork;
         }
@@ -178,6 +182,8 @@ class ArtworkRepository
               Artworks.creation_year, 
               Artworks.dimensions, 
               Artworks.created_by,
+              Artworks.created_at,
+              Artworks.edited_at,
               Artworks.image_id AS artwork_image_id, 
               Artists.id AS artist_id, 
               Artists.first_name, 
@@ -216,10 +222,12 @@ class ArtworkRepository
             $row['title'],
             $row['artist_id'],
             $row['genre_id'],
+            $row['created_by'],
+            $row['created_at'],
+            $row['image_id'],
             $row['creation_year'],
             $row['dimensions'],
-            $row['image_id'],
-            $row['created_by']
+            $row['edited_at'],
         );
     }
 

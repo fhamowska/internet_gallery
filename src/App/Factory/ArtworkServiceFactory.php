@@ -2,6 +2,7 @@
 
 namespace App\Factory;
 
+use App\Repository\AdminRepository;
 use App\Repository\ArtworkRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\GenreRepository;
@@ -16,12 +17,14 @@ class ArtworkServiceFactory
         $artistRepository = new ArtistRepository($pdo);
         $genreRepository = new GenreRepository($pdo);
         $imageRepository = new ImageRepository($pdo);
+        $adminRepository = new AdminRepository($pdo);
 
         return new ArtworkService(
             $artworkRepository,
             $artistRepository,
             $genreRepository,
-            $imageRepository
+            $imageRepository,
+            $adminRepository,
         );
     }
 }

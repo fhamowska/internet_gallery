@@ -26,18 +26,32 @@
             {% endfor %}
         </select><br>
 
-        <label for="creationYear">Creation Year:</label>
-        <input type="number" name="creationYear" id="creationYear" min="0"><br>
+        <label for="creationYearFrom">Creation Year From:</label>
+        <input type="number" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}">
 
         <label for="dimensions">Dimensions:</label>
         <input type="text" name="dimensions" id="dimensions"><br>
 
         <label for="image">Image:</label>
-        <input type="file" name="image" id="image" required><br>
+        <input type="file" name="image" id="image" required>
+        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 200px;"><br>
 
         <label for="altText">Alt Text:</label>
         <input type="text" name="altText" id="altText" required><br>
 
         <button type="submit">Add Artwork</button>
     </form>
+
+    <script>
+        document.getElementById('image').addEventListener('change', function(event) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function() {
+                var img = document.getElementById('imagePreview');
+                img.src = reader.result;
+                img.style.display = 'block';
+            };
+            reader.readAsDataURL(input.files[0]);
+        });
+    </script>
 {% endblock %}

@@ -45,26 +45,23 @@ class ImageRepository
 
     public function saveImageFile(string $imagePath): string
     {
-        $newImagePath = './images/' . uniqid() . '.jpg';
+        $newImagePath = './images/artworks/' . uniqid() . '.jpg';
         move_uploaded_file($_FILES['image']['tmp_name'], $newImagePath);
         return $newImagePath;
     }
 
     public function deleteImage($imageId)
     {
-        // Check if the image is used by any artwork
         $query = "SELECT id FROM Artworks WHERE image_id = :imageId";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
         $stmt->execute();
         $artworkIds = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-        // Delete the artworks using the image
         foreach ($artworkIds as $artworkId) {
             $this->deleteArtwork($artworkId);
         }
 
-        // Get the image path before deleting it
         $query = "SELECT image_path FROM Images WHERE id = :imageId";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
@@ -75,7 +72,6 @@ class ImageRepository
             unlink($imagePath);
         }
 
-        // Delete the image record from the database
         $query = "DELETE FROM Images WHERE id = :imageId";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);

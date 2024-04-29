@@ -33,4 +33,16 @@ class AdminRepository
 
         return $admin;
     }
+
+    public function getUsernameById(int $id): ?string
+    {
+        $query = "SELECT username FROM Admins WHERE id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $username = $stmt->fetchColumn();
+
+        return $username ?: null;
+    }
 }

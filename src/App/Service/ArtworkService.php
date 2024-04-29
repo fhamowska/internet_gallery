@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Repository\AdminRepository;
 use App\Repository\ArtworkRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\GenreRepository;
@@ -14,17 +15,20 @@ class ArtworkService
     private ArtistRepository $artistRepository;
     private GenreRepository $genreRepository;
     private ImageRepository $imageRepository;
+    private AdminRepository $adminRepository;
 
     public function __construct(
         ArtworkRepository $artworkRepository,
         ArtistRepository $artistRepository,
         GenreRepository $genreRepository,
-        ImageRepository $imageRepository
+        ImageRepository $imageRepository,
+        AdminRepository $adminRepository,
     ) {
         $this->artworkRepository = $artworkRepository;
         $this->artistRepository = $artistRepository;
         $this->genreRepository = $genreRepository;
         $this->imageRepository = $imageRepository;
+        $this->adminRepository = $adminRepository;
     }
 
     public function getFilteredArtworksWithDetails(int $page, int $perPage, array $filters): array
@@ -37,6 +41,7 @@ class ArtworkService
             $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
             $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
             $altText = $this->imageRepository->getAltTextById($artwork->getImageId());
+            $username = $this->adminRepository->getUsernameById($artwork->getCreatedBy());
 
             $artworkDetails[] = new ArtworkDetailsDTO(
                 $artwork->getId(),
@@ -47,6 +52,10 @@ class ArtworkService
                 $artwork->getDimensions(),
                 $imagePath,
                 $altText,
+                $username,
+                $artwork->getCreatedAt(),
+                $artwork->getEditedAt(),
+                $artwork->getCreatedBy(),
             );
         }
 
@@ -65,6 +74,8 @@ class ArtworkService
         $artistName = $this->artistRepository->getArtistNameById($artwork->getArtistId());
         $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
         $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
+        $altText = $this->imageRepository->getAltTextById($artwork->getImageId());
+        $username = $this->adminRepository->getUsernameById($artwork->getCreatedBy());
 
         return new ArtworkDetailsDTO(
             $artwork->getId(),
@@ -73,7 +84,12 @@ class ArtworkService
             $genreName,
             $artwork->getCreationYear(),
             $artwork->getDimensions(),
-            $imagePath
+            $imagePath,
+            $altText,
+            $username,
+            $artwork->getCreatedAt(),
+            $artwork->getEditedAt(),
+            $artwork->getCreatedBy(),
         );
     }
 
