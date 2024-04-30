@@ -1,0 +1,48 @@
+.filter {
+    margin-bottom: 20px;
+}
+.applied-filters ul {
+    list-style: none;
+    padding: 0;
+}
+.applied-filters li {
+    margin-bottom: 5px;
+}
+.gallery ul {
+    list-style: none;
+    padding: 0;
+}
+.gallery li {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.gallery li img {
+    max-width: 100%;
+    height: auto;
+}
+.pagination {
+    margin-top: 20px;
+}
+.pagination-info {
+    margin-bottom: 10px;
+}
+/* Updated CSS for genre select input */
+.select2-container .select2-selection--multiple {
+    min-height: 38px;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
