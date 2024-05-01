@@ -1,6 +1,8 @@
 .filter {
-    margin-bottom: 20px;
+    margin-bottom: 2vw;
+    padding-top: 3vw;
 }
+
 .applied-filters ul {
     list-style: none;
     padding: 0;
@@ -29,20 +31,38 @@
 .pagination-info {
     margin-bottom: 10px;
 }
-/* Updated CSS for genre select input */
+
 .select2-container .select2-selection--multiple {
     min-height: 38px;
     max-height: 100px;
     overflow-y: auto;
 }
 
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
+.container {
     padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.custom-select-width {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 10px;
 }

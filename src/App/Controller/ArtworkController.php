@@ -39,8 +39,8 @@ class ArtworkController
 
         $filters = [
             'genre' => $genreArray,
-            'creationYearFrom' => isset($_GET['creationYearFrom']) ? (int)$_GET['creationYearFrom'] : null,
-            'creationYearTo' => isset($_GET['creationYearTo']) ? (int)$_GET['creationYearTo'] : null,
+            'creationYearFrom' => $_GET['creationYearFrom'] ?? null,
+            'creationYearTo' => $_GET['creationYearTo'] ?? null,
             'searchTerm' => $_GET['searchTerm'] ?? null,
         ];
 
