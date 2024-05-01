@@ -10,7 +10,7 @@
         <a href="add_artist.php"><button>Add Artist</button></a>
         <ul>
             {% for artist in artists %}
-                <li>{{ artist.id }} - {{ artist.first_name }} - {{ artist.last_name }} - {{ artist.date_of_birth }} - {{ artist.date_of_death }}
+                <li>{{ artist.id }} - {{ artist.first_name }} - {{ artist.last_name }} - {{ artist.year_of_birth }} - {{ artist.year_of_death }}
                     <a href="edit_artist.php?id={{ artist.id }}">Edit</a>
                     <form action="delete_artist.php" method="post">
                         <input type="hidden" name="id" value="{{ artist.id }}">

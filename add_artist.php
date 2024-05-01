@@ -17,10 +17,10 @@ $error = null;
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $firstName = $_POST['first_name'] ?? '';
 $lastName = $_POST['last_name'] ?? '';
-$dateOfBirth = $_POST['date_of_birth'] ?? null;
-$dateOfDeath = $_POST['date_of_death'] ?? null;
+$yearOfBirth = $_POST['year_of_birth'] ?? null;
+$yearOfDeath = $_POST['year_of_death'] ?? null;
 
-$error = $artistController->addArtist($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+$error = $artistController->addArtist($firstName, $lastName, $yearOfBirth, $yearOfDeath);
 }
 
 echo $twig->render('add_artist.twig', ['error' => $error]);

@@ -1,29 +1,9 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    width: 100%;
-    height: 100%;
-    font-family: 'Lato', sans-serif;
-}
-
-body {
-    background-color: black;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 30%, transparent 100%), url('../../../images/other/2.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-}
-
-.container {
-    bottom: 0.1vw;
+.gallery-container {
+    top: 0;
+    left: 0;
     position: fixed;
-    min-height: 100vh;
-    min-width: 100%;
+    height: 100%;
+    width: 100%;
     padding: 20px;
     border-radius: 8px;
     display: flex;
@@ -31,45 +11,40 @@ body {
     justify-content: space-between;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.gallery-header h1 {
     font-family: 'Lora', serif;
-    font-weight: normal;
-}
-
-header {
-    text-align: center;
-    padding-top: 3vw;
-}
-
-header h1 {
+    margin-top: 6vw;
     font-size: 7vw;
     color: #b9c8cb;
     cursor: default;
+    text-align: center;
 }
 
-header p {
+.gallery-header p {
     margin-top: 3vw;
     font-size: 2vw;
     color: #b9c8cb;
     cursor: default;
+    text-align: center;
 }
 
-nav ul {
+.gallery-index ul {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     margin-top: 1%;
     list-style-type: none;
     text-align: center;
     margin-bottom: 5vw;
+    margin-left: -2.5vw;
 }
 
-nav ul li {
+.gallery-index ul li {
     width: 25vw;
     display: block;
     margin: 1vw auto auto;
 }
 
-nav ul li a {
+.gallery-index ul li a {
     display: block;
     padding: 1vw 2vw;
     background-color: #1c3b3e;
@@ -79,12 +54,12 @@ nav ul li a {
     transition: background-color 0.5s;
 }
 
-nav ul li a:hover {
+.gallery-index ul li a:hover {
     background-color: #2b5b60;
     color: white;
 }
 
-form input[type="text"] {
+.gallery-input {
     padding: 1vw;
     width: calc(100% - 4.5vw);
     border: 0.1vw solid #ccc;
@@ -94,11 +69,11 @@ form input[type="text"] {
     color: black;
 }
 
-form input[type="text"]::placeholder {
+.gallery-input::placeholder {
     color: #404646;
 }
 
-form button {
+.gallery-button {
     padding: 1.06vw 0.5vw;
     background-color: #23324f;
     color: #ffffff;
@@ -109,48 +84,38 @@ form button {
     font-size: 1vw;
 }
 
-form button:hover {
+.gallery-button:hover {
     background-color: #394e77;
 }
 
-footer {
-    color: #1c2842;
-    font-weight: bolder;
-    bottom: 1%;
-    position: fixed;
-    text-align: center;
-    width: 100%;
-    margin-left: -1.3vw;
-}
-
 @media all and (max-width: 800px) {
-    .container {
+    .gallery-container {
         padding-bottom: 10vw;
     }
 
-    header h1 {
+    .gallery-header h1 {
         font-size: 11vw;
     }
 
-    header p {
+    .gallery-header p {
         font-size: 5vw;
     }
-    nav {
-        margin-left: 0;
 
+    .gallery-index {
+        margin-left: 0;
     }
-    nav ul{
+
+    .gallery-index ul {
         height: 50vw;
-        margin-left: 0;
-
+        padding-left: 3vw;
     }
 
-    nav li {
+    .gallery-index li {
         min-width: 70vw;
         min-height: 15vw;
     }
 
-    nav ul li a{
+    .gallery-index ul li a {
         width: 70vw;
         min-height: 13vw;
         font-size: 4vw;
@@ -158,14 +123,14 @@ footer {
         border-radius: 5vw;
     }
 
-    form input[type="text"]::placeholder {
+    .gallery-input::placeholder {
         color: #404646;
         font-size: 4vw;
         border-radius: 3vw;
         padding-left: 2vw;
     }
 
-    form input[type="text"] {
+    .gallery-input {
         width: calc(100% - 22vw);
         padding: 3vw 1vw 1vw;
         height: 13vw;
@@ -173,44 +138,44 @@ footer {
         margin-right: 1vw;
     }
 
-    form button {
+    .gallery-button {
         font-size: 4vw;
         padding: 4.1vw 4vw;
         border-radius: 4vw;
     }
 
-    footer {
+    .gallery-footer {
         font-size: 3vw;
     }
 }
 
 @media all and (max-width: 500px) {
-    header h1 {
+    .gallery-header h1 {
         padding-top: 10vw;
         font-size: 13vw;
     }
 
-    header p {
+    .gallery-header p {
         font-size: 6vw;
     }
 
-    form input[type="text"] {
+    .gallery-input {
         width: calc(100% - 22vw);
         padding: 2vw 1vw 1vw;
     }
 
-    form button {
+    .gallery-index ul {
+        margin-left: -3vw;
+        margin-bottom: 8vw;
+    }
+
+    .gallery-button {
         font-size: 2vw;
     }
 
-    form button {
+    .gallery-button {
         font-size: 4vw;
         padding: 4.1vw 4vw;
         border-radius: 4vw;
-    }
-
-    footer {
-        font-size: 3.5vw;
-        margin-left: -5vw;
     }
 }

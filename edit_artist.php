@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $artistId = $_POST['id'] ?? null;
     $firstName = $_POST['first_name'] ?? '';
     $lastName = $_POST['last_name'] ?? '';
-    $dateOfBirth = $_POST['date_of_birth'] ?? '';
-    $dateOfDeath = $_POST['date_of_death'] ?? '';
+    $yearOfBirth = $_POST['year_of_birth'] ?? '';
+    $yearOfDeath = $_POST['year_of_death'] ?? '';
 
-    $artistController->editArtist((int)$artistId, $firstName, $lastName, $dateOfBirth, $dateOfDeath);
+    $artistController->editArtist((int)$artistId, $firstName, $lastName, $yearOfBirth, $yearOfDeath);
 }
 $artistId = $_GET['id'] ?? '';
 $artist = $artistService->getArtistById((int)$artistId);

@@ -42,43 +42,43 @@ class ArtistRepository {
         }
     }
 
-    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): void
+    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
     {
         $query = "UPDATE Artists 
               SET first_name = :firstName, 
                   last_name = :lastName, 
-                  date_of_birth = :dateOfBirth, 
-                  date_of_death = :dateOfDeath 
+                  year_of_birth = :yearOfBirth, 
+                  year_of_death = :yearOfDeath 
               WHERE id = :artistId";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':artistId', $artistId, PDO::PARAM_INT);
         $stmt->bindParam(':firstName', $firstName, PDO::PARAM_STR);
         $stmt->bindParam(':lastName', $lastName, PDO::PARAM_STR);
-        $stmt->bindParam(':dateOfBirth', $dateOfBirth, PDO::PARAM_STR);
-        $stmt->bindParam(':dateOfDeath', $dateOfDeath, PDO::PARAM_STR);
+        $stmt->bindParam(':yearOfBirth', $yearOfBirth, PDO::PARAM_STR);
+        $stmt->bindParam(':yearOfDeath', $yearOfDeath, PDO::PARAM_STR);
         $stmt->execute();
     }
 
-    public function addArtist(string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): void
+    public function addArtist(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
     {
-        $stmt = $this->pdo->prepare("INSERT INTO Artists (first_name, last_name, date_of_birth, date_of_death) VALUES (:firstName, :lastName, :dateOfBirth, :dateOfDeath)");
+        $stmt = $this->pdo->prepare("INSERT INTO Artists (first_name, last_name, year_of_birth, year_of_death) VALUES (:firstName, :lastName, :yearOfBirth, :yearOfDeath)");
         $stmt->execute([
             'firstName' => $firstName,
             'lastName' => $lastName,
-            'dateOfBirth' => $dateOfBirth,
-            'dateOfDeath' => $dateOfDeath,
+            'yearOfBirth' => $yearOfBirth,
+            'yearOfDeath' => $yearOfDeath,
         ]);
     }
 
-    public function getArtistByNameAndDates(string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath)
+    public function getArtistByNameAndDates(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath)
     {
-        $query = "SELECT * FROM Artists WHERE first_name = :firstName AND last_name = :lastName AND date_of_birth = :dateOfBirth AND date_of_death = :dateOfDeath";
+        $query = "SELECT * FROM Artists WHERE first_name = :firstName AND last_name = :lastName AND year_of_birth = :yearOfBirth AND year_of_death = :yearOfDeath";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([
             'firstName' => $firstName,
             'lastName' => $lastName,
-            'dateOfBirth' => $dateOfBirth,
-            'dateOfDeath' => $dateOfDeath,
+            'yearOfBirth' => $yearOfBirth,
+            'yearOfDeath' => $yearOfDeath,
         ]);
         return $stmt->fetch();
     }
@@ -89,4 +89,23 @@ class ArtistRepository {
         $stmt->bindParam(':id', $artistId, PDO::PARAM_INT);
         $stmt->execute();
     }
+
+    public function GetYearOfBirthById(int $artistId): ?string
+    {
+        $query = "SELECT year_of_birth FROM Artists WHERE id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':id', $artistId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() ?: null;
+    }
+
+    public function GetYearOfDeathById(int $artistId): ?string
+    {
+        $query = "SELECT year_of_death FROM Artists WHERE id = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':id', $artistId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() ?: null;
+    }
+
 }

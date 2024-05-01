@@ -42,11 +42,16 @@ class ArtworkService
             $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
             $altText = $this->imageRepository->getAltTextById($artwork->getImageId());
             $username = $this->adminRepository->getUsernameById($artwork->getCreatedBy());
+            $artistYearOfBirth = $this->artistRepository->GetYearOfBirthById($artwork->getArtistId());
+            $artistYearOfDeath = $this->artistRepository->GetYearOfDeathById($artwork->getArtistId());
+
 
             $artworkDetails[] = new ArtworkDetailsDTO(
                 $artwork->getId(),
                 $artwork->getTitle(),
                 $artistName,
+                $artistYearOfBirth,
+                $artistYearOfDeath,
                 $genreName,
                 $artwork->getCreationYear(),
                 $artwork->getDimensions(),
@@ -76,11 +81,15 @@ class ArtworkService
         $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
         $altText = $this->imageRepository->getAltTextById($artwork->getImageId());
         $username = $this->adminRepository->getUsernameById($artwork->getCreatedBy());
+        $artistYearOfBirth = $this->artistRepository->GetYearOfBirthById($artwork->getArtistId());
+        $artistYearOfDeath = $this->artistRepository->GetYearOfDeathById($artwork->getArtistId());
 
         return new ArtworkDetailsDTO(
             $artwork->getId(),
             $artwork->getTitle(),
             $artistName,
+            $artistYearOfBirth,
+            $artistYearOfDeath,
             $genreName,
             $artwork->getCreationYear(),
             $artwork->getDimensions(),

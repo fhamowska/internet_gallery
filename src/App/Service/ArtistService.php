@@ -20,9 +20,9 @@ class ArtistService {
         return $this->artistRepository->getAllArtists();
     }
 
-    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): void
+    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
     {
-        $this->artistRepository->editArtist($artistId, $firstName, $lastName, $dateOfBirth, $dateOfDeath);
+        $this->artistRepository->editArtist($artistId, $firstName, $lastName, $yearOfBirth, $yearOfDeath);
     }
 
     public function getArtistById(int $artistId): ?array
@@ -30,15 +30,15 @@ class ArtistService {
         return $this->artistRepository->getArtistById($artistId);
     }
 
-    public function addArtist(string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): ?string
+    public function addArtist(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): ?string
     {
-        $existingArtist = $this->artistRepository->getArtistByNameAndDates($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+        $existingArtist = $this->artistRepository->getArtistByNameAndDates($firstName, $lastName, $yearOfBirth, $yearOfDeath);
 
         if ($existingArtist) {
             return 'An artist with the same name and dates already exists.';
         }
 
-        $this->artistRepository->addArtist($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+        $this->artistRepository->addArtist($firstName, $lastName, $yearOfBirth, $yearOfDeath);
         return null;
     }
 

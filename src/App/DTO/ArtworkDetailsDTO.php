@@ -16,24 +16,30 @@ class ArtworkDetailsDTO
     private string $createdAt;
     private ?string $editedAt;
     private int $createdBy;
+    private string $artistYearOfBirth;
+    private ?string $artistYearOfDeath;
 
     public function __construct(
-        int $id,
-        string $title,
-        string $artistName,
-        string $genreName,
-        ?int $creationYear,
+        int     $id,
+        string  $title,
+        string  $artistName,
+        string  $artistYearOfBirth,
+        ?string $artistYearOfDeath,
+        string  $genreName,
+        ?int    $creationYear,
         ?string $dimensions,
-        string $imagePath,
-        string $altText,
-        string $username,
-        string $createdAt,
+        string  $imagePath,
+        string  $altText,
+        string  $username,
+        string  $createdAt,
         ?string $editedAt,
-        int $createdBy
+        int     $createdBy
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->artistName = $artistName;
+        $this->artistYearOfBirth = $artistYearOfBirth;
+        $this->artistYearOfDeath = $artistYearOfDeath;
         $this->genreName = $genreName;
         $this->creationYear = $creationYear;
         $this->dimensions = $dimensions;
@@ -63,6 +69,16 @@ class ArtworkDetailsDTO
     public function getGenreName(): string
     {
         return $this->genreName;
+    }
+
+    public function getArtistYearOfBirth(): string
+    {
+        return $this->artistYearOfBirth;
+    }
+
+    public function getArtistYearOfDeath(): string
+    {
+        return $this->artistYearOfDeath;
     }
 
     public function getCreationYear(): ?int

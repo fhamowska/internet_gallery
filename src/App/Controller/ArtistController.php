@@ -22,16 +22,16 @@ class ArtistController {
         echo $this->twig->render('artists.twig', ['artists' => $artists]);
     }
 
-    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath): void
+    public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
     {
-        $this->artistService->editArtist($artistId, $firstName, $lastName, $dateOfBirth, $dateOfDeath);
+        $this->artistService->editArtist($artistId, $firstName, $lastName, $yearOfBirth, $yearOfDeath);
         header("Location: artists.php");
         exit();
     }
 
-    public function addArtist(string $firstName, string $lastName, ?string $dateOfBirth, ?string $dateOfDeath)
+    public function addArtist(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath)
     {
-        $error = $this->artistService->addArtist($firstName, $lastName, $dateOfBirth, $dateOfDeath);
+        $error = $this->artistService->addArtist($firstName, $lastName, $yearOfBirth, $yearOfDeath);
 
         if ($error === null) {
             header("Location: artists.php");

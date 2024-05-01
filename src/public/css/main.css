@@ -6,7 +6,11 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
+
 
 .navbar {
     background-color: #142a2c;
@@ -26,4 +30,48 @@ body {
     font-family: 'Lora', serif;
 }
 
+.container {
+    flex: 1;
+}
+
+.footer {
+    width: 100%;
+}
+
+@media all and (max-width: 800px) {
+    .navbar-brand {
+        font-size: 6vw !important;
+    }
+
+    .navbar-toggler {
+        padding: 2vw 3vw;
+    }
+
+    .navbar a {
+        font-size: 4vw;
+    }
+
+    .gallery-header h1 {
+        margin-top: 16vw !important;
+    }
+
+    .gallery-header p {
+        font-size: 6vw !important;
+        margin-top: 6vw !important;
+    }
+
+    .footer {
+        font-size: 3vw !important;
+    }
+}
+
+@media all and (max-width: 500px) {
+    .navbar-brand {
+        font-size: 5vw !important;
+    }
+
+    .footer {
+        font-size: 3vw !important;
+    }
+}
 

@@ -1,37 +1,28 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona Główna</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Lora:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/public/css/index.css">
-</head>
-<body>
-<div class="container">
-    <header>
-        <h1>Internetowa Galeria Sztuki</h1>
-        <p>Odkrywaj twórczość z całego świata.</p>
-    </header>
-    <nav>
-        <ul>
-            <li>
-                <form action="gallery.php" method="get">
-                    <input type="text" name="searchTerm" placeholder="Wpisz tytuł dzieła lub artystę">
-                    <button type="submit">Szukaj</button>
-                </form>
-            </li>
-            <li>
-                <a href="gallery.php">Przeglądaj dzieła</a>
-            </li>
-            <li>
-                <a href="single_artwork.php?id=random">Losuj dzieło</a>
-            </li>
-        </ul>
-    </nav>
-    <footer>
-        <p>&copy; 2024 Internetowa Galeria Sztuki - Faustyna Hamowska</p>
-    </footer>
-</div>
-</body>
-</html>
+{% extends 'base.twig' %}
+
+{% block title %}Artworks Gallery{% endblock %}
+
+{% block content %}
+    <div class="gallery-container">
+        <header class="gallery-header">
+            <h1>Internetowa Galeria Sztuki</h1>
+            <p>Odkrywaj twórczość z całego świata.</p>
+        </header>
+        <div class="gallery-index">
+            <ul>
+                <li>
+                    <form action="gallery.php" method="get">
+                        <input class="gallery-input" type="text" name="searchTerm" placeholder="Wpisz tytuł dzieła lub artystę">
+                        <button class="gallery-button" type="submit">Szukaj</button>
+                    </form>
+                </li>
+                <li>
+                    <a class="gallery-link" href="gallery.php">Przeglądaj dzieła</a>
+                </li>
+                <li>
+                    <a class="gallery-link" href="single_artwork.php?id=random">Losuj dzieło</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
