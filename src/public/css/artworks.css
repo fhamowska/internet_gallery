@@ -59,15 +59,10 @@
     color: black;
 }
 .card-text a {
-    color: #b202be;
+    color: #947a94;
     text-decoration: none;
     transition: color 0.5s;
 }
-
-.card-text a:hover {
-    color: #8e0198;
-}
-
 
 .card-text {
     margin-bottom: 0 !important;
