@@ -3,10 +3,23 @@
 {% block title %}{{ artwork.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ artwork.title }}</h1>
-    <p>Artist: {{ artwork.artistName }}</p>
-    <p>Genre: {{ artwork.genreName }}</p>
-    <p>Creation Year: {{ artwork.creationYear }}</p>
-    <p>Dimensions: {{ artwork.dimensions }}</p>
-    <img src="{{ artwork.imagePath }}" alt="Artwork Image">
+    <div class="container-fluid px-0 pt-5">
+        <div class="row mt-5 align-items-center justify-content-center image-container">
+            <div class="col-md-10 d-flex justify-content-center">
+                <div class="align-self-center">
+                    <a href="{{ artwork.imagePath }}" target="_blank">
+                        <img src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" class="img-fluid rounded artwork-image">
+                    </a>
+                </div>
+                <div class="col-md-2 artwork-info">
+                    <h1 class="mt-5">{{ artwork.title }}</h1>
+                    <p class="mb-1">Twórca: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }} </a></p>
+                    <p class="mb-1">Lata życia: {% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}Unknown{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}Unknown{% endif %}</p>
+                    <p class="mb-1">Kategoria: {{ artwork.genreName }}</p>
+                    <p class="mb-1">Rok powstania: {% if artwork.creationYear is null or artwork.creationYear == 0 %}Unknown{% else %}{{ artwork.creationYear }}{% endif %}</p>
+                    <p class="mb-4">Wymiary: {{ artwork.dimensions }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="container">
-        <form action="gallery.php" method="GET">
+        <form class="search" action="gallery.php" method="GET">
             <div class="row mb-3 align-items-end">
                 <div class="form-group col-md-6">
                     <label for="searchTerm" class="sr-only">Search:</label>
@@ -61,7 +61,7 @@
                             <h5 class="card-title">{{ artwork.title }}</h5>
                             <p class="card-text">Twórca: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }} </a>({{ artwork.artistYearOfBirth ?? '' }} - {{ artwork.artistYearOfDeath ?? '' }})</p>
                             <p class="card-text">Kategoria: {{ artwork.genreName }}</p>
-                            <p class="card-text">Rok powstania: {{ artwork.creationYear }}</p>
+                            <p class="card-text">Rok powstania: {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }}{% endif %}</p>
                             <p class="card-text">Wymiary: {{ artwork.dimensions }}</p>
                         </div>
                     </div>

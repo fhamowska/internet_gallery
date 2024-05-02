@@ -1,0 +1,28 @@
+.image-container {
+    height: 75vh;
+}
+
+.artwork-image {
+    cursor: pointer;
+    max-width: 100%;
+    max-height: calc(100vh - 12vw);
+}
+
+.container-fluid {
+    padding: 0;
+}
+.container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.custom-width {
+    width: 33.33%;
+}

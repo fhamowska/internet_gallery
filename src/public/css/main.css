@@ -9,6 +9,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    color: #b9c8cb;
 }
 
 
@@ -38,7 +39,7 @@ body {
     width: 100%;
 }
 
-@media all and (max-width: 800px) {
+@media all and (max-width: 768px) {
     .navbar-brand {
         font-size: 6vw !important;
     }
@@ -65,7 +66,7 @@ body {
     }
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 576px) {
     .navbar-brand {
         font-size: 5vw !important;
     }
