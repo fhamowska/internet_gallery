@@ -1,0 +1,19 @@
+body {
+    background-color: #f8f9fa;
+}
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.card-login {
+    width: 30vw;
+}
+.btn-primary {
+    width: 10vw;
+}
+.btn-container {
+    text-align: center;
+    margin-top: 2vw;
+}

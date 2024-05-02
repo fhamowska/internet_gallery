@@ -4,7 +4,11 @@ use App\Controller\LoginController;
 use App\Repository\AdminRepository;
 use App\Service\AdminService;
 
-session_start();
+
+// At the beginning of your PHP script
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in']) {
     header("Location: admin.php");

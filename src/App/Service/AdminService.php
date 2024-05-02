@@ -13,7 +13,7 @@ class AdminService
         $this->adminRepository = $adminRepository;
     }
 
-    public function findByUsername(string $username): Admin
+    public function findByUsername(string $username): ?Admin
     {
         return $this->adminRepository->findByUsername($username);
     }
