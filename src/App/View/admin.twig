@@ -9,39 +9,45 @@
     <div class="add-artwork">
         <a href="add_artwork.php"><button>Add Artwork</button></a>
     </div>
-    <div class="filter">
-        <form action="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}" method="GET">
-            <label for="searchTerm">Search:</label>
-            <input type="text" name="searchTerm" id="searchTerm" value="{{ filters.searchTerm ?? '' }}">
+    <form class="search" action="gallery.php" method="GET">
+        <div class="row mb-3 align-items-end">
+            <div class="form-group col-md-6">
+                <label for="searchTerm" class="sr-only">Search:</label>
+                <div class="d-flex align-items-end">
+                    <input type="text" class="form-control" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
+                    <button type="submit" class="btn btn-primary mt-2 ml-2">Szukaj</button>
+                    <button id="toggleFilterBtn" type="button" class="btn btn-primary mt-2 ml-2">Filtry</button>
+                </div>
+            </div>
+        </div>
+    </form>
 
-            <label for="genre">Genre:</label><br>
-            <select name="genre[]" id="genre" multiple placeholder="Choose genre">
-                {% for genre in genres %}
-                    <option value="{{ genre.id }}" {% if genre.id in filters.genre %} selected {% endif %}>{{ genre.name }}</option>
-                {% endfor %}
-            </select>
-
-            <label for="creationYearFrom">Creation Year From:</label>
-            <input type="number" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}">
-
-            <label for="creationYearTo">Creation Year To:</label>
-            <input type="number" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}">
-
-            <button type="submit">Apply Filters</button>
+    <div id="filterForm" class="container" style="display: none;">
+        <form action="gallery.php" method="GET">
+            <div class="row mb-3 align-items-end">
+                <div class="form-group col-md-4 col-sm-6">
+                    <label for="genre" class="sr-only">Genre:</label>
+                    <select class="form-control " name="genre[]" id="genre" multiple>
+                        {% for genre in genres %}
+                            <option value="{{ genre.id }}" {% if genre.id in filters.genre %} selected {% endif %}>{{ genre.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-2 col-sm-6">
+                    <label for="creationYearFrom" class="sr-only">From:</label>
+                    <input type="number" class="form-control" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}" placeholder="Od roku">
+                </div>
+                <div class="form-group col-md-2 col-sm-6">
+                    <label for="creationYearTo" class="sr-only">To:</label>
+                    <input type="number" class="form-control" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}" placeholder="Do roku">
+                </div>
+                <div class="form-group col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Filtruj</button>
+                    <a href="gallery.php{% if filters.searchTerm %}?searchTerm={{ filters.searchTerm }}{% endif %}" class="btn btn-primary ml-2{% if not filters.searchTerm and not filters.genre and not filters.creationYearFrom and not filters.creationYearTo %} d-none{% endif %}">Wyczyść</a>
+                </div>
+            </div>
         </form>
     </div>
-
-    <div class="applied-filters">
-        {% if filters %}
-            <p>Applied Filters:</p>
-            <ul>
-                {% for key, value in filters %}
-                    {% if value is not empty %}
-                        <li>{{ key }}: {{ value }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        {% endif %}
     </div>
 
     <div class="gallery">

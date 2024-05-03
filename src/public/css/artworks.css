@@ -130,7 +130,7 @@
 }
 
 @media all and (max-width: 576px) {
-    form {
+    .search {
         margin-top: 14vw;
         margin-left: 3vw;
     }
