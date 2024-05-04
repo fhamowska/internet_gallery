@@ -1,0 +1,83 @@
+{% extends 'admin_base.twig' %}
+
+{% block title %}{{ artwork.title }}{% endblock %}
+
+{% block content %}
+    <div class="row align-items-center mt-5 pt-5 artwork-title">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <div class="ml-3 pl-4">
+                <h1 class="d-inline">{{ artwork.title }} ({{ artwork.artistName }})</h1>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-3 mt-md-0 text-md-right">
+            <a href="edit_artwork.php?id={{ artwork.id }}" class="btn btn-outline-primary btn-md ml-3 mb-md-0 mr-2">Edytuj</a>
+            <form action="delete_artwork.php" method="post" style="display: inline-block;">
+                <input type="hidden" name="artwork_id" value="{{ artwork.id }}">
+                <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Czy na pewno chcesz usunąć to dzieło?');">Usuń</button>
+            </form>
+        </div>
+    </div>
+    <div class="mt-4 ml-3 mr-3 d-flex justify-content-center">
+        <div class="row">
+            <div class="col-xl-6 text-center">
+                <a href="{{ artwork.imagePath }}" target="_blank">
+                    <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
+                </a>
+            </div>
+            <div class="col-xl-6 d-flex align-items-center">
+                <table class="table table-bordered table-sm mb-0" style="height: 100%;">
+                    <tbody>
+                    <tr>
+                        <th class="w-25" scope="row">ID</th>
+                        <td style="word-break: break-word;">{{ artwork.id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Title</th>
+                        <td style="word-break: break-word;">{{ artwork.title }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Artist</th>
+                        <td style="word-break: break-word;">
+                            <a href="admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
+                                {{ artwork.artistName }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Genre</th>
+                        <td style="word-break: break-word;">{{ artwork.genreName }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Creation Year</th>
+                        <td style="word-break: break-word;">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Dimensions</th>
+                        <td style="word-break: break-word;">{{ artwork.dimensions }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Created By</th>
+                        <td style="word-break: break-word;">{{ artwork.createdBy }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Created At</th>
+                        <td style="word-break: break-word;">{{ artwork.createdAt }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Edited At</th>
+                        <td style="word-break: break-word;">{{ artwork.editedAt }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Alt Text</th>
+                        <td style="word-break: break-word;">{{ artwork.altText }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Username</th>
+                        <td style="word-break: break-word;">{{ artwork.username }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

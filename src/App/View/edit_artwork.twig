@@ -31,6 +31,9 @@
         <label for="dimensions">Dimensions:</label>
         <input type="text" name="dimensions" id="dimensions" value="{{ artwork.dimensions }}"><br>
 
+        <label for="altText">Alt Text:</label>
+        <input type="text" name="altText" id="altText" value="{{ artwork.altText }}"><br>
+
         {% if artwork.imagePath %}
             <img id="currentImage" src="{{ artwork.imagePath }}" alt="Current Image" style="max-width: 300px;"><br>
         {% endif %}

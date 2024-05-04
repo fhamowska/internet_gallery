@@ -92,17 +92,12 @@
 }
 
 .btn-primary,
-.page-link,
 .btn-primary.active,
 .btn-primary:active,
 .btn-primary:focus,
 .btn-primary.focus {
     background-color: #23324f !important;
     border-color: #23324f !important;
-}
-
-.page-link {
-    color: #19a7da;
 }
 
 .btn-primary:hover {
@@ -121,6 +116,16 @@
     margin-right: -0.5vw !important;
     padding-right: 0 !important;
 }
+
+.pagination .page-item .page-link {
+    color: #23324f;
+}
+.pagination .page-item.active .page-link {
+    background-color: #23324f;
+    color: #ffffff;
+    border-color: #23324f;
+}
+
 
 @media all and (max-width: 768px) {
     .search{

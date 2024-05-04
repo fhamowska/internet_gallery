@@ -34,6 +34,7 @@ class ImageRepository
 
     public function saveImage(string $imagePath, string $altText): int
     {
+        var_dump($altText);
         $query = "INSERT INTO Images (image_path, alt_text) VALUES (:imagePath, :altText)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':imagePath', $imagePath, PDO::PARAM_STR);
@@ -48,6 +49,15 @@ class ImageRepository
         $newImagePath = './images/artworks/' . uniqid() . '.jpg';
         move_uploaded_file($_FILES['image']['tmp_name'], $newImagePath);
         return $newImagePath;
+    }
+
+    public function updateAltText(int $imageId, string $altText): void
+    {
+        $query = "UPDATE Images SET alt_text = :altText WHERE id = :imageId";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
+        $stmt->bindParam(':altText', $altText, PDO::PARAM_STR);
+        $stmt->execute();
     }
 
     public function deleteImage($imageId)
