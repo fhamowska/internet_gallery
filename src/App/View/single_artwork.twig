@@ -3,21 +3,22 @@
 {% block title %}{{ artwork.title }}{% endblock %}
 
 {% block content %}
-    <div class="container-fluid px-0 pt-5">
-        <div class="row mt-5 align-items-center justify-content-center image-container">
-            <div class="col-md-10 d-flex justify-content-center">
-                <div class="align-self-center">
-                    <a href="{{ artwork.imagePath }}" target="_blank">
-                        <img src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" class="img-fluid rounded artwork-image">
-                    </a>
-                </div>
-                <div class="col-md-2 artwork-info d-flex flex-column justify-content-center">
-                    <h1 class="mt-5">{{ artwork.title }}</h1>
-                    <p class="mb-1">Twórca: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }} </a></p>
-                    <p class="mb-1">Lata życia: {% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}Unknown{% endif %}</p>
-                    <p class="mb-1">Kategoria: {{ artwork.genreName }}</p>
-                    <p class="mb-1">Rok powstania: {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }}{% endif %}</p>
-                    <p class="mb-4">Wymiary: {{ artwork.dimensions }}</p>
+    <div class="container-fluid mt-4" style="height: 100vh;">
+        <div class="row justify-content-center align-items-center" style="height: 100%;">
+            <div class="col-md-8">
+                <div class="card card-single mx-auto" style="max-width: fit-content; max-height: 100vh;">
+                    <div class="w-100">
+                        <a href="{{ artwork.imagePath }}" target="_blank">
+                            <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" style="max-height: 65vh; width: auto;">
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="single_artwork.php?id={{ artwork.id }}">{{ artwork.title }}</a></h5>
+                        <p class="card-text">Twórca: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }} </a>({% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}obecnie{% endif %})</p>
+                        <p class="card-text">Kategoria: {{ artwork.genreName }}</p>
+                        <p class="card-text">Rok powstania: {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }}{% endif %}</p>
+                        <p class="card-text">Wymiary: {{ artwork.dimensions }}</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -40,6 +40,7 @@
     min-height: 38px;
     max-height: 100px;
     overflow-y: auto;
+    color: #1a373a;
 }
 
 .container {
@@ -64,6 +65,10 @@
     transition: color 0.5s;
 }
 
+.card-title a{
+    color: black;
+}
+
 .card-text {
     margin-bottom: 0 !important;
 }
@@ -82,13 +87,22 @@
     margin-top: 6vw;
 }
 
+.form-control {
+    color: #1a373a;
+}
+
 .btn-primary,
+.page-link,
 .btn-primary.active,
 .btn-primary:active,
 .btn-primary:focus,
 .btn-primary.focus {
     background-color: #23324f !important;
     border-color: #23324f !important;
+}
+
+.page-link.active {
+    background-color: #b9c8cb;
 }
 
 .btn-primary:hover {
@@ -109,13 +123,6 @@
     padding-right: 0 !important;
 }
 
-.pagination-text {
-    color: #b9c8cb;
-    padding-left: 0.5vw;
-    padding-right: 0.5vw;
-    padding-top: 0.3vw;
-}
-
 @media all and (max-width: 768px) {
     .search{
         margin-top: 15vw;
@@ -131,10 +138,18 @@
 
 @media all and (max-width: 576px) {
     .search {
-        margin-top: 14vw;
+        margin-top: 18vw;
         margin-left: 3vw;
     }
     .card {
-        margin-left: 3vw;
+        margin-left: 3.3vw;
+    }
+
+    .filters {
+        width: 101% !important;
+    }
+
+    #filterForm {
+        margin-left: 3.1vw;
     }
 }
