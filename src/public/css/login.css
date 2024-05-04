@@ -5,6 +5,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    flex-direction: column;
 }
 .login-container {
     background-color: #fff;
@@ -13,6 +14,7 @@ body {
     padding: 40px;
     max-width: 400px;
     width: 100%;
+    margin: auto;
 }
 .login-title {
     text-align: center;
@@ -36,4 +38,16 @@ body {
 }
 .login-form button[type="submit"]:hover {
     background-color: #2b5b60;
+}
+
+@media all and (max-width: 768px) {
+    .footer {
+        font-size: 2vw !important;
+    }
+}
+
+@media all and (max-width: 576px) {
+    .footer {
+        font-size: 3vw !important;
+    }
 }

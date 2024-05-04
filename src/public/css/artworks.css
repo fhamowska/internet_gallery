@@ -101,8 +101,8 @@
     border-color: #23324f !important;
 }
 
-.page-link.active {
-    background-color: #b9c8cb;
+.page-link {
+    color: #19a7da;
 }
 
 .btn-primary:hover {
@@ -118,7 +118,6 @@
 #filterForm div.col-md-4,
 #filterForm div.form-group.col-md-2 {
     margin-top: 0; !important;
-    margin-bottom: 1vw;
     margin-right: -0.5vw !important;
     padding-right: 0 !important;
 }

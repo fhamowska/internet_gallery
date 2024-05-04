@@ -15,31 +15,30 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="src/public/css/artwork_list.css">
+    <link rel="stylesheet" href="src/public/css/admin_base.css">
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+    <a class="navbar-brand" href="index.php">Internetowa Galeria Sztuki</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="admin.php">Lista dzieł</a>
+                <a class="nav-link" href="admin.php">Lista dzieł</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="genres.php">Lista Kategorii</a>
+                <a class="nav-link" href="genres.php">Lista Kategorii</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="artists.php">Lista Artystów</a>
-            </li>
-            <li>
-            <form action="logout.php" method="post" class="form-inline my-2 my-lg-0">
-                <button type="submit" class="btn nav-link">Wyloguj się</button>
-            </form>
+                <a class="nav-link" href="artists.php">Lista Artystów</a>
             </li>
         </ul>
+        <form action="logout.php" method="post" class="form-inline my-2 my-lg-0">
+            <button type="submit" class="btn btn-link nav-link">Wyloguj</button>
+        </form>
     </div>
 </nav>
 

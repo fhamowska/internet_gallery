@@ -47,7 +47,7 @@ class AdminController
         }
 
         $page = max(1, (int)$_GET['page']);
-        $perPage = 2;
+        $perPage = 5;
 
         $artworks = $this->artworkService->getFilteredArtworksWithDetails($page, $perPage, $filters);
         $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);

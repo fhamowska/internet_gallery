@@ -9,7 +9,9 @@ use App\Service\ArtistService;
 use App\Service\GenreService;
 use App\Service\ImageService;
 
-require_once(__DIR__) . '/vendor/autoload.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once (__DIR__) . '/vendor/autoload.php';
 require_once 'bootstrap.php';
 
 $artworkRepository = new ArtworkRepository($pdo);
@@ -22,9 +24,8 @@ $genreService = new GenreService($genreRepository);
 $imageService = new ImageService($imageRepository);
 $artworkController = new ArtworkController($artworkService, $artistService, $genreService, $imageService, $twig);
 
-
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
-    $artworkId = $_POST['id'];
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['id'])) {
+    $artworkId = $_GET['id'];
 
     $artwork = $artworkRepository->getArtworkById($artworkId);
     $imageId = $artwork->getImageId();

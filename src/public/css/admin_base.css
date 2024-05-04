@@ -1,0 +1,144 @@
+body {
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar {
+    background-color: #142a2c;
+}
+
+.navbar a {
+    color: #b9c8cb;
+}
+
+.navbar-nav .nav-link,
+.navbar .btn-link.nav-link {
+    color: #b9c8cb;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar .btn-link.nav-link:hover {
+    background-color: #1a373a;
+    border-radius: 0.5vw;
+    transition: background-color 0.5s;
+}
+
+.navbar-brand {
+    font-family: 'Lora', serif;
+}
+
+.container {
+    flex: 1;
+}
+
+.footer {
+    width: 100%;
+}
+
+#filterForm {
+    margin: 0;
+    padding: 0;
+    display: none;
+}
+
+.small-image {
+    max-width: 10vw;
+}
+
+.img-column {
+    width: 200px;
+    height: 120px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.custom-select-width {
+    width: 100%;
+}
+
+.container-search {
+    margin: 0;
+}
+
+.form-group {
+    padding: 0;
+}
+
+.add-artwork-button {
+    width: 15vw;
+}
+.artwork-image {
+    width: 220px;
+    height: 120px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.artwork-image img {
+    max-width: 100%;
+    max-height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.btn-primary,
+.btn-primary.active,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary.focus {
+    background-color: #142a2c !important;
+    border-color: #142a2c !important;
+}
+
+.pagination .page-item .page-link {
+    color: #142a2c;
+}
+.pagination .page-item.active .page-link {
+    background-color: #142a2c;
+    color: #ffffff;
+    border-color: #142a2c;
+}
+
+.btn-primary:hover {
+    background-color: #23494d;
+    border-color: #23494d !important;
+}
+
+.table-bordered thead th {
+    border: none;
+}
+.table-bordered td, .table-bordered th {
+    border: 1px solid black;
+}
+.thead-dark th {
+    background-color: #142a2c !important;
+    color: white;
+}
+
+.search-input {
+    width: 26vw;
+}
+
+@media all and (max-width: 768px) {
+    .footer {
+        font-size: 3vw !important;
+    }
+    .add-artwork-button {
+        width: 32vw;
+    }
+}
+
+@media all and (max-width: 576px) {
+    .footer {
+        font-size: 3vw !important;
+    }
+
+    .filters {
+        width: 100% !important;
+    }
+}

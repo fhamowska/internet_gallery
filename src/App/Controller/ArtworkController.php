@@ -47,30 +47,43 @@ class ArtworkController
         $queryString = http_build_query($filters);
         $queryString = $queryString ? '&' . $queryString : '';
 
-        if (!isset($_GET['page'])) {
-            header("Location: gallery.php?page=1$queryString");
-            exit();
-        }
-
         $page = max(1, (int)$_GET['page']);
-        $perPage = 8;
 
-        $artworks = $this->artworkService->getFilteredArtworksWithDetails($page, $perPage, $filters);
-        $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);
-        $totalPages = ceil($totalArtworks / $perPage);
-
-        if (isset($filters['genre']) && is_array($filters['genre'])) {
-            $filters['genre'] = implode(',', $filters['genre']);
+        if (str_contains($_SERVER['REQUEST_URI'], '/~21_hamowska/licencjat/admin.php')) {
+            $perPage = 3;
+            $artworks = $this->artworkService->getFilteredArtworksWithDetails($page, $perPage, $filters);
+            $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);
+            $totalPages = ceil($totalArtworks / $perPage);
+            if (!isset($_GET['page'])) {
+                header("Location: admin.php?page=1$queryString");
+                exit();
+            }
+            echo $this->twig->render('admin.twig', [
+                'artworks' => $artworks,
+                'currentPage' => $page,
+                'totalPages' => $totalPages,
+                'filters' => $filters,
+                'genres' => $genres,
+                'searchTerm' => $filters['searchTerm'],
+            ]);
+        } else {
+            $perPage = 8;
+            $artworks = $this->artworkService->getFilteredArtworksWithDetails($page, $perPage, $filters);
+            $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);
+            $totalPages = ceil($totalArtworks / $perPage);
+            if (!isset($_GET['page'])) {
+                header("Location: gallery.php?page=1$queryString");
+                exit();
+            }
+            echo $this->twig->render('artworks.twig', [
+                'artworks' => $artworks,
+                'currentPage' => $page,
+                'totalPages' => $totalPages,
+                'filters' => $filters,
+                'genres' => $genres,
+                'searchTerm' => $filters['searchTerm'],
+            ]);
         }
-
-        echo $this->twig->render('artworks.twig', [
-            'artworks' => $artworks,
-            'currentPage' => $page,
-            'totalPages' => $totalPages,
-            'filters' => $filters,
-            'genres' => $genres,
-            'searchTerm' => $filters['searchTerm'],
-        ]);
     }
 
     public function editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId, ?int $oldImageId, $updateImage = true)

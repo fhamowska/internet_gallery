@@ -5,155 +5,144 @@
 {% endblock %}
 
 {% block content %}
-    <div class="add-artwork">
-        <a href="add_artwork.php"><button class="btn btn-primary">Add Artwork</button></a>
+    <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Lista dzieł</h1>
+    <div class="add-artwork ml-3 mb-2 mr-3">
+        <a href="add_artwork.php"><button class="btn btn-primary add-artwork-button">Dodaj dzieło</button></a>
     </div>
-    <form class="search" action="gallery.php" method="GET">
-        <div class="row mb-3 align-items-end">
-            <div class="form-group col-md-6">
-                <label for="searchTerm" class="sr-only">Search:</label>
-                <div class="d-flex align-items-end">
-                    <input type="text" class="form-control" name="searchTerm" id="searchTerm" placeholder="Enter title or artist" value="{{ filters.searchTerm ?? '' }}">
-                    <button type="submit" class="btn btn-primary mt-2 ml-2">Search</button>
-                    <button id="toggleFilterBtn" type="button" class="btn btn-primary mt-2 ml-2">Filters</button>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <div id="filterForm" class="container" style="display: none;">
-        <form action="gallery.php" method="GET">
-            <div class="row mb-3 align-items-end">
-                <div class="form-group col-md-4 col-sm-6">
-                    <label for="genre" class="sr-only">Genre:</label>
-                    <select class="form-control " name="genre[]" id="genre" multiple aria-label="Select Genre">
-                        {% for genre in genres %}
-                            <option value="{{ genre.id }}" {% if genre.id in filters.genre %} selected {% endif %}>{{ genre.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group col-md-2 col-sm-6">
-                    <label for="creationYearFrom" class="sr-only">From:</label>
-                    <input type="number" class="form-control" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}" placeholder="From year">
-                </div>
-                <div class="form-group col-md-2 col-sm-6">
-                    <label for="creationYearTo" class="sr-only">To:</label>
-                    <input type="number" class="form-control" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}" placeholder="To year">
-                </div>
-                <div class="form-group col-md-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                    <a href="gallery.php{% if filters.searchTerm %}?searchTerm={{ filters.searchTerm }}{% endif %}" class="btn btn-primary ml-2{% if not filters.searchTerm and not filters.genre and not filters.creationYearFrom and not filters.creationYearTo %} d-none{% endif %}">Clear</a>
+    <div class="container-search ml-3 mr-3">
+        <form class="search" action="admin.php" method="GET">
+            <div class="row align-items-end">
+                <div class="form-group col-md-6">
+                    <label for="searchTerm" class="sr-only">Search:</label>
+                    <div class="d-flex align-items-end ml-3">
+                        <input type="text" class="form-control search-input" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
+                        <button type="submit" class="btn btn-primary mt-2 ml-2">Szukaj</button>
+                        <button id="toggleFilterBtn" type="button" class="btn btn-primary mt-2 ml-2 mr-3">Filtry</button>
+                    </div>
                 </div>
             </div>
         </form>
+
+        <div id="filterForm" class="container ml-3">
+            <form action="admin.php" method="GET">
+                <div class="row mb-3 align-items-end filters">
+                    <div class="form-group col-md-4 col-sm-6 mr-2">
+                        <label for="genre" class="sr-only">Genre:</label>
+                        <select class="form-control" name="genre[]" id="genre" multiple style="width: 100%;">
+                            {% for genre in genres %}
+                                <option value="{{ genre.id }}" {% if genre.id in filters.genre %} selected {% endif %}>{{ genre.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2 col-sm-6 mr-2">
+                        <label for="creationYearFrom" class="sr-only">From:</label>
+                        <input type="number" class="form-control" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}" placeholder="Od roku">
+                    </div>
+                    <div class="form-group col-md-2 col-sm-6 mr-2">
+                        <label for="creationYearTo" class="sr-only">To:</label>
+                        <input type="number" class="form-control" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}" placeholder="Do roku">
+                    </div>
+                    <div class="form-group col-md-2 d-flex align-items-end mr-2">
+                        <button type="submit" class="btn btn-primary">Filtruj</button>
+                        <a href="admin.php{% if filters.searchTerm %}?searchTerm={{ filters.searchTerm }}{% endif %}" class="btn btn-primary ml-2{% if not filters.searchTerm and not filters.genre and not filters.creationYearFrom and not filters.creationYearTo %} d-none{% endif %}">Wyczyść</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="gallery">
-        {% if artworks %}
-            <table class="table">
-                <thead>
+<div class="gallery ml-3 mr-3">
+    {% if artworks %}
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
                 <tr>
-                    <th>Id</th>
+                    <th class="d-none d-sm-table-cell">Zdjęcie</th>
                     <th>Title</th>
-                    <th>Image</th>
-                    <th>Artist</th>
-                    <th>Genre</th>
-                    <th>Creation Year</th>
-                    <th>Dimensions</th>
-                    <th>Created By</th>
-                    <th>Created At</th>
-                    <th>Edited At</th>
-                    <th>Alt Text</th>
-                    <th>Admin Username</th>
-                    <th>Actions</th>
+                    <th class="d-none d-sm-table-cell">Twórca</th>
+                    <th class="d-none d-sm-table-cell">Kategoria</th>
+                    <th class="d-none d-md-table-cell">Rok powstania</th>
+                    <th class="d-none d-md-table-cell">Wymiary</th>
+                    <th class="d-none d-lg-table-cell">Autor</th>
+                    <th>Akcje</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for artwork in artworks %}
                     <tr>
-                        <td>{{ artwork.id }}</td>
+                        <td class="d-none d-sm-table-cell artwork-image">
+                            <div class="img-column">
+                                <img src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" class="img-fluid small-image">
+                            </div>
+                        </td>
                         <td>{{ artwork.title }}</td>
-                        <td class="artwork-image"><img src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}"></td>
-                        <td><a href="admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }}</a></td>
-                        <td>{{ artwork.genreName }}</td>
-                        <td>{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
-                        <td>{{ artwork.dimensions }}</td>
-                        <td>{{ artwork.createdBy }}</td>
-                        <td>{{ artwork.createdAt }}</td>
-                        <td>{{ artwork.editedAt }}</td>
-                        <td>{{ artwork.altText }}</td>
-                        <td>{{ artwork.username }}</td>
+                        <td class="d-none d-sm-table-cell">
+                            <a href="admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
+                                {{ artwork.artistName }}
+                            </a>
+                        </td>
+                        <td class="d-none d-sm-table-cell">{{ artwork.genreName }}</td>
+                        <td class="d-none d-md-table-cell">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
+                        <td class="d-none d-md-table-cell">{{ artwork.dimensions }}</td>
+                        <td class="d-none d-lg-table-cell">{{ artwork.username }}</td>
                         <td class="actions">
-                            <a href="single_artwork_admin.php?id={{ artwork.id }}">Show</a>
-                            <a href="edit_artwork.php?id={{ artwork.id }}">Edit</a>
-                            <button type="button" class="btn btn-danger delete-btn" data-id="{{ artwork.id }}" data-title="{{ artwork.title }}">Delete</button>
+                            <div class="text-center">
+                                <a class="btn btn-md btn-outline-primary m-1" href="single_artwork_admin.php?id={{ artwork.id }}">Pokaż</a>
+                                <a class="btn btn-md btn-outline-success m-1" href="edit_artwork.php?id={{ artwork.id }}">Edytuj</a>
+                                <button class="btn btn-md btn-outline-danger m-1" onclick="confirmDelete('{{ artwork.id }}', '{{ artwork.title }}')">Usuń</button>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            <div class="pagination">
-                <div class="pagination-info">
-                    Page {{ currentPage }} of {{ totalPages }}
-                </div>
-                {% if currentPage > 1 %}
-                    <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage - 1 }}{% if filters.searchTerm %}&searchTerm={{ filters.searchTerm }}{% endif %}" class="btn btn-primary">Previous</a>
-                {% endif %}
+        </div>
 
-                {% if currentPage < totalPages %}
-                    <a href="admin.php{% if filters %}?{% endif %}{% for key, value in filters %}{% if key == 'genre' and value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ currentPage + 1 }}{% if filters.searchTerm %}&searchTerm={{ filters.searchTerm }}{% endif %}" class="btn btn-primary">Next</a>
+            <div class="pagination d-flex justify-content-center">
+                {% if totalPages > 1 %}
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            {% if currentPage > 1 %}
+                                <li class="page-item">
+                                    <a class="page-link" href="admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ currentPage - 1 }}">« Poprzednia</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">&laquo;&nbsp;Poprzednia</span>
+                                </li>
+                            {% endif %}
+
+                            {% set startPage = max(1, min(totalPages - 2, currentPage - 1)) %}
+                            {% set endPage = min(totalPages, startPage + 2) %}
+
+                            {% for page in range(startPage, endPage) %}
+                                <li class="page-item {% if currentPage == page %}active{% endif %}">
+                                    <a class="page-link pagination-text" href="admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ page }}">{{ page }}</a>
+                                </li>
+                            {% endfor %}
+
+                            {% if currentPage < totalPages %}
+                                <li class="page-item">
+                                    <a class="page-link" href="admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ currentPage + 1 }}">Następna&nbsp;»</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">Następna&nbsp;»</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
                 {% endif %}
             </div>
         {% else %}
             <p>No artworks found.</p>
         {% endif %}
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js"></script>
     <script>
-        $(document).ready(function() {
-            var $select = $('#genre').selectize({
-                plugins: ['remove_button'],
-                delimiter: ',',
-                persist: false,
-                create: function(input) {
-                    return {
-                        value: input,
-                        text: input
-                    }
-                },
-                placeholder: 'Choose genre',
-                onDropdownOpen: function() {
-                    this.$control_input.prop('readonly', true);
-                    var self = this;
-                    this.$dropdown.on('mouseleave', function() {
-                        self.close();
-                    });
-                },
-                onDropdownClose: function() {
-                    this.$control_input.prop('readonly', false);
-                }
-            });
-
-            // Confirmation before deleting artwork
-            $('.delete-btn').on('click', function() {
-                var id = $(this).data('id');
-                var title = $(this).data('title');
-                var confirmation = confirm("Are you sure you want to delete '" + title + "'?");
-                if (confirmation) {
-                    // Perform deletion
-                    window.location.href = "delete_artwork.php?id=" + id;
-                }
-            });
-        });
-    </script>
-    {% block stylesheets %}
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.default.min.css" rel="stylesheet" />
-        <style>
-            .artwork-image img {
-                max-width: 100px;
-                height: auto;
+        function confirmDelete(artworkId, artworkTitle) {
+            if (confirm("Czy na pewno chcesz usunąć dzieło o tytule " + artworkTitle + "?")) {
+                window.location.href = "delete_artwork.php?id=" + artworkId;
             }
-        </style>
-    {% endblock %}
+        }
+    </script>
 {% endblock %}
