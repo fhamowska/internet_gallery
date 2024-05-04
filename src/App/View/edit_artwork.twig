@@ -5,45 +5,68 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Edit Artwork</h1>
-    <form action="edit_artwork.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="{{ artwork.id }}">
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" value="{{ artwork.title }}"><br>
+    <div class="container container-edit mt-5 pl-5 pr-5">
+        <h1 class="mt-4 ml-3 mb-3">Edytuj „{{ artwork.title }}”</h1>
+        <form action="edit_artwork.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ artwork.id }}">
+            <div class="form-group">
+                <label for="title">Tytuł:</label>
+                <input type="text" class="form-control" name="title" id="title" value="{{ artwork.title }}" required>
+            </div>
 
-        <label for="artistId">Artist:</label>
-        <select name="artistId" id="artistId">
-            {% for artist in artists %}
-                <option value="{{ artist.id }}" {% if artist.id == artwork.artistId %} selected {% endif %}>{{ artist.first_name }} {{ artist.last_name }}</option>
-            {% endfor %}
-        </select><br>
+            <div class="form-group">
+                <label for="artistId">Twórca:</label>
+                <select class="form-control" name="artistId" id="artistId" required>
+                    {% for artist in artists %}
+                        <option value="{{ artist.id }}" {% if artist.id == artwork.artistId %} selected {% endif %}>{{ artist.first_name }} {{ artist.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="genreId">Genre:</label>
-        <select name="genreId" id="genreId">
-            {% for genre in genres %}
-                <option value="{{ genre.id }}" {% if genre.id == artwork.genreId %} selected {% endif %}>{{ genre.name }}</option>
-            {% endfor %}
-        </select><br>
+            <div class="form-group">
+                <label for="genreId">Kategoria:</label>
+                <select class="form-control" name="genreId" id="genreId" required>
+                    {% for genre in genres %}
+                        <option value="{{ genre.id }}" {% if genre.id == artwork.genreId %} selected {% endif %}>{{ genre.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="creationYear">Creation Year:</label>
-        <input type="number" name="creationYear" id="creationYear" min="0" value="{{ artwork.creationYear }}"><br>
+            <div class="form-group">
+                <label for="creationYear">Rok utworzenia:</label>
+                <input type="number" class="form-control" name="creationYear" id="creationYear" min="0" value="{{ artwork.creationYear }}">
+            </div>
 
-        <label for="dimensions">Dimensions:</label>
-        <input type="text" name="dimensions" id="dimensions" value="{{ artwork.dimensions }}"><br>
+            <div class="form-group">
+                <label for="dimensions">Wymiary (wysokość × szerokość w cm):</label>
+                <input type="text" class="form-control" name="dimensions" id="dimensions" value="{{ artwork.dimensions }}" required>
+            </div>
 
-        <label for="altText">Alt Text:</label>
-        <input type="text" name="altText" id="altText" value="{{ artwork.altText }}"><br>
+            <div class="form-group">
+                <label for="altText">Tekst alternatywny:</label>
+                <textarea id="altText" name="altText" class="form-control" required>ikfi</textarea>
+            </div>
 
-        {% if artwork.imagePath %}
-            <img id="currentImage" src="{{ artwork.imagePath }}" alt="Current Image" style="max-width: 300px;"><br>
-        {% endif %}
+            {% if artwork.imagePath %}
+                <div class="form-group">
+                    <label for="currentImage">Aktualne Zdjęcie:</label><br>
+                    <img id="currentImage" src="{{ artwork.imagePath }}" alt="Current Image" class="img-thumbnail mb-0" style="max-width: 300px;">
+                </div>
+            {% endif %}
 
-        <label for="image">New Image:</label>
-        <input type="file" name="image" id="image" onchange="previewImage(event)"><br>
-        <input type="hidden" name="imageId" id="imageId" value="{{ artwork.imageId }}">
+            <div class="form-group mb-3">
+                <label for="image" class="form-label">Zdjęcie:</label><br>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImage(event)" accept="image/*">
+                        <label class="custom-file-label" for="image">Wybierz zdjęcie</label>
+                    </div>
+                </div>
+            </div>
 
-        <button type="submit">Save</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        </form>
+    </div>
 
     <script>
         function previewImage(event) {
