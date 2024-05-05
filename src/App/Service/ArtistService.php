@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Repository\ArtistRepository;
+use Exception;
 
 class ArtistService {
 
@@ -22,7 +23,15 @@ class ArtistService {
 
     public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
     {
-        $this->artistRepository->editArtist($artistId, $firstName, $lastName, $yearOfBirth, $yearOfDeath);
+        if ($yearOfBirth !== null && ($yearOfDeath !== null && $yearOfDeath !== '' && $yearOfDeath < $yearOfBirth)) {
+            throw new Exception("Rok śmierci nie może być wcześniej niż rok urodzenia.");
+        }
+        $existingArtist = $this->artistRepository->getArtistById($artistId);
+        if ($existingArtist && ($existingArtist['first_name'] !== $firstName || $existingArtist['last_name'] !== $lastName)) {
+            $artistName = $existingArtist['first_name'] . ' ' . $existingArtist['last_name'];
+            throw new Exception("Artysta '$artistName' już istnieje.");
+        }
+        $this->artistRepository->editArtist($artistId, $firstName, $lastName, $yearOfBirth, (int)$yearOfDeath);
     }
 
     public function getArtistById(int $artistId): ?array
@@ -30,16 +39,17 @@ class ArtistService {
         return $this->artistRepository->getArtistById($artistId);
     }
 
-    public function addArtist(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): ?string
+    public function addArtist(string $firstName, string $lastName, ?int $yearOfBirth, ?int $yearOfDeath): void
     {
-        $existingArtist = $this->artistRepository->getArtistByNameAndDates($firstName, $lastName, $yearOfBirth, $yearOfDeath);
+        if ($yearOfBirth !== null && $yearOfDeath !== null && $yearOfDeath < $yearOfBirth) {
+            throw new Exception("Rok śmierci nie może być przed rokiem urodzenia.");
+        }
 
-        if ($existingArtist) {
-            return 'An artist with the same name and dates already exists.';
+        if ($this->artistRepository->isDuplicate($firstName, $lastName, $yearOfBirth, $yearOfDeath)) {
+            throw new Exception("Ten artysta już istnieje.");
         }
 
         $this->artistRepository->addArtist($firstName, $lastName, $yearOfBirth, $yearOfDeath);
-        return null;
     }
 
     public function deleteArtist(int $artistId)
@@ -47,11 +57,10 @@ class ArtistService {
         $artworksUsingArtist = $this->artworkService->getArtworkCountByArtistId($artistId);
 
         if ($artworksUsingArtist > 0) {
-            return 'Cannot delete the artist. The artist is associated with one or more artworks.';
+            throw new Exception('Nie można usunąć artysty, do którego przypisane są dzieła.');
         }
 
         $this->artistRepository->deleteArtist($artistId);
-        return null;
     }
 }
 

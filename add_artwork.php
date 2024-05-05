@@ -36,16 +36,33 @@ $imageService = new ImageService($imageRepository);
 $artworkController = new ArtworkController($artworkService, $artistService, $genreService, $imageService, $twig);
 
 $error = null;
+$inputValues = [
+    'title' => '',
+    'artistId' => '',
+    'genreId' => '',
+    'creationYear' => '',
+    'dimensions' => '',
+    'altText' => ''
+];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $title = $_POST['title'] ?? '';
-    $artistId = $_POST['artistId'] ?? '';
-    $genreId = $_POST['genreId'] ?? '';
-    $creationYear = $_POST['creationYear'] ?? '';
-    $dimensions = $_POST['dimensions'] ?? '';
-    $altText = $_POST['altText'] ?? '';
+    $inputValues = [
+        'title' => $_POST['title'] ?? '',
+        'artistId' => $_POST['artistId'] ?? '',
+        'genreId' => $_POST['genreId'] ?? '',
+        'creationYear' => $_POST['creationYear'] ?? '',
+        'dimensions' => $_POST['dimensions'] ?? '',
+        'altText' => $_POST['altText'] ?? ''
+    ];
 
     try {
+        $title = $inputValues['title'];
+        $artistId = $inputValues['artistId'];
+        $genreId = $inputValues['genreId'];
+        $creationYear = $inputValues['creationYear'];
+        $dimensions = $inputValues['dimensions'];
+        $altText = $inputValues['altText'];
+
         $artworkService->checkDuplicateArtwork($title, $artistId);
         $imagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name']);
         $imageId = $imageRepository->saveImage($imagePath, $altText);
@@ -60,6 +77,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $artists = $artistService->getAllArtists();
 $genres = $genreService->getAllGenres();
 
-echo $twig->render('add_artwork.twig', ['artists' => $artists, 'genres' => $genres, 'error' => $error]);
-
-?>
+echo $twig->render('add_artwork.twig', ['artists' => $artists, 'genres' => $genres, 'error' => $error, 'inputValues' => $inputValues]);

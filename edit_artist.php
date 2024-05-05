@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
@@ -20,6 +19,8 @@ $artistRepository = new ArtistRepository($pdo);
 $artistService = new ArtistService($artistRepository, $artworkService);
 $artistController = new ArtistController($artistService, $twig);
 
+$error = null;
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $artistId = $_POST['id'] ?? null;
     $firstName = $_POST['first_name'] ?? '';
@@ -27,9 +28,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $yearOfBirth = $_POST['year_of_birth'] ?? '';
     $yearOfDeath = $_POST['year_of_death'] ?? '';
 
-    $artistController->editArtist((int)$artistId, $firstName, $lastName, $yearOfBirth, $yearOfDeath);
+    try {
+        $artistController->editArtist((int)$artistId, $firstName, $lastName, $yearOfBirth, $yearOfDeath);
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+        $artist = $artistService->getArtistById($artistId);
+        echo $twig->render('edit_artist.twig', ['artist' => $artist, 'error' => $error]);
+        exit();
+    }
 }
+
 $artistId = $_GET['id'] ?? '';
 $artist = $artistService->getArtistById((int)$artistId);
 
-echo $twig->render('edit_artist.twig', ['artist' => $artist]);
+echo $twig->render('edit_artist.twig', ['artist' => $artist, 'error' => $error]);

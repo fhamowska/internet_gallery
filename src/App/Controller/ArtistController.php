@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\ArtistService;
+use Exception;
 use http\Env;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -31,25 +32,12 @@ class ArtistController {
 
     public function addArtist(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath)
     {
-        $error = $this->artistService->addArtist($firstName, $lastName, $yearOfBirth, $yearOfDeath);
-
-        if ($error === null) {
-            header("Location: artists.php");
-            exit();
-        }
-
-        return $error;
+        $this->artistService->addArtist($firstName, $lastName, $yearOfBirth, $yearOfDeath);
     }
 
     public function deleteArtist(int $artistId)
     {
-        $error = $this->artistService->deleteArtist($artistId);
-        if ($error !== null) {
-            echo $error;
-            exit();
-        }
-        header("Location: artists.php");
-        exit();
+        $this->artistService->deleteArtist($artistId);
     }
 }
 

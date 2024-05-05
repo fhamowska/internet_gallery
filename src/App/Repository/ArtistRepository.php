@@ -108,4 +108,21 @@ class ArtistRepository {
         return $stmt->fetchColumn() ?: null;
     }
 
+    public function isDuplicate(string $firstName, string $lastName, ?int $yearOfBirth, ?int $yearOfDeath): bool
+    {
+        $query = "SELECT COUNT(*) AS count FROM Artists WHERE first_name = :first_name AND last_name = :last_name AND year_of_birth = :year_of_birth AND year_of_death = :year_of_death";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['first_name' => $firstName, 'last_name' => $lastName, 'year_of_birth' => $yearOfBirth, 'year_of_death' => $yearOfDeath]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
+    }
+
+    public function isDuplicateEdit(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath, int $artistId): bool
+    {
+        $query = "SELECT COUNT(*) AS count FROM Artists WHERE first_name = :first_name AND last_name = :last_name AND year_of_birth = :year_of_birth AND year_of_death = :year_of_death AND id != :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['first_name' => $firstName, 'last_name' => $lastName, 'year_of_birth' => $yearOfBirth, 'year_of_death' => $yearOfDeath, 'id' => $artistId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
+    }
 }

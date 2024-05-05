@@ -1,21 +1,42 @@
 {% extends 'admin_base.twig' %}
 
 {% block title %}
-    Edit Artist
+    Edytuj Artystę
 {% endblock %}
 
 {% block content %}
-    <h1>Edit Artist</h1>
-    <form action="edit_artist.php" method="post">
-        <input type="hidden" name="id" value="{{ artist.id }}">
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" value="{{ artist.first_name }}"><br><br>
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" value="{{ artist.last_name }}"><br><br>
-        <label for="year_of_birth">Date of Birth:</label>
-        <input type="number" id="year_of_birth" name="year_of_birth" value="{{ artist.year_of_birth }}"><br><br>
-        <label for="year_of_death">Date of Death:</label>
-        <input type="number" id="year_of_death" name="year_of_death" value="{{ artist.year_of_death }}"><br><br>
-        <button type="submit">Save</button>
-    </form>
+    <div class="container container-edit mt-5 pl-5 pr-5">
+        <h1 class="mt-4 ml-3 mb-3">Edytuj Artystę</h1>
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form action="edit_artist.php" method="post">
+            <input type="hidden" name="id" value="{{ artist.id }}">
+            <div class="form-group">
+                <label for="first_name">Imię:</label>
+                <input type="text" class="form-control" name="first_name" id="first_name" value="{{ artist.first_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Nazwisko:</label>
+                <input type="text" class="form-control" name="last_name" id="last_name" value="{{ artist.last_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="year_of_birth">Rok urodzenia:</label>
+                <input type="number" class="form-control" name="year_of_birth" id="year_of_birth" value="{{ artist.year_of_birth }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="year_of_death">Rok śmierci:</label>
+                <input type="number" class="form-control" name="year_of_death" id="year_of_death" {% if artist.year_of_death != 0 %} value="{{ artist.year_of_death }}" {% endif %}>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        </form>
+    </div>
 {% endblock %}

@@ -13,11 +13,21 @@ $artistRepository = new ArtistRepository($pdo);
 $artistService = new ArtistService($artistRepository, $artworkService);
 $artistController = new ArtistController($artistService, $twig);
 
-$artistId = $_POST['id'] ?? null;
+$artistId = $_GET['id'] ?? null;
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && $artistId !== null) {
-    $artistController->deleteArtist((int)$artistId);
+if ($_SERVER["REQUEST_METHOD"] === "GET" && $artistId !== null) {
+    try {
+        $artistController->deleteArtist((int)$artistId);
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+    }
 }
 
-header("Location: artists.php");
-exit();
+$artists = $artistService->getAllArtists();
+
+if ($error) {
+    echo $twig->render('artists.twig', ['error' => $error, 'artists' => $artists]);
+} else {
+    header("Location: artists.php");
+    exit();
+}
