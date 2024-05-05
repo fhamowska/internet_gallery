@@ -34,7 +34,6 @@ class ImageRepository
 
     public function saveImage(string $imagePath, string $altText): int
     {
-        var_dump($altText);
         $query = "INSERT INTO Images (image_path, alt_text) VALUES (:imagePath, :altText)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':imagePath', $imagePath, PDO::PARAM_STR);

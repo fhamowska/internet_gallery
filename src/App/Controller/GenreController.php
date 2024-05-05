@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\GenreRepository;
 use App\Service\GenreService;
+use Exception;
 use Twig\Environment;
 
 class GenreController
@@ -22,8 +23,11 @@ class GenreController
         echo $this->twig->render('genres.twig', ['genres' => $genres]);
     }
 
-    public function editGenre(int $genreId, string $name)
-    {
+    public function editGenre(int $genreId, string $name) {
+        $existingGenre = $this->genreService->getGenreByName($name);
+        if ($existingGenre && $existingGenre['id'] !== $genreId) {
+            throw new Exception("Kategoria '$name' już istnieje.");
+        }
         $this->genreService->updateGenre($genreId, $name);
         header("Location: genres.php");
         exit();
@@ -31,6 +35,12 @@ class GenreController
 
     public function addGenre(string $name)
     {
-        return $this->genreService->addGenre($name);
+        $existingGenre = $this->genreService->getGenreByName($name);
+        if ($existingGenre) {
+            throw new Exception("Kategoria '$name' już istnieje.");
+        }
+        $this->genreService->addGenre($name);
+        header("Location: genres.php");
+        exit();
     }
 }

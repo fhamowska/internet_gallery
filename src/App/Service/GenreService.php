@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Repository\GenreRepository;
+use Exception;
 
 class GenreService
 {
@@ -32,20 +33,20 @@ class GenreService
         $artworksUsingGenre = $this->genreRepository->getArtworkCountByGenreId($genreId);
 
         if ($artworksUsingGenre > 0) {
-            echo 'Cannot delete the genre. It is used in one or more artworks.';
-            exit();
+            throw new Exception('Nie można usunąć kategorii, do której należą dzieła.');
         }
 
         $this->genreRepository->deleteGenre($genreId);
     }
 
-    public function addGenre(string $name): ?string
+    public function addGenre(string $name)
     {
-        $existingGenre = $this->genreRepository->getGenreByName($name);
-        if ($existingGenre) {
-            return 'Genre with the same name already exists.';
-        }
         $this->genreRepository->addGenre($name);
-        return null;
     }
+
+    public function getGenreByName(string $name)
+    {
+        return $this->genreRepository->getGenreByName($name);
+    }
+
 }

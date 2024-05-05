@@ -2,6 +2,9 @@
 use App\Repository\GenreRepository;
 use App\Service\GenreService;
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once(__DIR__) . '/vendor/autoload.php';
 require_once 'bootstrap.php';
 
@@ -9,11 +12,22 @@ $genreRepository = new GenreRepository($pdo);
 $genreService = new GenreService($genreRepository);
 
 $error = null;
-$genreId = $_POST['id'] ?? '';
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id'])) {
-    $genreId = $_POST['id'];
-    $genreService->deleteGenre($genreId);
+$genreId = $_GET['id'] ?? '';
+
+if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['id'])) {
+    $genreId = $_GET['id'];
+    try {
+        $genreService->deleteGenre($genreId);
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+    }
 }
 
-header("Location: genres.php");
-exit();
+$genres = $genreRepository->getAllGenres();
+
+if ($error) {
+    echo $twig->render('genres.twig', ['error' => $error, 'genres' => $genres]);
+} else {
+    header("Location: genres.php");
+    exit();
+}
