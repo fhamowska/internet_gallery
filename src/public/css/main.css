@@ -11,6 +11,17 @@ body {
     min-height: 100vh;
 }
 
+.skip-nav {
+    background-color: #947a94;
+    position: fixed;
+    transform: translateY(-444%);
+    transition: transform 300ms ease-in;
+}
+
+.skip-nav:focus {
+    top: 4vw;
+    transform: translate(0);
+}
 
 .navbar {
     background-color: #142a2c;

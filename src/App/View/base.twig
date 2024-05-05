@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="src/public/css/index.css">
 </head>
 <body>
+<a href="#content" class="btn btn-light px-1 skip-nav my-1 mx-3">Pomiń nawigację</a>
 <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
     <a class="navbar-brand" href="index.php">Internetowa Galeria Sztuki</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +44,7 @@
 </nav>
 
 
-<div>
+<div id="content">
     {% block content %}{% endblock %}
 </div>
 
