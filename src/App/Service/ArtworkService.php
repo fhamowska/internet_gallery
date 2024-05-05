@@ -56,6 +56,7 @@ class ArtworkService
                 $genreName,
                 $artwork->getCreationYear(),
                 $artwork->getDimensions(),
+                $artwork->getMedium(),
                 $imagePath,
                 $altText,
                 $username,
@@ -94,6 +95,7 @@ class ArtworkService
             $genreName,
             $artwork->getCreationYear(),
             $artwork->getDimensions(),
+            $artwork->getMedium(),
             $imagePath,
             $altText,
             $username,
@@ -103,9 +105,9 @@ class ArtworkService
         );
     }
 
-    public function editArtwork(int $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, ?string $imageId): void
+    public function editArtwork(int $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, string $medium, ?string $imageId): void
     {
-        $this->artworkRepository->editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId);
+        $this->artworkRepository->editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $medium, $imageId);
     }
 
     public function getArtworkCountByArtistId(int $artistId): int
@@ -118,9 +120,9 @@ class ArtworkService
         return $this->artworkRepository->getRandomArtworkId();
     }
 
-    public function addArtwork(string $title, int $artistId, int $genreId, ?int $creationYear, ?string $dimensions, int $imageId, int $createdBy)
+    public function addArtwork(string $title, int $artistId, int $genreId, ?int $creationYear, ?string $dimensions, int $imageId, int $createdBy, string $medium)
     {
-        $this->artworkRepository->addArtwork($title, $artistId, $genreId, $creationYear, $dimensions, $imageId, $createdBy);
+        $this->artworkRepository->addArtwork($title, $artistId, $genreId, $creationYear, $dimensions, $imageId, $createdBy, $medium);
     }
 
     public function checkDuplicateArtwork(string $title, int $artistId): void
@@ -135,5 +137,10 @@ class ArtworkService
         if ($this->artworkRepository->isDuplicateWhenEdit($title, $artistId, $artworkId)) {
             throw new Exception("Dzieło artysty o tym tytule już istnieje.");
         }
+    }
+
+    public function getTotalArtworks()
+    {
+        return $this->artworkRepository->getTotalArtworks();
     }
 }

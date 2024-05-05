@@ -128,6 +128,18 @@ body {
     width: 26vw;
 }
 
+.skip-nav {
+    background-color: white;
+    position: fixed;
+    transform: translateY(-444%);
+    transition: transform 300ms ease-in;
+}
+
+.skip-nav:focus {
+    top: 4vw;
+    transform: translate(0);
+}
+
 .container-edit {
     padding-left: 10vw !important;
     padding-right: 10vw !important;

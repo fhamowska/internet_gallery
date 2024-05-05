@@ -42,6 +42,7 @@ $inputValues = [
     'genreId' => '',
     'creationYear' => '',
     'dimensions' => '',
+    'medium' => '',
     'altText' => ''
 ];
 
@@ -52,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         'genreId' => $_POST['genreId'] ?? '',
         'creationYear' => $_POST['creationYear'] ?? '',
         'dimensions' => $_POST['dimensions'] ?? '',
+        'medium' => $_POST['medium'] ?? '',
         'altText' => $_POST['altText'] ?? ''
     ];
 
@@ -61,12 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $genreId = $inputValues['genreId'];
         $creationYear = $inputValues['creationYear'];
         $dimensions = $inputValues['dimensions'];
+        $medium = $inputValues['medium'];
         $altText = $inputValues['altText'];
 
         $artworkService->checkDuplicateArtwork($title, $artistId);
         $imagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name']);
         $imageId = $imageRepository->saveImage($imagePath, $altText);
-        $artworkService->addArtwork($title, $artistId, $genreId, (int)$creationYear, $dimensions, $imageId, $loggedInAdminId);
+        $artworkService->addArtwork($title, $artistId, $genreId, (int)$creationYear, $dimensions, $imageId, $loggedInAdminId, $medium);
         header("Location: admin.php");
         exit();
     } catch (Exception $e) {

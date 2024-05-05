@@ -125,4 +125,10 @@ class ArtistRepository {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['count'] > 0;
     }
+
+    public function getTotalArtists()
+    {
+        $stmt = $this->pdo->query('SELECT COUNT(*) FROM Artists');
+        return $stmt->fetchColumn();
+    }
 }

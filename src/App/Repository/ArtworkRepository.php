@@ -23,6 +23,7 @@ class ArtworkRepository
               Artworks.genre_id, 
               Artworks.creation_year, 
               Artworks.dimensions, 
+              Artworks.medium,
               Artworks.created_by,
               Artworks.created_at,
               Artworks.edited_at,
@@ -107,6 +108,7 @@ class ArtworkRepository
                 $row['genre_id'],
                 $row['created_by'],
                 $row['created_at'],
+                $row['medium'],
                 $row['image_id'],
                 $row['creation_year'],
                 $row['dimensions'],
@@ -181,6 +183,7 @@ class ArtworkRepository
               Artworks.genre_id, 
               Artworks.creation_year, 
               Artworks.dimensions, 
+              Artworks.medium,
               Artworks.created_by,
               Artworks.created_at,
               Artworks.edited_at,
@@ -224,6 +227,7 @@ class ArtworkRepository
             $row['genre_id'],
             $row['created_by'],
             $row['created_at'],
+            $row['medium'],
             $row['image_id'],
             $row['creation_year'],
             $row['dimensions'],
@@ -231,10 +235,10 @@ class ArtworkRepository
         );
     }
 
-    public function editArtwork(string $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, ?int $imageId)
+    public function editArtwork(string $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, string $medium, ?int $imageId)
     {
         $query = "UPDATE Artworks 
-              SET title = :title, artist_id = :artistId, genre_id = :genreId, creation_year = :creationYear, dimensions = :dimensions";
+              SET title = :title, artist_id = :artistId, genre_id = :genreId, creation_year = :creationYear, dimensions = :dimensions, medium = :medium";
 
         if ($imageId !== null) {
             $query .= ", image_id = :imageId";
@@ -249,6 +253,7 @@ class ArtworkRepository
         $stmt->bindParam(':genreId', $genreId, PDO::PARAM_INT);
         $stmt->bindParam(':creationYear', $creationYear, PDO::PARAM_INT);
         $stmt->bindParam(':dimensions', $dimensions);
+        $stmt->bindParam(':medium', $medium);
 
         if ($imageId !== null) {
             $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
@@ -265,16 +270,17 @@ class ArtworkRepository
         $stmt->execute();
     }
 
-    public function addArtwork(string $title, int $artistId, int $genreId, ?int $creationYear, ?string $dimensions, int $imageId, int $createdBy)
+    public function addArtwork(string $title, int $artistId, int $genreId, ?int $creationYear, ?string $dimensions, int $imageId, int $createdBy, string $medium)
     {
-        $query = "INSERT INTO Artworks (title, artist_id, genre_id, creation_year, dimensions, image_id, created_by) 
-              VALUES (:title, :artistId, :genreId, :creationYear, :dimensions, :imageId, :createdBy)";
+        $query = "INSERT INTO Artworks (title, artist_id, genre_id, creation_year, dimensions, image_id, created_by, medium) 
+              VALUES (:title, :artistId, :genreId, :creationYear, :dimensions, :imageId, :createdBy, :medium)";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->bindParam(':artistId', $artistId, PDO::PARAM_INT);
         $stmt->bindParam(':genreId', $genreId, PDO::PARAM_INT);
         $stmt->bindParam(':creationYear', $creationYear, PDO::PARAM_INT);
         $stmt->bindParam(':dimensions', $dimensions, PDO::PARAM_STR);
+        $stmt->bindParam(':medium', $medium, PDO::PARAM_STR);
         $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
         $stmt->bindParam(':createdBy', $createdBy, PDO::PARAM_INT);
         $stmt->execute();
@@ -311,5 +317,11 @@ class ArtworkRepository
         $stmt->execute(['title' => $title, 'artist_id' => $artistId, 'artwork_id' => $artworkId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['count'] > 0;
+    }
+
+    public function getTotalArtworks()
+    {
+        $stmt = $this->pdo->query('SELECT COUNT(*) FROM Artworks');
+        return $stmt->fetchColumn();
     }
 }

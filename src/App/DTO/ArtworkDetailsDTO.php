@@ -10,6 +10,7 @@ class ArtworkDetailsDTO
     private string $genreName;
     private ?int $creationYear;
     private ?string $dimensions;
+    private string $medium;
     private string $imagePath;
     private string $altText;
     private string $username;
@@ -28,6 +29,7 @@ class ArtworkDetailsDTO
         string  $genreName,
         ?int    $creationYear,
         ?string $dimensions,
+        string $medium,
         string  $imagePath,
         string  $altText,
         string  $username,
@@ -43,6 +45,7 @@ class ArtworkDetailsDTO
         $this->genreName = $genreName;
         $this->creationYear = $creationYear;
         $this->dimensions = $dimensions;
+        $this->medium = $medium;
         $this->imagePath = $imagePath;
         $this->altText = $altText;
         $this->username = $username;
@@ -89,6 +92,11 @@ class ArtworkDetailsDTO
     public function getDimensions(): ?string
     {
         return $this->dimensions;
+    }
+
+    public function getMedium(): string
+    {
+        return $this->medium;
     }
 
     public function getImagePath(): string

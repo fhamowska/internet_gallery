@@ -86,13 +86,13 @@ class ArtworkController
         }
     }
 
-    public function editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId, ?int $oldImageId, $updateImage = true)
+    public function editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $medium, $imageId, ?int $oldImageId, $updateImage = true)
     {
         if (!$updateImage) {
             $imageId = null;
         }
 
-        $this->artworkService->editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $imageId);
+        $this->artworkService->editArtwork($artworkId, $title, $artistId, $genreId, $creationYear, $dimensions, $medium, $imageId);
         if($oldImageId !== null && $updateImage)
         {
             $this->imageService->deleteImage($oldImageId);

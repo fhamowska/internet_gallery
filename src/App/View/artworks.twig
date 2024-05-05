@@ -58,10 +58,11 @@
                             <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                         </a>
                         <div class="card-body">
-                            <h5 class="card-title"><a href="single_artwork.php?id={{ artwork.id }}">{{ artwork.title }}</a></h5>
-                            <p class="card-text">Twórca: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }} </a>({{ artwork.artistYearOfBirth ?? '' }} - {{ artwork.artistYearOfDeath ?? '' }})</p>
-                            <p class="card-text">Kategoria: {{ artwork.genreName }}</p>
-                            <p class="card-text">Rok powstania: {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }}{% endif %}</p>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title mb-0"><a href="single_artwork.php?id={{ artwork.id }}">{{ artwork.title }}</a></h5>
+                                <button type="button" class="btn btn-sm btn-outline-dark alt-button" data-toggle="modal" data-target="#altTextModal" data-alt="{{ artwork.altText }}">ALT</button>
+                            </div>
+                            <p class="card-text"><a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }}</a>, {{ artwork.genreName }}, {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }} r.{% endif %}</p>
                         </div>
                     </div>
                 {% endfor %}
@@ -112,4 +113,20 @@
         {% endif %}
 
     </div>
+    <div class="modal fade" id="altTextModal" tabindex="-1" aria-labelledby="altTextModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="altTextModalLabel">Alt Text</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="altTextContent"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

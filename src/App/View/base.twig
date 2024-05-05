@@ -13,10 +13,10 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="src/public/css/main.css">
     <link rel="stylesheet" href="src/public/css/single_artwork.css">
     <link rel="stylesheet" href="src/public/css/artworks.css">
     <link rel="stylesheet" href="src/public/css/index.css">
+    <link rel="stylesheet" href="src/public/css/main.css">
 </head>
 <body>
 <a href="#content" class="btn btn-light px-1 skip-nav my-1 mx-3">Pomiń nawigację</a>
@@ -34,10 +34,10 @@
                 <a class="nav-link" href="single_artwork.php?id=random">Losowe dzieło</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="random_artwork.php">O nas</a>
+                <a class="nav-link" href="about_us.php">O nas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="random_artwork.php">Kontakt</a>
+                <a class="nav-link" href="contact.php">Kontakt</a>
             </li>
         </ul>
     </div>
@@ -76,6 +76,11 @@
                     placeholder: "Wybierz kategorie",
                     allowClear: true
                 });
+            });
+
+            $('.alt-button').click(function () {
+                var altText = $(this).data('alt');
+                $('#altTextContent').text(altText);
             });
         });
     </script>

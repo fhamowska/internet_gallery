@@ -7,18 +7,36 @@
         <div class="row justify-content-center align-items-center" style="height: 100%;">
             <div class="col-md-8">
                 <div class="card card-single mx-auto" style="max-width: fit-content; max-height: 100vh;">
-                    <div class="w-100">
+                    <div class="w-100 position-relative">
                         <a href="{{ artwork.imagePath }}" target="_blank">
                             <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" style="max-height: 65vh; width: auto;">
                         </a>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="single_artwork.php?id={{ artwork.id }}">{{ artwork.title }}</a></h5>
-                        <p class="card-text">Twórca: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }} </a>({% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}obecnie{% endif %})</p>
+                    <div class="card-body pb-2">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title mb-0"><a href="single_artwork.php?id={{ artwork.id }}">{{ artwork.title }}</a></h5>
+                            <button type="button" class="btn btn-sm btn-outline-dark alt-button" data-toggle="modal" data-target="#altTextModal" data-alt="{{ artwork.altText }}">ALT</button>
+                        </div>                        <p class="card-text">Autor: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }} </a>({% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}obecnie{% endif %})</p>
                         <p class="card-text">Kategoria: {{ artwork.genreName }}</p>
                         <p class="card-text">Rok powstania: {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }}{% endif %}</p>
-                        <p class="card-text">Wymiary: {{ artwork.dimensions }}</p>
+                        <p class="card-text">Medium: {{ artwork.medium }}</p>
+                        <p class="card-text mb-0 pb-0">Wymiary: {{ artwork.dimensions }}</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="altTextModal" tabindex="-1" aria-labelledby="altTextModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="altTextModalLabel">Alt Text</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="altTextContent"></p>
                 </div>
             </div>
         </div>

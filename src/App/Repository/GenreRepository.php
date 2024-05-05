@@ -77,4 +77,10 @@ class GenreRepository
         $stmt->execute(['name' => $name]);
         return $stmt->fetch();
     }
+
+    public function getTotalGenres()
+    {
+        $stmt = $this->pdo->query('SELECT COUNT(*) FROM Genres');
+        return $stmt->fetchColumn();
+    }
 }

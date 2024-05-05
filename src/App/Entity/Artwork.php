@@ -14,6 +14,7 @@ class Artwork
     private string $createdAt;
     private ?string $editedAt;
     private int $createdBy;
+    private string $medium;
 
     public function __construct(
         int $id,
@@ -22,6 +23,7 @@ class Artwork
         int $genreId,
         int $createdBy,
         string $createdAt,
+        string $medium,
         int $imageId,
         int $creationYear = null,
         string $dimensions = null,
@@ -31,6 +33,7 @@ class Artwork
         $this->title = $title;
         $this->artistId = $artistId;
         $this->genreId = $genreId;
+        $this->medium = $medium;
         $this->creationYear = $creationYear;
         $this->dimensions = $dimensions;
         $this->imageId = $imageId;
@@ -77,6 +80,11 @@ class Artwork
     public function setGenreId(int $genreId): void
     {
         $this->genreId = $genreId;
+    }
+
+    public function getMedium(): string
+    {
+        return $this->medium;
     }
 
     public function getCreationYear(): ?int

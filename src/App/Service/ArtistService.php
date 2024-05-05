@@ -62,5 +62,9 @@ class ArtistService {
 
         $this->artistRepository->deleteArtist($artistId);
     }
+    public function getTotalArtists()
+    {
+        return $this->artistRepository->getTotalArtists();
+    }
 }
 

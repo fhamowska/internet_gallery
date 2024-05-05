@@ -49,4 +49,8 @@ class GenreService
         return $this->genreRepository->getGenreByName($name);
     }
 
+    public function getTotalGenres()
+    {
+        return $this->genreRepository->getTotalGenres();
+    }
 }

@@ -1,0 +1,37 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+    About Us
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center">
+    <div class="container-about-us p-4 rounded" style="max-width: 80vw; min-height: 77vh">
+            <h1 class="ml-5 pt-3 mt-0 mb-4">O nas</h1>
+            <h2 class="ml-3">Nasza misja</h2>
+            <p>Mauris egestas nisi lacinia, luctus leo eu, iaculis neque. Fusce vitae luctus nibh, a fermentum metus. Aenean sed dui at lorem tempus molestie a vel nisi. Nullam hendrerit pellentesque efficitur.</p>
+
+            <h2 class="ml-3">Co oferujemy</h2>
+            <ul class="ml-0 pl-4">
+                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                <li>Ut felis, tincidunt iaculis nisi gravida vel</li>
+                <li>Sed facilisis tincidunt justo et venenatis.</li>
+                <li>Ut felis, ipsum dolor sit amet</li>
+            </ul>
+
+            <div class="collection-info mb-4">
+                <h2 class="ml-3 mb-3">Nasza kolekcja</h2>
+                <div class="card ml-0 card-about-us">
+                    <div class="card-body">
+                        <h5 class="card-title">Aktualnie w naszej kolekcji:</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">Dzieła: {{ totalArtworks }}<a href="gallery.php" class="btn btn-about-us">Przeglądaj dzieła</a></li>
+                            <li class="list-group-item">Artyści: {{ totalArtists }}</li>
+                            <li class="list-group-item">Gatunki: {{ totalGenres }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

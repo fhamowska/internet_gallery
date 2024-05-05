@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $genreId = $_POST['genreId'] ?? '';
     $creationYear = $_POST['creationYear'] ?? '';
     $dimensions = $_POST['dimensions'] ?? '';
+    $medium = $_POST['medium'] ?? '';
     $imageId = $_POST['imageId'] ?? '';
     $altText = $_POST['altText'] ?? '';
 
@@ -71,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $genreId,
             $creationYear,
             $dimensions,
+            $medium,
             $imageId,
             $oldImageId ?? null,
             !empty($newImagePath),

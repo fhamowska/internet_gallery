@@ -63,6 +63,7 @@
                     <th class="d-none d-sm-table-cell">Kategoria</th>
                     <th class="d-none d-md-table-cell">Rok powstania</th>
                     <th class="d-none d-md-table-cell">Wymiary</th>
+                    <th class="d-none d-lg-table-cell">Medium</th>
                     <th class="d-none d-lg-table-cell">Autor</th>
                     <th>Akcje</th>
                 </tr>
@@ -84,6 +85,7 @@
                         <td class="d-none d-sm-table-cell">{{ artwork.genreName }}</td>
                         <td class="d-none d-md-table-cell">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
                         <td class="d-none d-md-table-cell">{{ artwork.dimensions }}</td>
+                        <td class="d-none d-lg-table-cell">{{ artwork.medium }}</td>
                         <td class="d-none d-lg-table-cell">{{ artwork.username }}</td>
                         <td class="actions">
                             <div class="text-center">
