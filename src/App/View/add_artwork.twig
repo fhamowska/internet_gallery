@@ -5,53 +5,74 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Add Artwork</h1>
-    <form action="add_artwork.php" method="post" enctype="multipart/form-data">
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" required><br>
+    <div class="container container-edit mt-5 pl-5 pr-5">
+        <h1 class="mt-4 ml-3 mb-3">Dodaj dzieło</h1>
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form action="add_artwork.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ artwork.id }}">
+            <div class="form-group">
+                <label for="title">Tytuł:</label>
+                <input type="text" class="form-control" name="title" id="title" value="{{ artwork.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="artistId">Twórca:</label>
+                <select class="form-control" name="artistId" id="artistId" required>
+                    <option value=""></option>
+                    {% for artist in artists %}
+                        <option value="{{ artist.id }}" {% if artist.id == artwork.artistId %} selected {% endif %}>{{ artist.first_name }} {{ artist.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="artistId">Artist:</label>
-        <select name="artistId" id="artistId" required>
-            <option value="">Select an artist</option>
-            {% for artist in artists %}
-                <option value="{{ artist.id }}">{{ artist.first_name }} {{ artist.last_name }}</option>
-            {% endfor %}
-        </select><br>
+            <div class="form-group">
+                <label for="genreId">Kategoria:</label>
+                <select class="form-control" name="genreId" id="genreId" required>
+                    <option value=""></option>
+                    {% for genre in genres %}
+                        <option value="{{ genre.id }}" {% if genre.id == artwork.genreId %} selected {% endif %}>{{ genre.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label for="genreId">Genre:</label>
-        <select name="genreId" id="genreId" required>
-            <option value="">Select a genre</option>
-            {% for genre in genres %}
-                <option value="{{ genre.id }}">{{ genre.name }}</option>
-            {% endfor %}
-        </select><br>
+            <div class="form-group">
+                <label for="creationYear">Rok utworzenia:</label>
+                <input type="number" class="form-control" name="creationYear" id="creationYear" min="0" value="{{ artwork.creationYear }}">
+            </div>
 
-        <label for="creationYear">Creation Year:</label>
-        <input type="number" name="creationYear" id="creationYear" min="0"><br>
+            <div class="form-group">
+                <label for="dimensions">Wymiary (wysokość × szerokość w cm):</label>
+                <input type="text" class="form-control" name="dimensions" id="dimensions" value="{{ artwork.dimensions }}" required>
+            </div>
 
-        <label for="dimensions">Dimensions:</label>
-        <input type="text" name="dimensions" id="dimensions"><br>
+            <div class="form-group">
+                <label for="altText">Tekst alternatywny:</label>
+                <textarea id="altText" name="altText" class="form-control" required></textarea>
+            </div>
 
-        <label for="image">Image:</label>
-        <input type="file" name="image" id="image" required>
-        <img id="imagePreview" src="#" alt="Image Preview" style="display: none; max-width: 200px;"><br>
+            <div class="form-group mb-3">
+                <label for="image" class="form-label">Zdjęcie:</label><br>
+                <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImage(event)" accept="image/*" required>
+                        <label class="custom-file-label" for="image">Wybierz zdjęcie</label>
+                    </div>
+                </div>
+                <img id="imagePreview" src="#" alt="Image Preview" class = "img-thumbnail" style = "display: none; max-width: 300px;">
+            </div>
 
-        <label for="altText">Alt Text:</label>
-        <input type="text" name="altText" id="altText" required><br>
-
-        <button type="submit">Add Artwork</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+        </form>
+    </div>
 
     <script>
-        document.getElementById('image').addEventListener('change', function(event) {
-            var input = event.target;
-            var reader = new FileReader();
-            reader.onload = function() {
-                var img = document.getElementById('imagePreview');
-                img.src = reader.result;
-                img.style.display = 'block';
-            };
-            reader.readAsDataURL(input.files[0]);
-        });
+        function previewImage(event) {
+            const imagePreview = document.getElementById('imagePreview');
+            imagePreview.src = URL.createObjectURL(event.target.files[0]);
+            imagePreview.style.display = 'block';
+        }
     </script>
 {% endblock %}

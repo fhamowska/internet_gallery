@@ -8,6 +8,7 @@ use App\Repository\ArtistRepository;
 use App\Repository\GenreRepository;
 use App\Repository\ImageRepository;
 use App\DTO\ArtworkDetailsDTO;
+use Exception;
 
 class ArtworkService
 {
@@ -115,5 +116,17 @@ class ArtworkService
     public function getRandomArtworkId()
     {
         return $this->artworkRepository->getRandomArtworkId();
+    }
+
+    public function addArtwork(string $title, int $artistId, int $genreId, ?int $creationYear, ?string $dimensions, int $imageId, int $createdBy)
+    {
+        $this->artworkRepository->addArtwork($title, $artistId, $genreId, $creationYear, $dimensions, $imageId, $createdBy);
+    }
+
+    public function checkDuplicateArtwork(string $title, int $artistId): void
+    {
+        if ($this->artworkRepository->isDuplicate($title, $artistId)) {
+            throw new Exception("Dzieło artysty o tym tytule już istnieje.");
+        }
     }
 }
