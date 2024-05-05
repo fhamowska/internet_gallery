@@ -17,7 +17,9 @@ use App\Service\ArtistService;
 use App\Service\GenreService;
 use App\Service\ImageService;
 
-require_once(__DIR__) . '/vendor/autoload.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once (__DIR__) . '/vendor/autoload.php';
 require_once 'bootstrap.php';
 
 $artworkService = ArtworkServiceFactory::create($pdo);
@@ -29,6 +31,9 @@ $artistService = new ArtistService($artistRepository, $artworkService);
 $genreService = new GenreService($genreRepository);
 $imageService = new ImageService($imageRepository);
 $artworkController = new ArtworkController($artworkService, $artistService, $genreService, $imageService, $twig);
+
+$error = null;
+$artwork = null;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $artworkId = $_POST['id'] ?? null;
@@ -47,32 +52,49 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $newImagePath = null;
 
-    if (!empty($image)) {
-        $newImagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name']);
-        if ($newImagePath) {
-            $imageId = $imageService->saveImage($newImagePath, $altText);
+    try {
+        $artworkService->checkDuplicateArtworkEdit($title, $artistId, $artworkId);
+        if (!empty($image)) {
+            $newImagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name']);
+            if ($newImagePath) {
+                $imageId = $imageService->saveImage($newImagePath, $altText);
+            }
+        } else {
+            $imageId = $artworkRepository->getArtworkById($artworkId)->getImageId();
+            $imageService->updateAltText($imageId, $altText);
         }
-    } else {
-        $imageId = $artworkRepository->getArtworkById($artworkId)->getImageId();
-        $imageService->updateAltText($imageId, $altText);
+
+        $artworkController->editArtwork(
+            (int)$artworkId,
+            $title,
+            (int)$artistId,
+            $genreId,
+            $creationYear,
+            $dimensions,
+            $imageId,
+            $oldImageId ?? null,
+            !empty($newImagePath),
+        );
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+        $artworkId = $_POST['id'] ?? null;
+        if ($artworkId !== null) {
+            $artwork = $artworkService->getArtworkById($artworkId);
+        }
     }
-
-
-    $artworkController->editArtwork(
-        (int)$artworkId,
-        $title,
-        (int)$artistId,
-        $genreId,
-        $creationYear,
-        $dimensions,
-        $imageId,
-        $oldImageId ?? null,
-        !empty($newImagePath),
-    );
+} else {
+    $artworkId = $_GET['id'] ?? null;
+    if ($artworkId === null) {
+        $artwork = $artworkService->getArtworkById($artworkId);
+    }
 }
-$artworkId = $_GET['id'] ?? null;
-$artwork = $artworkService->getArtworkById($artworkId);
+
+if ($artwork === null && $artworkId !== null) {
+    $artwork = $artworkService->getArtworkById($artworkId);
+}
+
 $artists = $artistService->getAllArtists();
 $genres = $genreService->getAllGenres();
 
-echo $twig->render('edit_artwork.twig', ['artwork' => $artwork, 'artists' => $artists, 'genres' => $genres]);
+echo $twig->render('edit_artwork.twig', ['artwork' => $artwork, 'artists' => $artists, 'genres' => $genres, 'error' => $error]);
+

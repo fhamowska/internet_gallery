@@ -129,4 +129,11 @@ class ArtworkService
             throw new Exception("Dzieło artysty o tym tytule już istnieje.");
         }
     }
+
+    public function checkDuplicateArtworkEdit(string $title, int $artistId, int $artworkId): void
+    {
+        if ($this->artworkRepository->isDuplicateWhenEdit($title, $artistId, $artworkId)) {
+            throw new Exception("Dzieło artysty o tym tytule już istnieje.");
+        }
+    }
 }

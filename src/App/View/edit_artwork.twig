@@ -7,11 +7,18 @@
 {% block content %}
     <div class="container container-edit mt-5 pl-5 pr-5">
         <h1 class="mt-4 ml-3 mb-3">Edytuj „{{ artwork.title }}”</h1>
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
         <form action="edit_artwork.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{{ artwork.id }}">
             <div class="form-group">
                 <label for="title">Tytuł:</label>
-                <input type="text" class="form-control" name="title" id="title" value="{{ artwork.title }}" required>
+                <input type="text" class="form-control" name="title" id="title" value="{{ artwork.title ?? '' }}" required>
             </div>
 
             <div class="form-group">
@@ -34,17 +41,17 @@
 
             <div class="form-group">
                 <label for="creationYear">Rok utworzenia:</label>
-                <input type="number" class="form-control" name="creationYear" id="creationYear" min="0" value="{{ artwork.creationYear }}">
+                <input type="number" class="form-control" name="creationYear" id="creationYear" min="0" value="{{ artwork.creationYear ?? '' }}">
             </div>
 
             <div class="form-group">
                 <label for="dimensions">Wymiary (wysokość × szerokość w cm):</label>
-                <input type="text" class="form-control" name="dimensions" id="dimensions" value="{{ artwork.dimensions }}" required>
+                <input type="text" class="form-control" name="dimensions" id="dimensions" value="{{ artwork.dimensions ?? '' }}" required>
             </div>
 
             <div class="form-group">
                 <label for="altText">Tekst alternatywny:</label>
-                <textarea id="altText" name="altText" class="form-control" required>ikfi</textarea>
+                <textarea id="altText" name="altText" class="form-control" required>{{ artwork.altText ?? '' }}</textarea>
             </div>
 
             {% if artwork.imagePath %}

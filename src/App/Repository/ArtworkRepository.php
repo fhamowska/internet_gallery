@@ -303,4 +303,13 @@ class ArtworkRepository
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['count'] > 0;
     }
+
+    public function isDuplicateWhenEdit(string $title, int $artistId, int $artworkId): bool
+    {
+        $query = "SELECT COUNT(*) AS count FROM Artworks WHERE title = :title AND artist_id = :artist_id AND id != :artwork_id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['title' => $title, 'artist_id' => $artistId, 'artwork_id' => $artworkId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
+    }
 }
