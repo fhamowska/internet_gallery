@@ -63,6 +63,7 @@ body {
     border: 1px solid #23324f;
     border-radius: 4px;
     padding: 1px 5px;
+    white-space: nowrap;
 }
 .artist-link:hover {
     text-decoration: none;
@@ -119,22 +120,10 @@ body {
     transform: scale(1.04);
     transition: transform 0.4s;
 }
+
 .card-artworks {
     overflow: hidden;
 }
-/*.gallery-index {*/
-/*    margin-bottom: 45vw;*/
-/*}*/
-
-/*.gallery-index input {*/
-/*    padding-top: 1.5vw;*/
-/*    padding-bottom: 1.5vw;*/
-/*}*/
-
-/*.gallery-link {*/
-/*    padding-top: 0.8vw;*/
-/*    padding-bottom: 0.8vw;*/
-/*}*/
 
 @media all and (max-width: 768px) {
     /*.navbar-brand {*/
