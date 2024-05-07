@@ -30,11 +30,11 @@
                         </select>
                     </div>
                     <div class="form-group col-md-2 col-sm-6">
-                        <label for="creationYearFrom" class="sr-only">From:</label>
+                        <label for="creationYearFrom" class="sr-only">Od roku:</label>
                         <input type="number" class="form-control" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}" placeholder="Od roku" style="width: 100%;">
                     </div>
                     <div class="form-group col-md-2 col-sm-6">
-                        <label for="creationYearTo" class="sr-only">To:</label>
+                        <label for="creationYearTo" class="sr-only">Do roku:</label>
                         <input type="number" class="form-control" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}" placeholder="Do roku" style="width: 100%;">
                     </div>
                     <div class="form-group col-md-2 d-flex align-items-end">
@@ -63,7 +63,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h5 class="card-title mb-0">
-                                    <span class="italic dark-text">{{ artwork.title }} </span>
+                                    <span class="dark-text">{{ artwork.title }} </span>
                                     <span class="dark-text">{% if artwork.creationYear is null or artwork.creationYear == 0 %}(nieznany){% else %}({{ artwork.creationYear }}),{% endif %}</span>
                                     <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="artist-link">{{ artwork.artistName }}</a>
                                 </h5>

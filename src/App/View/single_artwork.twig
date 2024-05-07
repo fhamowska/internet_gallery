@@ -12,11 +12,12 @@
                             <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" style="max-height: 65vh; width: auto;">
                         </a>
                     </div>
-                    <div class="card-body pb-2">
+                    <div class="card-body pb-2 pt-2">
                         <div class="d-flex justify-content-between">
-                            <h5 class="card-title mb-0"><a href="single_artwork.php?id={{ artwork.id }}">{{ artwork.title }}</a></h5>
-                            <button type="button" class="btn btn-sm btn-outline-dark alt-button" data-toggle="modal" data-target="#altTextModal" data-alt="{{ artwork.altText }}">ALT</button>
-                        </div>                        <p class="card-text">Autor: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }} </a>({% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}obecnie{% endif %})</p>
+                            <h4 class="card-title mb-2 text-dark">{{ artwork.title }}</h4>
+                            <button type="button" class="btn btn-sm btn-light alt-button" data-toggle="modal" data-target="#altTextModal" data-alt="{{ artwork.altText }}">ALT</button>
+                        </div>
+                        <p class="card-text">Autor: <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class = "artist-link">{{ artwork.artistName }}</a> ({% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}obecnie{% endif %})</p>
                         <p class="card-text">Kategoria: {{ artwork.genreName }}</p>
                         <p class="card-text">Rok powstania: {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }}{% endif %}</p>
                         <p class="card-text">Medium: {{ artwork.medium }}</p>
