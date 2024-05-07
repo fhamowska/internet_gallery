@@ -49,9 +49,38 @@ body {
     width: 100%;
 }
 
-.container-about-us {
+.card-text a {
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+/*.italic {*/
+/*    font-style: italic;*/
+/*}*/
+
+.dark-text {
     color: black;
-    background-color: #eeefef;
+}
+
+.artist-link {
+    color: #23324f !important;
+    border: 1px solid #23324f;
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+.artist-link:hover {
+    text-decoration: none;
+    color: white !important;
+    background-color: #23324f;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+
+.container-about-us {
+    /*color: #1c3b3e;*/
+    /*background-color: #eeefef;*/
+    color: #b9c8cb;
     padding-left: 4vw !important;
     padding-right: 4vw !important;
     margin-top: 6vw;
@@ -59,8 +88,8 @@ body {
 }
 
 .card-about-us {
-    background-color: #1a373a !important;
-    width: 40%;
+    /*background-color: #1a373a !important;*/
+    width: 100%;
 }
 
 .card-title {
@@ -77,8 +106,38 @@ body {
     color: #f5f5f5;
 }
 
-/*.alt-button {*/
-/*    margin-left: -4vw !important;*/
+.alt-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.text-header-1 {
+    font-family: 'Lora', serif;
+    color: #b9c8cb;
+}
+
+.card-artworks:focus-within,
+.card-artworks:hover {
+    transform: scale(1.04);
+    transition: transform 0.4s;
+}
+.card-artworks {
+    overflow: hidden;
+}
+/*.gallery-index {*/
+/*    margin-bottom: 45vw;*/
+/*}*/
+
+/*.gallery-index input {*/
+/*    padding-top: 1.5vw;*/
+/*    padding-bottom: 1.5vw;*/
+/*}*/
+
+/*.gallery-link {*/
+/*    padding-top: 0.8vw;*/
+/*    padding-bottom: 0.8vw;*/
 /*}*/
 
 @media all and (max-width: 768px) {
@@ -107,7 +166,10 @@ body {
         font-size: 2vw !important;
     }
     .container-about-us {
-        margin-top: 13vw;
+        margin-top: 10vw;
+    }
+    .container-about-us card {
+        margin-left: 0 !important;
     }
 }
 
@@ -122,6 +184,9 @@ body {
     .container-about-us {
         max-width: 100% !important;
         min-height: 90vh !important;
+    }
+    .container-about-us card {
+        margin-left: 0 !important;
     }
 }
 

@@ -59,11 +59,6 @@
     background-color: #d1d8d9;
     color: black;
 }
-.card-text a {
-    color: #947a94;
-    text-decoration: none;
-    transition: color 0.5s;
-}
 
 .card-title a{
     color: black;
@@ -84,11 +79,14 @@
 
 .form-group {
     margin-bottom: 10px;
-    margin-top: 6vw;
 }
 
 .form-control {
     color: #1a373a;
+}
+
+#searchTerm:focus {
+    outline: 4px solid #486293;
 }
 
 .btn-primary,

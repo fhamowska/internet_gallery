@@ -67,7 +67,7 @@ class ArtworkController
                 'searchTerm' => $filters['searchTerm'],
             ]);
         } else {
-            $perPage = 8;
+            $perPage = 6;
             $artworks = $this->artworkService->getFilteredArtworksWithDetails($page, $perPage, $filters);
             $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);
             $totalPages = ceil($totalArtworks / $perPage);

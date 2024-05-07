@@ -3,8 +3,9 @@
 {% block title %}Artworks Gallery{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <form class="search" action="gallery.php" method="GET">
+    <div class="container pt-3">
+        <h1 class="text text-header-1 mt-5 pt-4 mb-0 ml-5">Dzieła sztuki</h1>
+        <form class="search mt-4" action="gallery.php" method="GET">
             <div class="row mb-3 align-items-end">
                 <div class="form-group col-md-6">
                     <label for="searchTerm" class="sr-only">Search:</label>
@@ -54,16 +55,20 @@
                 </div>
             {% else %}
                 {% for artwork in artworks %}
-                    <div class="card">
+                    <div class="card card-artworks">
                         <a href="single_artwork.php?id={{ artwork.id }}">
                             <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                         </a>
+                        <button type="button" class="btn btn-sm btn-light alt-button mx-1 my-1" data-toggle="modal" data-target="#altTextModal" data-alt="{{ artwork.altText }}">ALT</button>
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <h5 class="card-title mb-0"><a href="single_artwork.php?id={{ artwork.id }}">{{ artwork.title }}</a></h5>
-                                <button type="button" class="btn btn-sm btn-outline-dark alt-button" data-toggle="modal" data-target="#altTextModal" data-alt="{{ artwork.altText }}">ALT</button>
+                                <h5 class="card-title mb-0">
+                                    <span class="italic dark-text">{{ artwork.title }} </span>
+                                    <span class="dark-text">{% if artwork.creationYear is null or artwork.creationYear == 0 %}(nieznany){% else %}({{ artwork.creationYear }}),{% endif %}</span>
+                                    <a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="artist-link">{{ artwork.artistName }}</a>
+                                </h5>
                             </div>
-                            <p class="card-text"><a href="gallery.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">{{ artwork.artistName }}</a>, {{ artwork.genreName }}, {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }} r.{% endif %}</p>
+                            <p class="card-text"><span class="genre">{{ artwork.genreName }}</span></p>
                         </div>
                     </div>
                 {% endfor %}

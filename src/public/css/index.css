@@ -4,8 +4,6 @@
     position: fixed;
     height: 100%;
     width: 100%;
-    padding: 20px;
-    border-radius: 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -14,42 +12,42 @@
 .gallery-header h1 {
     font-family: 'Lora', serif;
     margin-top: 6vw;
-    font-size: 7vw;
+    font-size: 6vw;
     color: #b9c8cb;
     cursor: default;
     text-align: center;
 }
 
 .gallery-header p {
-    margin-top: 3vw;
+    margin-top: 0;
     font-size: 2vw;
     color: #b9c8cb;
     cursor: default;
     text-align: center;
 }
 
-.gallery-index ul {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    margin-top: 1%;
-    list-style-type: none;
-    text-align: center;
-    margin-bottom: 5vw;
-    margin-left: -2.5vw;
+.gallery-button {
+    min-width: 30%;
 }
 
-.gallery-index ul li {
-    width: 25vw;
-    display: block;
-    margin: 1vw auto auto;
+.gallery-input {
+    height: 58px;
+    width: 70% !important;
 }
+
+/*.gallery-index ul {*/
+/*    max-width: 600px;*/
+/*}*/
+
+/*.gallery-index ul li {*/
+/*    width: 35vw;*/
+/*    display: block;*/
+/*    margin: 1vw auto auto;*/
+/*}*/
 
 .gallery-index ul li a {
-    display: block;
-    padding: 1vw 2vw;
     background-color: #1c3b3e;
     color: #fff;
-    text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.5s;
 }
@@ -59,41 +57,106 @@
     color: white;
 }
 
-.gallery-input {
-    padding: 1vw;
-    width: calc(100% - 4.5vw);
-    border: 0.1vw solid #ccc;
-    border-radius: 0.3vw;
-    margin-right: 0.2vw;
-    background-color: #b9c8cb;
-    color: black;
-}
+/*.gallery-input {*/
+/*    padding: 1vw;*/
+/*    width: calc(100% - 6vw);*/
+/*    border: 0.1vw solid #ccc;*/
+/*    border-radius: 0.3vw;*/
+/*    margin-right: 0.2vw;*/
+/*    background-color: #b9c8cb;*/
+/*    color: black;*/
+/*}*/
 
-.gallery-input::placeholder {
-    color: #404646;
-}
+/*.gallery-input::placeholder {*/
+/*    color: #404646;*/
+/*}*/
 
-.gallery-button {
-    padding: 1.06vw 0.5vw;
-    background-color: #23324f;
-    color: #ffffff;
-    border: none;
-    border-radius: 0.3vw;
-    cursor: pointer;
-    transition: background-color 0.5s;
-    font-size: 1vw;
-}
+/*.gallery-button {*/
+/*    display: block;*/
+/*    padding: 1vw 2vw;*/
+/*    text-decoration: none;*/
+/*    border-radius: 5px;*/
+/*    background-color: #23324f;*/
+/*    color: #ffffff;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.5s;*/
+/*    font-size: 1vw;*/
+/*    margin-left: 0.5vw;*/
+/*}*/
 
-.gallery-button:hover {
-    background-color: #394e77;
-}
+/*.gallery-button:hover {*/
+/*    background-color: #394e77;*/
+/*}*/
 
-@media all and (max-width: 800px) {
+@media all and (max-width: 768px) {
     .gallery-container {
-        padding-bottom: 10vw;
+        padding-bottom: 45vw;
     }
 
     .gallery-header h1 {
+        padding-top: 12vw;
+    }
+
+    .gallery-header p {
+        font-size: 5vw;
+    }
+
+    /*.gallery-index {*/
+    /*    margin-left: 0;*/
+    /*}*/
+
+    /*.gallery-index ul {*/
+    /*    height: 50vw;*/
+    /*    padding-left: 3vw;*/
+    /*    padding-bottom: 6vw;*/
+    /*}*/
+
+    /*.gallery-index li {*/
+    /*    min-width: 70vw;*/
+    /*    min-height: 15vw;*/
+    /*}*/
+
+    /*.gallery-index ul li a {*/
+    /*    width: 70vw;*/
+    /*    min-height: 13vw;*/
+    /*    font-size: 4vw;*/
+    /*    padding-top: 4vw;*/
+    /*    border-radius: 5vw;*/
+    /*}*/
+
+    /*.gallery-input::placeholder {*/
+    /*    color: #404646;*/
+    /*    font-size: 4vw;*/
+    /*    border-radius: 3vw;*/
+    /*    padding-left: 2vw;*/
+    /*}*/
+
+    /*.gallery-input {*/
+    /*    width: calc(100% - 22vw);*/
+    /*    padding: 3vw 1vw 1vw;*/
+    /*    height: 13vw;*/
+    /*    border-radius: 4vw;*/
+    /*    margin-right: 1vw;*/
+    /*}*/
+
+    /*.gallery-button {*/
+    /*    width: 70vw;*/
+    /*    min-height: 13vw;*/
+    /*    font-size: 4vw;*/
+    /*    padding-top: 4vw;*/
+    /*    border-radius: 5vw;*/
+
+    /*}*/
+
+    /*.gallery-footer {*/
+    /*    font-size: 3vw;*/
+    /*}*/
+}
+
+@media all and (max-width: 500px) {
+    .gallery-header h1 {
+        padding-top: 20vw;
         font-size: 11vw;
     }
 
@@ -101,81 +164,23 @@
         font-size: 5vw;
     }
 
-    .gallery-index {
-        margin-left: 0;
+    .gallery-container {
+        padding-bottom: 65vw;
     }
 
-    .gallery-index ul {
-        height: 50vw;
-        padding-left: 3vw;
-    }
+    /*.gallery-input {*/
+    /*    width: calc(100% - 22vw);*/
+    /*    padding: 2vw 1vw 1vw;*/
+    /*}*/
 
-    .gallery-index li {
-        min-width: 70vw;
-        min-height: 15vw;
-    }
+    /*.gallery-index ul {*/
+    /*    margin-left: -3vw;*/
+    /*    margin-bottom: 8vw;*/
+    /*}*/
 
-    .gallery-index ul li a {
-        width: 70vw;
-        min-height: 13vw;
-        font-size: 4vw;
-        padding-top: 4vw;
-        border-radius: 5vw;
-    }
-
-    .gallery-input::placeholder {
-        color: #404646;
-        font-size: 4vw;
-        border-radius: 3vw;
-        padding-left: 2vw;
-    }
-
-    .gallery-input {
-        width: calc(100% - 22vw);
-        padding: 3vw 1vw 1vw;
-        height: 13vw;
-        border-radius: 4vw;
-        margin-right: 1vw;
-    }
-
-    .gallery-button {
-        font-size: 4vw;
-        padding: 4.1vw 4vw;
-        border-radius: 4vw;
-    }
-
-    .gallery-footer {
-        font-size: 3vw;
-    }
-}
-
-@media all and (max-width: 500px) {
-    .gallery-header h1 {
-        padding-top: 10vw;
-        font-size: 13vw;
-    }
-
-    .gallery-header p {
-        font-size: 6vw;
-    }
-
-    .gallery-input {
-        width: calc(100% - 22vw);
-        padding: 2vw 1vw 1vw;
-    }
-
-    .gallery-index ul {
-        margin-left: -3vw;
-        margin-bottom: 8vw;
-    }
-
-    .gallery-button {
-        font-size: 2vw;
-    }
-
-    .gallery-button {
-        font-size: 4vw;
-        padding: 4.1vw 4vw;
-        border-radius: 4vw;
-    }
+    /*.gallery-button {*/
+    /*    font-size: 4vw;*/
+    /*    padding: 4.1vw 4vw;*/
+    /*    border-radius: 4vw;*/
+    /*}*/
 }

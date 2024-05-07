@@ -4,23 +4,23 @@
 
 {% block content %}
     <div class="gallery-container">
-        <header class="gallery-header">
+        <header class="gallery-header text-center">
             <h1>Internetowa Galeria Sztuki</h1>
-            <p>Odkrywaj twórczość z całego świata.</p>
+            <p class="mb-5">Odkrywaj twórczość z całego świata.</p>
         </header>
-        <div class="gallery-index">
-            <ul>
-                <li>
-                    <form action="gallery.php" method="get">
-                        <input class="gallery-input" type="text" name="searchTerm" placeholder="Wpisz tytuł dzieła lub artystę">
-                        <button class="gallery-button" type="submit">Szukaj</button>
+        <div class="gallery-index mx-auto my-auto col-lg-5 col-md-7 col-sm-9">
+            <ul class="list-unstyled">
+                <li class="d-flex align-items-stretch">
+                    <form class="d-flex flex-fill" action="gallery.php" method="get">
+                        <input class="form-control gallery-input mr-2 py-4" type="text" placeholder="Wpisz tytuł dzieła lub artystę">
+                        <button class="btn btn-primary gallery-button px-4 py-3" type="submit">Szukaj</button>
                     </form>
                 </li>
                 <li>
-                    <a class="gallery-link" href="gallery.php">Przeglądaj dzieła</a>
+                    <a class="btn btn-block gallery-link my-2 py-3" href="gallery.php">Przeglądaj dzieła</a>
                 </li>
                 <li>
-                    <a class="gallery-link" href="single_artwork.php?id=random">Losuj dzieło</a>
+                    <a class="btn btn-block gallery-link py-3" href="single_artwork.php?id=random">Losuj dzieło</a>
                 </li>
             </ul>
         </div>
