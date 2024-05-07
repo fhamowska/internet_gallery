@@ -43,10 +43,11 @@ class ImageRepository
         return $this->pdo->lastInsertId();
     }
 
-    public function saveImageFile(string $imagePath): string
+    public function saveImageFile(string $imagePath, string $imageName): string
     {
-        $newImagePath = './images/artworks/' . uniqid() . '.jpg';
-        move_uploaded_file($_FILES['image']['tmp_name'], $newImagePath);
+        $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+        $newImagePath = './images/artworks/' . $imageName . $extension;
+        move_uploaded_file($imagePath, $newImagePath);
         return $newImagePath;
     }
 

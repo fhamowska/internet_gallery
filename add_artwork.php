@@ -67,7 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $altText = $inputValues['altText'];
 
         $artworkService->checkDuplicateArtwork($title, $artistId);
-        $imagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name']);
+        $imagePath = $_FILES['image']['tmp_name'];
+        $imageName = $_POST['title'];
+        $imagePath = $imageRepository->saveImageFile($imagePath, $imageName);
         $imageId = $imageRepository->saveImage($imagePath, $altText);
         $artworkService->addArtwork($title, $artistId, $genreId, (int)$creationYear, $dimensions, $imageId, $loggedInAdminId, $medium);
         header("Location: admin.php");
