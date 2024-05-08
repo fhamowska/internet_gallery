@@ -7,7 +7,7 @@
 {% block content %}
     <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Lista kategorii</h1>
     <div class="add-artwork ml-3 mb-3 mr-3">
-        <a href="add_genre.php"><button class="btn btn-primary add-artwork-button">Dodaj kategorię</button></a>
+        <a href="genre_add.php"><button class="btn btn-primary add-artwork-button">Dodaj kategorię</button></a>
     </div>
     <div class="container-search ml-3 mr-3">
         {% if error %}
@@ -30,7 +30,7 @@
                         <td>{{ genre.id }}</td>
                         <td>{{ genre.name }}</td>
                         <td class="text-center">
-                            <a href="edit_genre.php?id={{ genre.id }}" class="btn btn-outline-success btn-md mr-2">Edytuj</a>
+                            <a href="genre_edit.php?id={{ genre.id }}" class="btn btn-outline-success btn-md mr-2">Edytuj</a>
                             <button type="button" class="btn btn-outline-danger btn-md" onclick="confirmDelete({{ genre.id }}, '{{ genre.name }}')">Usuń</button>
                         </td>
                     </tr>
@@ -43,7 +43,7 @@
     <script>
         function confirmDelete(genreId, genreName) {
             if (confirm("Czy na pewno chcesz usunąć kategorię '" + genreName + "'?")) {
-                window.location.href = "delete_genre.php?id=" + genreId;
+                window.location.href = "genre_delete.php?id=" + genreId;
             }
         }
     </script>

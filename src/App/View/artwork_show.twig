@@ -38,7 +38,7 @@
                     <tr>
                         <th scope="row">Twórca:</th>
                         <td style="word-break: break-word;">
-                            <a href="admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
+                            <a href="artworks_admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
                                 {{ artwork.artistName }}
                             </a>
                         </td>
