@@ -1,12 +1,12 @@
-{% extends 'admin_base.twig' %}
+{% extends 'base_admin.twig' %}
 
 {% block title %}
     Add Genre
 {% endblock %}
 
 {% block content %}
-    <div class="container container-edit">
-        <h1 class="mb-3 mt-5 pt-4 ml-3">Dodaj kategorię</h1>
+    <div class="container container-edit mt-5 pl-5 pr-5">
+        <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Dodaj kategorię</h1>
         {% if error %}
             <div class="alert alert-danger" role="alert">
                 {{ error }}

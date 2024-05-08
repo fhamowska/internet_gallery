@@ -51,12 +51,12 @@
         <div class="card-columns">
             {% if artworks is empty %}
                 <div class="no-results">
-                    <p>Brak wyników</p>
+                    <p class="text-light">Brak wyników</p>
                 </div>
             {% else %}
                 {% for artwork in artworks %}
                     <div class="card card-artworks">
-                        <a href="single_artwork.php?id={{ artwork.id }}">
+                        <a href="artwork.php?id={{ artwork.id }}">
                             <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                         </a>
                         <button type="button" class="btn btn-sm btn-light alt-button mx-1 my-1" data-toggle="modal" data-target="#altTextModal" data-alt="{{ artwork.altText }}">ALT</button>
@@ -74,12 +74,6 @@
                 {% endfor %}
             {% endif %}
         </div>
-
-        {% if artworks is empty %}
-            <div class="no-results">
-                <p>Brak wyników</p>
-            </div>
-        {% endif %}
 
         {% if totalPages > 1 %}
             <div class="navigation text-center">

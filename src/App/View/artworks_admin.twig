@@ -1,4 +1,4 @@
-{% extends 'admin_base.twig' %}
+{% extends 'base_admin.twig' %}
 
 {% block title %}
     Admin Panel
@@ -7,7 +7,7 @@
 {% block content %}
     <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Lista dzieł</h1>
     <div class="add-artwork ml-3 mb-2 mr-3">
-        <a href="add_artwork.php"><button class="btn btn-primary add-artwork-button">Dodaj dzieło</button></a>
+        <a href="artwork_add.php"><button class="btn btn-primary add-artwork-button">Dodaj dzieło</button></a>
     </div>
     <div class="container-search ml-3 mr-3">
         <form class="search ml-3" action="artworks_admin.php" method="GET">
@@ -91,7 +91,7 @@
                             <td class="actions">
                                 <div class="text-center">
                                     <a class="btn btn-md btn-outline-primary m-1" href="artwork_show.php?id={{ artwork.id }}">Pokaż</a>
-                                    <a class="btn btn-md btn-outline-success m-1" href="edit_artwork.php?id={{ artwork.id }}">Edytuj</a>
+                                    <a class="btn btn-md btn-outline-success m-1" href="artwork_edit.php?id={{ artwork.id }}">Edytuj</a>
                                     <button class="btn btn-md btn-outline-danger m-1" onclick="confirmDelete('{{ artwork.id }}', '{{ artwork.title }}')">Usuń</button>
                                 </div>
                             </td>

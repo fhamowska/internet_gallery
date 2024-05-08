@@ -41,4 +41,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-echo $twig->render('add_artist.twig', ['error' => $error, 'inputValues' => $inputValues]);
+echo $twig->render('artist_add.twig', ['error' => $error, 'inputValues' => $inputValues]);

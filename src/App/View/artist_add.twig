@@ -1,4 +1,4 @@
-{% extends 'admin_base.twig' %}
+{% extends 'base_admin.twig' %}
 
 {% block title %}
     Add Artist
@@ -12,7 +12,7 @@
                 {{ error }}
             </div>
         {% endif %}
-        <form action="add_artist.php" method="post">
+        <form action="artist_add.php" method="post">
             <div class="form-group">
                 <label for="first_name">Imię:</label>
                 <input type="text" class="form-control" id="first_name" name="first_name" value="{{ inputValues.first_name }}" required>

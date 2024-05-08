@@ -1,4 +1,4 @@
-{% extends 'admin_base.twig' %}
+{% extends 'base_admin.twig' %}
 
 {% block title %}
     Edit Artwork
@@ -14,7 +14,7 @@
             </div>
         {% endif %}
 
-        <form action="edit_artwork.php" method="post" enctype="multipart/form-data">
+        <form action="artwork_edit.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="{{ artwork.id }}">
             <div class="form-group">
                 <label for="title">Tytuł:</label>

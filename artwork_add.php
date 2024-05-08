@@ -82,4 +82,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $artists = $artistService->getAllArtists();
 $genres = $genreService->getAllGenres();
 
-echo $twig->render('add_artwork.twig', ['artists' => $artists, 'genres' => $genres, 'error' => $error, 'inputValues' => $inputValues]);
+echo $twig->render('artwork_add.twig', ['artists' => $artists, 'genres' => $genres, 'error' => $error, 'inputValues' => $inputValues]);

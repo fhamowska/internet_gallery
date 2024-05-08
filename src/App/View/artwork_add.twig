@@ -1,4 +1,4 @@
-{% extends 'admin_base.twig' %}
+{% extends 'base_admin.twig' %}
 
 {% block title %}
     Dodaj Dzieło
@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="container container-edit mt-5 pl-5 pr-5">
-        <h1 class="mt-4 ml-3 mb-3">Dodaj Dzieło</h1>
+        <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Dodaj dzieło</h1>
 
         {% if error %}
             <div class="alert alert-danger" role="alert">
@@ -14,7 +14,7 @@
             </div>
         {% endif %}
 
-        <form action="add_artwork.php" method="post" enctype="multipart/form-data">
+        <form action="artwork_add.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Tytuł:</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ inputValues.title }}" required>

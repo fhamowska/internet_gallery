@@ -1,4 +1,4 @@
-{% extends 'admin_base.twig' %}
+{% extends 'base_admin.twig' %}
 
 {% block title %}{{ artwork.title }}{% endblock %}
 
@@ -10,8 +10,8 @@
             </div>
         </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-3 mt-md-0 text-md-right">
-            <a href="edit_artwork.php?id={{ artwork.id }}" class="btn btn-outline-success btn-md ml-3 mb-md-0 mr-2">Edytuj</a>
-            <form action="delete_artwork.php" method="post" style="display: inline-block;">
+            <a href="artwork_edit.php?id={{ artwork.id }}" class="btn btn-outline-success btn-md ml-3 mb-md-0 mr-2">Edytuj</a>
+            <form action="artwork_delete.php" method="post" style="display: inline-block;">
                 <input type="hidden" name="artwork_id" value="{{ artwork.id }}">
                 <button type="submit" class="btn btn-outline-danger btn-md" onclick="return confirm('Czy na pewno chcesz usunąć to dzieło?');">Usuń</button>
             </form>
