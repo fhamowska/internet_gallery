@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && $artistId !== null) {
 $artists = $artistService->getAllArtists();
 
 if ($error) {
-    echo $twig->render('artists.twig', ['error' => $error, 'artists' => $artists]);
+    echo $twig->render('artists_admin.twig', ['error' => $error, 'artists' => $artists]);
 } else {
     header("Location: artists_admin.php");
     exit();

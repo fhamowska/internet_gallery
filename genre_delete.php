@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_GET['id'])) {
 $genres = $genreRepository->getAllGenres();
 
 if ($error) {
-    echo $twig->render('genres.twig', ['error' => $error, 'genres' => $genres]);
+    echo $twig->render('genres_admin.twig', ['error' => $error, 'genres' => $genres]);
 } else {
     header("Location: genres_admin.php");
     exit();

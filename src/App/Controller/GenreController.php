@@ -20,7 +20,7 @@ class GenreController
     public function listGenres()
     {
         $genres = $this->genreService->getAllGenres();
-        echo $this->twig->render('genres.twig', ['genres' => $genres]);
+        echo $this->twig->render('genres_admin.twig', ['genres' => $genres]);
     }
 
     public function editGenre(int $genreId, string $name) {

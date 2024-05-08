@@ -58,7 +58,7 @@ class ArtworkController
                 header("Location: artworks_admin.php?page=1$queryString");
                 exit();
             }
-            echo $this->twig->render('admin.twig', [
+            echo $this->twig->render('artworks_admin.twig', [
                 'artworks' => $artworks,
                 'currentPage' => $page,
                 'totalPages' => $totalPages,

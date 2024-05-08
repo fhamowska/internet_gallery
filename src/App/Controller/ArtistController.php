@@ -20,7 +20,7 @@ class ArtistController {
     public function listArtists()
     {
         $artists = $this->artistService->getAllArtists();
-        echo $this->twig->render('artists.twig', ['artists' => $artists]);
+        echo $this->twig->render('artists_admin.twig', ['artists' => $artists]);
     }
 
     public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void

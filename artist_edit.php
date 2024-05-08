@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } catch (Exception $e) {
         $error = $e->getMessage();
         $artist = $artistService->getArtistById($artistId);
-        echo $twig->render('edit_artist.twig', ['artist' => $artist, 'error' => $error]);
+        echo $twig->render('artist_edit.twig', ['artist' => $artist, 'error' => $error]);
         exit();
     }
 }
@@ -41,4 +41,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $artistId = $_GET['id'] ?? '';
 $artist = $artistService->getArtistById((int)$artistId);
 
-echo $twig->render('edit_artist.twig', ['artist' => $artist, 'error' => $error]);
+echo $twig->render('artist_edit.twig', ['artist' => $artist, 'error' => $error]);

@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } catch (Exception $e) {
         $error = $e->getMessage();
         $genre = $genreService->getGenreById($genreId);
-        echo $twig->render('edit_genre.twig', ['genre' => $genre, 'error' => $error]);
+        echo $twig->render('genre_edit.twig', ['genre' => $genre, 'error' => $error]);
         exit();
     }
 }
@@ -34,4 +34,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 $genreId = $_GET['id'] ?? null;
 $genre = $genreService->getGenreById($genreId);
 
-echo $twig->render('edit_genre.twig', ['genre' => $genre]);
+echo $twig->render('genre_edit.twig', ['genre' => $genre]);

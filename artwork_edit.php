@@ -98,5 +98,5 @@ if ($artwork === null && $artworkId !== null) {
 $artists = $artistService->getAllArtists();
 $genres = $genreService->getAllGenres();
 
-echo $twig->render('edit_artwork.twig', ['artwork' => $artwork, 'artists' => $artists, 'genres' => $genres, 'error' => $error]);
+echo $twig->render('artwork_edit.twig', ['artwork' => $artwork, 'artists' => $artists, 'genres' => $genres, 'error' => $error]);
 

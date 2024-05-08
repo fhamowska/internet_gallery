@@ -57,7 +57,7 @@ class AdminController
             $filters['genre'] = implode(',', $filters['genre']);
         }
 
-        echo $this->twig->render('admin.twig', [
+        echo $this->twig->render('artworks_admin.twig', [
             'artworks' => $artworks,
             'currentPage' => $page,
             'totalPages' => $totalPages,

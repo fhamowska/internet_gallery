@@ -24,4 +24,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-echo $twig->render('add_genre.twig', ['error' => $error]);
+echo $twig->render('genre_add.twig', ['error' => $error]);

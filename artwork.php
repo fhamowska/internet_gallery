@@ -30,4 +30,4 @@ if ($artworkId === 'random') {
 
 $artwork = $artworkService->getArtworkById($artworkId);
 
-echo $twig->render('single_artwork.twig', ['artwork' => $artwork]);
+echo $twig->render('artwork.twig', ['artwork' => $artwork]);
