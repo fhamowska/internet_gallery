@@ -17,7 +17,7 @@ $name = $_POST['name'] ?? '';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         $genreController->addGenre($name);
-        header("Location: genres.php");
+        header("Location: genres_admin.php");
         exit();
     } catch (Exception $e) {
         $error = $e->getMessage();

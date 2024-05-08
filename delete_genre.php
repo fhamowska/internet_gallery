@@ -28,6 +28,6 @@ $genres = $genreRepository->getAllGenres();
 if ($error) {
     echo $twig->render('genres.twig', ['error' => $error, 'genres' => $genres]);
 } else {
-    header("Location: genres.php");
+    header("Location: genres_admin.php");
     exit();
 }

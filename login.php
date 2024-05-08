@@ -9,7 +9,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in']) {
-    header("Location: admin.php");
+    header("Location: artworks_admin.php");
     exit();
 }
 

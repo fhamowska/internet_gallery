@@ -28,6 +28,6 @@ $artists = $artistService->getAllArtists();
 if ($error) {
     echo $twig->render('artists.twig', ['error' => $error, 'artists' => $artists]);
 } else {
-    header("Location: artists.php");
+    header("Location: artists_admin.php");
     exit();
 }

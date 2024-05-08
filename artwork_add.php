@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $imagePath = $imageRepository->saveImageFile($imagePath, $imageName);
         $imageId = $imageRepository->saveImage($imagePath, $altText);
         $artworkService->addArtwork($title, $artistId, $genreId, (int)$creationYear, $dimensions, $imageId, $loggedInAdminId, $medium);
-        header("Location: admin.php");
+        header("Location: artworks_admin.php");
         exit();
     } catch (Exception $e) {
         $error = $e->getMessage();

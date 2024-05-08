@@ -29,7 +29,7 @@ class GenreController
             throw new Exception("Kategoria '$name' już istnieje.");
         }
         $this->genreService->updateGenre($genreId, $name);
-        header("Location: genres.php");
+        header("Location: genres_admin.php");
         exit();
     }
 
@@ -40,7 +40,7 @@ class GenreController
             throw new Exception("Kategoria '$name' już istnieje.");
         }
         $this->genreService->addGenre($name);
-        header("Location: genres.php");
+        header("Location: genres_admin.php");
         exit();
     }
 }

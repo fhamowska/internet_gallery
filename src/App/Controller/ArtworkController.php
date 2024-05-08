@@ -49,13 +49,13 @@ class ArtworkController
 
         $page = max(1, (int)$_GET['page']);
 
-        if (str_contains($_SERVER['REQUEST_URI'], '/~21_hamowska/licencjat/admin.php')) {
+        if (str_contains($_SERVER['REQUEST_URI'], '/~21_hamowska/licencjat/artworks_admin.php')) {
             $perPage = 3;
             $artworks = $this->artworkService->getFilteredArtworksWithDetails($page, $perPage, $filters);
             $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);
             $totalPages = ceil($totalArtworks / $perPage);
             if (!isset($_GET['page'])) {
-                header("Location: admin.php?page=1$queryString");
+                header("Location: artworks_admin.php?page=1$queryString");
                 exit();
             }
             echo $this->twig->render('admin.twig', [
@@ -72,7 +72,7 @@ class ArtworkController
             $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);
             $totalPages = ceil($totalArtworks / $perPage);
             if (!isset($_GET['page'])) {
-                header("Location: gallery.php?page=1$queryString");
+                header("Location: artworks.php?page=1$queryString");
                 exit();
             }
             echo $this->twig->render('artworks.twig', [
@@ -97,7 +97,7 @@ class ArtworkController
         {
             $this->imageService->deleteImage($oldImageId);
         }
-        header("Location: admin.php");
+        header("Location: artworks_admin.php");
         exit();
     }
 

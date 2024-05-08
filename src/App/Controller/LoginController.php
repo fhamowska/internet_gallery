@@ -21,7 +21,7 @@ class LoginController
         session_start();
 
         if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in']) {
-            header("Location: admin.php");
+            header("Location: artworks_admin.php");
             exit();
         }
 
@@ -37,7 +37,7 @@ class LoginController
                 $_SESSION['admin_logged_in'] = true;
                 $_SESSION['admin_id'] = $admin->getId();
 
-                header("Location: admin.php");
+                header("Location: artworks_admin.php");
                 exit();
             } else {
                 $error = "Invalid username or password.";

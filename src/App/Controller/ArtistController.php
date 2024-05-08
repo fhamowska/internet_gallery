@@ -26,7 +26,7 @@ class ArtistController {
     public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
     {
         $this->artistService->editArtist($artistId, $firstName, $lastName, $yearOfBirth, $yearOfDeath);
-        header("Location: artists.php");
+        header("Location: artists_admin.php");
         exit();
     }
 

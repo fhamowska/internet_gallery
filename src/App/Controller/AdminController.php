@@ -42,7 +42,7 @@ class AdminController
         $queryString = $queryString ? '&' . $queryString : '';
 
         if (!isset($_GET['page'])) {
-            header("Location: admin.php?page=1$queryString");
+            header("Location: artworks_admin.php?page=1$queryString");
             exit();
         }
 
