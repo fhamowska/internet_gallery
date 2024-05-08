@@ -39,9 +39,17 @@ class ImageRepository
     {
         $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
         $newImagePath = './images/artworks/' . $imageName . $extension;
+
+        $i = 1;
+        while (file_exists($newImagePath)) {
+            $newImagePath = './images/artworks/' . $imageName . '_' . $i . $extension;
+            $i++;
+        }
+
         move_uploaded_file($imagePath, $newImagePath);
         return $newImagePath;
     }
+
 
     public function updateAltText(int $imageId, string $altText): void
     {

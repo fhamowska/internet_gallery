@@ -209,7 +209,6 @@ class ArtworkRepository
           WHERE 
               Artworks.id = :artworkId";
 
-
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':artworkId', $artworkId, PDO::PARAM_INT);
         $stmt->execute();

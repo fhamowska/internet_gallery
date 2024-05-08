@@ -74,9 +74,13 @@ class ArtworkService
         return $this->artworkRepository->getTotalFilteredArtworksCount($filters);
     }
 
-    public function getArtworkById(int $artworkId): ArtworkDetailsDTO
+    public function getArtworkById(int $artworkId): ?ArtworkDetailsDTO
     {
         $artwork = $this->artworkRepository->getArtworkById($artworkId);
+
+        if ($artwork === null) {
+            return null;
+        }
 
         $artistName = $this->artistRepository->getArtistNameById($artwork->getArtistId());
         $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());

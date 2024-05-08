@@ -23,11 +23,21 @@ $artworkController = new ArtworkController($artworkService, $artistService, $gen
 
 $artworkId = $_GET['id'] ?? null;
 
+if ($artworkId === '') {
+    header("Location: artworks.php");
+    exit();
+}
+
 if ($artworkId === 'random') {
     header("Location: artwork.php?id=" . $artworkService->getRandomArtworkId());
     exit();
 }
 
 $artwork = $artworkService->getArtworkById($artworkId);
+
+if ($artwork === null) {
+    header("Location: artworks.php");
+    exit();
+}
 
 echo $twig->render('artwork.twig', ['artwork' => $artwork]);
