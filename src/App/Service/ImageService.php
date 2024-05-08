@@ -6,7 +6,7 @@ use App\Repository\ImageRepository;
 
 class ImageService
 {
-    private $imageRepository;
+    private ImageRepository $imageRepository;
 
     public function __construct(ImageRepository $imageRepository)
     {

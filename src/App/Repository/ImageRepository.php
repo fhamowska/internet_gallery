@@ -14,14 +14,6 @@ class ImageRepository
         $this->pdo = $pdo;
     }
 
-    public function getAllImages()
-    {
-        $query = "SELECT * FROM Images";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
     public function getImagePathById(int $imageId): string
     {
         $query = "SELECT image_path FROM Images WHERE id = :id";

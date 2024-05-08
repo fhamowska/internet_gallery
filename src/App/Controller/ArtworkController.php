@@ -25,7 +25,7 @@ class ArtworkController
         $this->twig = $twig;
     }
 
-    public function index()
+    public function index(): void
     {
         $genres = $this->genreService->getAllGenres();
 

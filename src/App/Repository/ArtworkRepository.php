@@ -235,7 +235,7 @@ class ArtworkRepository
         );
     }
 
-    public function editArtwork(string $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, string $medium, ?int $imageId)
+    public function editArtwork(string $artworkId, string $title, int $artistId, int $genreId, int $creationYear, string $dimensions, string $medium, ?int $imageId): void
     {
         $query = "UPDATE Artworks 
               SET title = :title, artist_id = :artistId, genre_id = :genreId, creation_year = :creationYear, dimensions = :dimensions, medium = :medium";
@@ -262,7 +262,7 @@ class ArtworkRepository
         $stmt->execute();
     }
 
-    public function deleteArtwork(int $artworkId)
+    public function deleteArtwork(int $artworkId): void
     {
         $query = "DELETE FROM Artworks WHERE id = :artworkId";
         $stmt = $this->pdo->prepare($query);
@@ -270,7 +270,7 @@ class ArtworkRepository
         $stmt->execute();
     }
 
-    public function addArtwork(string $title, int $artistId, int $genreId, ?int $creationYear, ?string $dimensions, int $imageId, int $createdBy, string $medium)
+    public function addArtwork(string $title, int $artistId, int $genreId, ?int $creationYear, ?string $dimensions, int $imageId, int $createdBy, string $medium): void
     {
         $query = "INSERT INTO Artworks (title, artist_id, genre_id, creation_year, dimensions, image_id, created_by, medium) 
               VALUES (:title, :artistId, :genreId, :creationYear, :dimensions, :imageId, :createdBy, :medium)";

@@ -7,7 +7,7 @@ use Exception;
 
 class GenreService
 {
-    private $genreRepository;
+    private GenreRepository $genreRepository;
 
     public function __construct(GenreRepository $genreRepository) {
         $this->genreRepository = $genreRepository;

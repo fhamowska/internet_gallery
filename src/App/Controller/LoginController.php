@@ -16,7 +16,7 @@ class LoginController
         $this->adminService = $adminService;
     }
 
-    public function login()
+    public function login(): void
     {
         session_start();
 
@@ -47,7 +47,7 @@ class LoginController
         echo $this->twig->render('login.twig', ['error' => $error]);
     }
 
-    public function logout()
+    public function logout(): void
     {
         session_start();
         session_unset();

@@ -17,7 +17,7 @@ class ArtistController {
         $this->twig = $twig;
     }
 
-    public function listArtists()
+    public function listArtists(): void
     {
         $artists = $this->artistService->getAllArtists();
         echo $this->twig->render('artists_admin.twig', ['artists' => $artists]);
@@ -30,12 +30,12 @@ class ArtistController {
         exit();
     }
 
-    public function addArtist(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath)
+    public function addArtist(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
     {
         $this->artistService->addArtist($firstName, $lastName, $yearOfBirth, $yearOfDeath);
     }
 
-    public function deleteArtist(int $artistId)
+    public function deleteArtist(int $artistId): void
     {
         $this->artistService->deleteArtist($artistId);
     }

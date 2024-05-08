@@ -16,7 +16,7 @@ class MainController
         $this->twig = $twig;
     }
 
-    public function index()
+    public function index(): void
     {
         echo $this->twig->render('index.twig');
     }

@@ -43,6 +43,7 @@ body {
 
 .container {
     flex: 1;
+    padding: 0;
 }
 
 .footer {
@@ -75,8 +76,6 @@ body {
 }
 
 .container-about-us {
-    /*color: #1c3b3e;*/
-    /*background-color: #eeefef;*/
     color: #b9c8cb;
     padding-left: 4vw !important;
     padding-right: 4vw !important;
@@ -85,7 +84,6 @@ body {
 }
 
 .card-about-us {
-    /*background-color: #1a373a !important;*/
     width: 100%;
 }
 
@@ -252,10 +250,6 @@ body {
     max-height: 100px;
     overflow-y: auto;
     color: #1a373a;
-}
-
-.container {
-    padding: 0;
 }
 
 .gallery-container {

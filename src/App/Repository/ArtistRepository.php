@@ -7,13 +7,13 @@ ini_set('display_errors', 1);
 use PDO;
 
 class ArtistRepository {
-    private $pdo;
+    private PDO $pdo;
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
 
-    public function getAllArtists()
+    public function getAllArtists(): bool|array
     {
         $stmt = $this->pdo->query("SELECT * FROM Artists");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -70,19 +70,6 @@ class ArtistRepository {
         ]);
     }
 
-    public function getArtistByNameAndDates(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath)
-    {
-        $query = "SELECT * FROM Artists WHERE first_name = :firstName AND last_name = :lastName AND year_of_birth = :yearOfBirth AND year_of_death = :yearOfDeath";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute([
-            'firstName' => $firstName,
-            'lastName' => $lastName,
-            'yearOfBirth' => $yearOfBirth,
-            'yearOfDeath' => $yearOfDeath,
-        ]);
-        return $stmt->fetch();
-    }
-
     public function deleteArtist(int $artistId): void
     {
         $stmt = $this->pdo->prepare("DELETE FROM Artists WHERE id = :id");
@@ -113,15 +100,6 @@ class ArtistRepository {
         $query = "SELECT COUNT(*) AS count FROM Artists WHERE first_name = :first_name AND last_name = :last_name AND year_of_birth = :year_of_birth AND year_of_death = :year_of_death";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['first_name' => $firstName, 'last_name' => $lastName, 'year_of_birth' => $yearOfBirth, 'year_of_death' => $yearOfDeath]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['count'] > 0;
-    }
-
-    public function isDuplicateEdit(string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath, int $artistId): bool
-    {
-        $query = "SELECT COUNT(*) AS count FROM Artists WHERE first_name = :first_name AND last_name = :last_name AND year_of_birth = :year_of_birth AND year_of_death = :year_of_death AND id != :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['first_name' => $firstName, 'last_name' => $lastName, 'year_of_birth' => $yearOfBirth, 'year_of_death' => $yearOfDeath, 'id' => $artistId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['count'] > 0;
     }

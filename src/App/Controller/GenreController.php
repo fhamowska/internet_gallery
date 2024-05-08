@@ -17,13 +17,14 @@ class GenreController
         $this->twig = $twig;
     }
 
-    public function listGenres()
+    public function listGenres(): void
     {
         $genres = $this->genreService->getAllGenres();
         echo $this->twig->render('genres_admin.twig', ['genres' => $genres]);
     }
 
-    public function editGenre(int $genreId, string $name) {
+    public function editGenre(int $genreId, string $name): void
+    {
         $existingGenre = $this->genreService->getGenreByName($name);
         if ($existingGenre && $existingGenre['id'] !== $genreId) {
             throw new Exception("Kategoria '$name' już istnieje.");
@@ -33,7 +34,7 @@ class GenreController
         exit();
     }
 
-    public function addGenre(string $name)
+    public function addGenre(string $name): void
     {
         $existingGenre = $this->genreService->getGenreByName($name);
         if ($existingGenre) {

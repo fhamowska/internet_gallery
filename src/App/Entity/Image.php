@@ -3,37 +3,42 @@
 namespace App\Entity;
 
 class Image {
-    private $id;
-    private $imagePath;
-    private $altText;
+    private int $id;
+    private string $imagePath;
+    private string $altText;
 
     public function __construct($imagePath, $altText) {
         $this->imagePath = $imagePath;
         $this->altText = $altText;
     }
 
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId(): int
+    {
         return $this->id;
     }
 
-    public function setImagePath($imagePath) {
+    public function setImagePath($imagePath): void
+    {
         $this->imagePath = $imagePath;
     }
 
-    public function getImagePath() {
+    public function getImagePath(): string
+    {
         return $this->imagePath;
     }
 
-    public function setAltText($altText) {
+    public function setAltText($altText): void
+    {
         $this->altText = $altText;
     }
 
-    public function getAltText() {
+    public function getAltText(): string
+    {
         return $this->altText;
     }
 }
