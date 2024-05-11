@@ -140,6 +140,10 @@ body {
     transform: translate(0);
 }
 
+.title-width {
+    width: 150px;
+}
+
 .container-edit {
     padding-left: 10vw !important;
     padding-right: 10vw !important;

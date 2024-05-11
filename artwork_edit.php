@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         $artworkService->checkDuplicateArtworkEdit($title, $artistId, $artworkId);
         if (!empty($image)) {
-            $newImagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name']);
+            $newImagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name'], $title);
             if ($newImagePath) {
                 $imageId = $imageService->saveImage($newImagePath, $altText);
             }

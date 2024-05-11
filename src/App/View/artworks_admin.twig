@@ -77,7 +77,7 @@
                                     <img src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" class="img-fluid small-image">
                                 </div>
                             </td>
-                            <td>{{ artwork.title }}</td>
+                            <td class = "title-width">{{ artwork.title }}</td>
                             <td class="d-none d-sm-table-cell">
                                 <a href="artworks_admin.php?searchTerm={{ artwork.artistName|url_encode }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
                                     {{ artwork.artistName }}
