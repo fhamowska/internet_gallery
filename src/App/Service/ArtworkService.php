@@ -42,6 +42,7 @@ class ArtworkService
             $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
             $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
             $altText = $this->imageRepository->getAltTextById($artwork->getImageId());
+            $description = $this->imageRepository->getDescriptionById($artwork->getImageId());
             $username = $this->adminRepository->getUsernameById($artwork->getCreatedBy());
             $artistYearOfBirth = $this->artistRepository->GetYearOfBirthById($artwork->getArtistId());
             $artistYearOfDeath = $this->artistRepository->GetYearOfDeathById($artwork->getArtistId());
@@ -50,6 +51,8 @@ class ArtworkService
             $artworkDetails[] = new ArtworkDetailsDTO(
                 $artwork->getId(),
                 $artwork->getTitle(),
+                $artwork->getArtistId(),
+                $artwork->getGenreId(),
                 $artistName,
                 $artistYearOfBirth,
                 $artistYearOfDeath,
@@ -59,6 +62,7 @@ class ArtworkService
                 $artwork->getMedium(),
                 $imagePath,
                 $altText,
+                $description,
                 $username,
                 $artwork->getCreatedAt(),
                 $artwork->getEditedAt(),
@@ -86,6 +90,7 @@ class ArtworkService
         $genreName = $this->genreRepository->getGenreNameById($artwork->getGenreId());
         $imagePath = $this->imageRepository->getImagePathById($artwork->getImageId());
         $altText = $this->imageRepository->getAltTextById($artwork->getImageId());
+        $description = $this->imageRepository->getDescriptionById($artwork->getImageId());
         $username = $this->adminRepository->getUsernameById($artwork->getCreatedBy());
         $artistYearOfBirth = $this->artistRepository->GetYearOfBirthById($artwork->getArtistId());
         $artistYearOfDeath = $this->artistRepository->GetYearOfDeathById($artwork->getArtistId());
@@ -93,6 +98,8 @@ class ArtworkService
         return new ArtworkDetailsDTO(
             $artwork->getId(),
             $artwork->getTitle(),
+            $artwork->getArtistId(),
+            $artwork->getGenreId(),
             $artistName,
             $artistYearOfBirth,
             $artistYearOfDeath,
@@ -102,6 +109,7 @@ class ArtworkService
             $artwork->getMedium(),
             $imagePath,
             $altText,
+            $description,
             $username,
             $artwork->getCreatedAt(),
             $artwork->getEditedAt(),

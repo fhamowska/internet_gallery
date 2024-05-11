@@ -59,6 +59,11 @@
                 <textarea id="altText" name="altText" class="form-control" required>{{ artwork.altText ?? '' }}</textarea>
             </div>
 
+            <div class="form-group">
+                <label for="description">Opis dzieła:</label>
+                <textarea id="description" name="description" class="form-control" required>{{ artwork.description ?? '' }}</textarea>
+            </div>
+
             {% if artwork.imagePath %}
                 <div class="form-group">
                     <label for="currentImage">Aktualne Zdjęcie:</label><br>

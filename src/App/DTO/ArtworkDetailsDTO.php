@@ -13,16 +13,21 @@ class ArtworkDetailsDTO
     private string $medium;
     private string $imagePath;
     private string $altText;
+    private string $description;
     private string $username;
     private string $createdAt;
     private ?string $editedAt;
     private int $createdBy;
     private string $artistYearOfBirth;
     private ?string $artistYearOfDeath;
+    private int $artistId;
+    private int $genreId;
 
     public function __construct(
         int     $id,
         string  $title,
+        int $artistId,
+        int $genreId,
         string  $artistName,
         string  $artistYearOfBirth,
         ?string $artistYearOfDeath,
@@ -32,6 +37,7 @@ class ArtworkDetailsDTO
         string $medium,
         string  $imagePath,
         string  $altText,
+        string $description,
         string  $username,
         string  $createdAt,
         ?string $editedAt,
@@ -39,6 +45,8 @@ class ArtworkDetailsDTO
     ) {
         $this->id = $id;
         $this->title = $title;
+        $this->artistId = $artistId;
+        $this->genreId = $genreId;
         $this->artistName = $artistName;
         $this->artistYearOfBirth = $artistYearOfBirth;
         $this->artistYearOfDeath = $artistYearOfDeath;
@@ -48,6 +56,7 @@ class ArtworkDetailsDTO
         $this->medium = $medium;
         $this->imagePath = $imagePath;
         $this->altText = $altText;
+        $this->description = $description;
         $this->username = $username;
         $this->createdAt = $createdAt;
         $this->editedAt = $editedAt;
@@ -62,6 +71,16 @@ class ArtworkDetailsDTO
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function getArtistId(): int
+    {
+        return $this->artistId;
+    }
+
+    public function getGenreId(): int
+    {
+        return $this->genreId;
     }
 
     public function getArtistName(): string
@@ -107,6 +126,11 @@ class ArtworkDetailsDTO
     public function getAltText(): string
     {
         return $this->altText;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
     }
 
     public function getUsername(): string

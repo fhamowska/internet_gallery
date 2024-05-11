@@ -43,7 +43,8 @@ $inputValues = [
     'creationYear' => '',
     'dimensions' => '',
     'medium' => '',
-    'altText' => ''
+    'altText' => '',
+    'description' => '',
 ];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -54,7 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         'creationYear' => $_POST['creationYear'] ?? '',
         'dimensions' => $_POST['dimensions'] ?? '',
         'medium' => $_POST['medium'] ?? '',
-        'altText' => $_POST['altText'] ?? ''
+        'altText' => $_POST['altText'] ?? '',
+        'description' => $_POST['description'] ?? '',
     ];
 
     try {
@@ -65,12 +67,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $dimensions = $inputValues['dimensions'];
         $medium = $inputValues['medium'];
         $altText = $inputValues['altText'];
+        $description = $inputValues['description'];
 
         $artworkService->checkDuplicateArtwork($title, $artistId);
         $imagePath = $_FILES['image']['tmp_name'];
         $imageName = $_POST['title'];
         $imagePath = $imageRepository->saveImageFile($imagePath, $imageName);
-        $imageId = $imageRepository->saveImage($imagePath, $altText);
+        $imageId = $imageRepository->saveImage($imagePath, $altText, $description);
         $artworkService->addArtwork($title, $artistId, $genreId, (int)$creationYear, $dimensions, $imageId, $loggedInAdminId, $medium);
         header("Location: artworks_admin.php");
         exit();

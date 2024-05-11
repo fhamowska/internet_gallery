@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $medium = $_POST['medium'] ?? '';
     $imageId = $_POST['imageId'] ?? '';
     $altText = $_POST['altText'] ?? '';
+    $description = $_POST['description'] ?? '';
 
     $image = $_FILES['image']['name'] ?? null;
 
@@ -58,11 +59,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (!empty($image)) {
             $newImagePath = $imageRepository->saveImageFile($_FILES['image']['tmp_name'], $title);
             if ($newImagePath) {
-                $imageId = $imageService->saveImage($newImagePath, $altText);
+                $imageId = $imageService->saveImage($newImagePath, $altText, $description);
             }
         } else {
             $imageId = $artworkRepository->getArtworkById($artworkId)->getImageId();
-            $imageService->updateAltText($imageId, $altText);
+            $imageService->updateImage($imageId, $altText, $description);
         }
 
         $artworkController->editArtwork(

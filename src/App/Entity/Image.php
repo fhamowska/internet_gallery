@@ -6,10 +6,12 @@ class Image {
     private int $id;
     private string $imagePath;
     private string $altText;
+    private string $description;
 
-    public function __construct($imagePath, $altText) {
+    public function __construct($imagePath, $altText, $description) {
         $this->imagePath = $imagePath;
         $this->altText = $altText;
+        $this->description = $description;
     }
 
     public function setId($id): void
@@ -40,5 +42,15 @@ class Image {
     public function getAltText(): string
     {
         return $this->altText;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
     }
 }

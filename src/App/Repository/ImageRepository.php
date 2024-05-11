@@ -24,12 +24,13 @@ class ImageRepository
         return $result ?? '';
     }
 
-    public function saveImage(string $imagePath, string $altText): int
+    public function saveImage(string $imagePath, string $altText, string $description): int
     {
-        $query = "INSERT INTO Images (image_path, alt_text) VALUES (:imagePath, :altText)";
+        $query = "INSERT INTO Images (image_path, alt_text, description) VALUES (:imagePath, :altText, :description)";
         $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':imagePath', $imagePath, PDO::PARAM_STR);
-        $stmt->bindParam(':altText', $altText, PDO::PARAM_STR);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->bindParam(':altText', $altText);
+        $stmt->bindParam(':description', $description);
         $stmt->execute();
 
         return $this->pdo->lastInsertId();
@@ -51,12 +52,13 @@ class ImageRepository
     }
 
 
-    public function updateAltText(int $imageId, string $altText): void
+    public function updateAltText(int $imageId, string $altText, string $description): void
     {
-        $query = "UPDATE Images SET alt_text = :altText WHERE id = :imageId";
+        $query = "UPDATE Images SET alt_text = :altText, description = :description WHERE id = :imageId";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':imageId', $imageId, PDO::PARAM_INT);
-        $stmt->bindParam(':altText', $altText, PDO::PARAM_STR);
+        $stmt->bindParam(':altText', $altText);
+        $stmt->bindParam(':description', $description);
         $stmt->execute();
     }
 
@@ -109,6 +111,14 @@ class ImageRepository
     public function getAltTextById(int $imageId): ?string
     {
         $query = "SELECT alt_text FROM Images WHERE id = :image_id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':image_id' => $imageId]);
+        return $stmt->fetchColumn();
+    }
+
+    public function getDescriptionById(int $imageId): ?string
+    {
+        $query = "SELECT description FROM Images WHERE id = :image_id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([':image_id' => $imageId]);
         return $stmt->fetchColumn();

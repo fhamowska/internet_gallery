@@ -61,7 +61,7 @@
                         <a href="artwork.php?id={{ artwork.id }}">
                             <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                         </a>
-                        <button type="button" class="btn btn-sm btn-light alt-button mx-1 my-1" data-toggle="modal" data-target="#altTextModal" data-alt="{{ artwork.altText }}">ALT</button>
+                        <button type="button" class="btn btn-sm btn-light alt-button mx-1 my-1" data-toggle="modal" data-target="#descriptionModal" data-alt="{{ artwork.description }}">opis</button>
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <h5 class="card-title mb-0">
@@ -115,11 +115,11 @@
         {% endif %}
 
     </div>
-    <div class="modal fade" id="altTextModal" tabindex="-1" aria-labelledby="altTextModalLabel" aria-hidden="true">
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="altTextModalLabel">Alt Text</h5>
+                    <h5 class="modal-title" id="descriptionModalLabel">Opis</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
