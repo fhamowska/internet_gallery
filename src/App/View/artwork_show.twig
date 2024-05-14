@@ -5,7 +5,15 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row align-items-center mt-5 pt-4 artwork-title">
+    <div class="row align-items-center mt-5 artwork-title">
+        <div class="mb-3 col-md-9">
+            <div class="container" style="max-width: 39vw;">
+                <div class="breadcrumb my-breadcrumb px-1 text-black">
+                    <a class="my-a me-3 mx-3" href="artworks_admin.php">Lista dzieł</a><span>></span>
+                    <div class="ml-3">{{ artwork.title }}</div>
+                </div>
+            </div>
+        </div>
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
             <div class="ml-3 pl-4">
                 <h1 class="d-inline">{{ artwork.title }} ({{ artwork.artistName }})</h1>

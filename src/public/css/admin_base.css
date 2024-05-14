@@ -144,6 +144,15 @@ body {
     width: 150px;
 }
 
+.my-a {
+    text-decoration: underline !important;
+    color: black;
+}
+
+.my-breadcrumb {
+    background-color: transparent;
+}
+
 .container-edit {
     padding-left: 10vw !important;
     padding-right: 10vw !important;

@@ -5,8 +5,15 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid mt-4" style="height: 100vh;">
-        <div class="row justify-content-center align-items-center" style="height: 100%;">
+    <div class="container-fluid mt-4" style="height: 102vh;">
+        <div class="mx-auto pt-3 col-md-9 px-0">
+            <div class="breadcrumb my-breadcrumb pt-4 px-1">
+                <a class="my-a me-3 mr-3 text-white" href="/~21_hamowska/licencjat">Strona główna</a><span class="text-white">></span>
+                <a class="my-a me-3 mx-3 text-white" href="artworks.php">Dzieła sztuki</a><span class="text-white">></span>
+                <div class="ml-3 text-white">{{ artwork.title }}</div>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center pb-5" style="height: 85%;">
             <div class="col-md-8">
                 <div class="card card-single mx-auto" style="max-width: fit-content; max-height: 100vh;">
                     <div class="w-100 position-relative">

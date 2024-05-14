@@ -81,6 +81,16 @@ body {
     padding-right: 4vw !important;
     margin-top: 6vw;
     border-radius: 0.5vw;
+    max-width: 80vw;
+    min-height: 77vh
+}
+
+.my-a {
+    text-decoration: underline !important;
+}
+
+.my-breadcrumb {
+    background-color: transparent;
 }
 
 .card-about-us {
@@ -301,6 +311,10 @@ body {
     color: white;
 }
 
+.random-button {
+    width: 24vw;
+}
+
 @media all and (max-width: 768px) {
 
     .footer {
@@ -311,9 +325,6 @@ body {
     }
     .container-about-us card {
         margin-left: 0 !important;
-    }
-    .search{
-        margin-top: 15vw;
     }
 
     div.form-group.col-md-6 {
@@ -334,6 +345,12 @@ body {
     .gallery-header p {
         font-size: 5vw;
     }
+
+    .random-button {
+        width: 30vw;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 }
 
 @media all and (max-width: 576px) {
@@ -349,7 +366,6 @@ body {
         margin-left: 0 !important;
     }
     .search {
-        margin-top: 18vw;
         margin-left: 3vw;
     }
     .card {
@@ -358,6 +374,10 @@ body {
 
     .filters {
         width: 101% !important;
+    }
+
+    .random-button {
+        margin-left: 3vw !important;
     }
 
     #filterForm {
