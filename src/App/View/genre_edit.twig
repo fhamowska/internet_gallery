@@ -6,7 +6,12 @@
 
 {% block content %}
     <div class="container container-edit mt-5 pl-5 pr-5">
-        <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Edytuj kategorię</h1>
+        <div class="mx-0">
+            <div class="breadcrumb my-breadcrumb pt-3 px-0">
+                <a class="my-a me-3 mx-3" href="genres_admin.php">Lista kategorii</a><span>></span><div class="ml-3"> Edytuj kategorię</div>
+            </div>
+        </div>
+        <h1 class="mb-4 mt-4 ml-3 pl-4">Edytuj kategorię</h1>
 
         {% if error %}
             <div class="alert alert-danger" role="alert">
@@ -19,7 +24,7 @@
                 <label for="name">Nazwa:</label>
                 <input type="text" class="form-control" id="name" name="name" value="{{ genre.name }}" required>
             </div>
-            <button type="submit" class="btn btn-primary">Zapisz</button>
+            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
         </form>
     </div>
 {% endblock %}

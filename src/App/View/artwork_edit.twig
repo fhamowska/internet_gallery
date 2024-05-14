@@ -6,7 +6,12 @@
 
 {% block content %}
     <div class="container container-edit mt-5 pl-5 pr-5">
-        <h1 class="mt-5 pt-5 ml-3 mb-3">Edytuj „{{ artwork.title }}”</h1>
+        <div class="mx-0">
+            <div class="breadcrumb my-breadcrumb pt-3 px-0">
+                <a class="my-a me-3 mx-3" href="artworks_admin.php">Lista dzieł</a><span>></span><div class="ml-3"> Edytuj dzieło</div>
+            </div>
+        </div>
+        <h1 class="mt-4 ml-3 mb-3">Edytuj „{{ artwork.title }}”</h1>
 
         {% if error %}
             <div class="alert alert-danger" role="alert">
