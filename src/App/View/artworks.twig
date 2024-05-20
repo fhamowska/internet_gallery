@@ -80,10 +80,10 @@
                             <div class="d-flex justify-content-between">
                                 <h5 class="card-title mb-0">
                                     <span class="dark-text">{{ artwork.title }} </span>
-                                    <span class="dark-text">{% if artwork.creationYear is null or artwork.creationYear == 0 %}(rok nieznany){% else %}({{ artwork.creationYear }}),{% endif %}</span>
-                                    <a href="artworks.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="artist-link">{{ artwork.artistName }}</a>
+                                    <span class="dark-text">{% if artwork.creationYear is null or artwork.creationYear == 0 %}(rok nieznany){% else %}({{ artwork.creationYear }}){% endif %}</span>
                                 </h5>
                             </div>
+                            <a href="artworks.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="btn btn-primary py-0 mt-1 px-1 text-white">{{ artwork.artistName }}</a>
                             <p class="card-text"><span class="genre">{{ artwork.genreName }}</span></p>
                         </div>
                     </div>

@@ -26,7 +26,8 @@
                             <h4 class="card-title mb-2 text-dark">{{ artwork.title }}</h4>
                             <button type="button" class="btn btn-sm btn-light alt-button mx-1 my-1" data-toggle="modal" data-target="#descriptionModal" data-alt="{{ artwork.description }}">opis</button>
                         </div>
-                        <p class="card-text">Autor: <a href="artworks.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class = "artist-link">{{ artwork.artistName }}</a> ({% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}obecnie{% endif %})</p>
+                        <p class="card-text">Autor: <a href="artworks.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="btn btn-primary py-0 px-1 text-white">{{ artwork.artistName }}</a>
+                            ({% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}obecnie{% endif %})</p>
                         <p class="card-text">Kategoria: {{ artwork.genreName }}</p>
                         <p class="card-text">Rok powstania: {% if artwork.creationYear is null or artwork.creationYear == 0 %}nieznany{% else %}{{ artwork.creationYear }}{% endif %}</p>
                         <p class="card-text">Medium: {{ artwork.medium }}</p>

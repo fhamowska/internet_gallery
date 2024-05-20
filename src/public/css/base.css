@@ -81,8 +81,15 @@ body {
     padding-right: 4vw !important;
     margin-top: 6vw;
     border-radius: 0.5vw;
-    max-width: 80vw;
+    width: 80vw;
     min-height: 77vh
+}
+
+.table-artists {
+    width: 80vw;
+    padding-left: 4vw !important;
+    padding-right: 4vw !important;
+    margin-top: 6vw;
 }
 
 .my-a {
@@ -120,7 +127,7 @@ body {
 
 .text-header-1 {
     font-family: 'Lora', serif;
-    color: #b9c8cb;
+    color: white;
 }
 
 .card-artworks:focus-within,
@@ -152,6 +159,10 @@ body {
 
 #searchTerm:focus {
     outline: 4px solid #486293;
+}
+
+.date {
+    white-space: nowrap;
 }
 
 .btn-primary,
@@ -322,6 +333,9 @@ body {
     }
     .container-about-us {
         margin-top: 10vw;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
     }
     .container-about-us card {
         margin-left: 0 !important;
@@ -350,6 +364,13 @@ body {
         width: 30vw;
         padding-left: 0 !important;
         padding-right: 0 !important;
+    }
+
+    .table-artists {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 10vw;
     }
 }
 

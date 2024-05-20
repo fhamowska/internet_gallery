@@ -13,9 +13,14 @@ class ArtistRepository {
         $this->pdo = $pdo;
     }
 
-    public function getAllArtists(): bool|array
+    public function getAllArtists(string $searchTerm): bool|array
     {
-        $stmt = $this->pdo->query("SELECT * FROM Artists");
+        if ($searchTerm) {
+            $stmt = $this->pdo->prepare("SELECT * FROM Artists WHERE first_name LIKE :searchTerm OR last_name LIKE :searchTerm");
+            $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
+        } else {
+            $stmt = $this->pdo->query("SELECT * FROM Artists");
+        }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

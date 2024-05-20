@@ -19,8 +19,19 @@ class ArtistController {
 
     public function listArtists(): void
     {
-        $artists = $this->artistService->getAllArtists();
-        echo $this->twig->render('artists_admin.twig', ['artists' => $artists]);
+        $searchTerm = $_GET['searchTerm'] ?? '';
+        $artists = $this->artistService->getAllArtists($searchTerm);
+        if (str_contains($_SERVER['REQUEST_URI'], '/~21_hamowska/licencjat/artists_admin.php')) {
+            echo $this->twig->render('artists_admin.twig', ['artists' => $artists]);
+        }
+        else {
+            foreach ($artists as $key => $artist) {
+                $totalArtworks = $this->artistService->getTotalArtworksByArtistId($artist['id']);
+                $artists[$key]['total_artworks'] = $totalArtworks;
+            }
+
+            echo $this->twig->render('artists.twig', ['artists' => $artists, 'searchTerm' => $searchTerm]);
+        }
     }
 
     public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
