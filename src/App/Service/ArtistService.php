@@ -16,9 +16,19 @@ class ArtistService {
         $this->artworkService = $artworkService;
     }
 
-    public function getAllArtists(string $searchTerm): array
+    public function getAllArtists(): array
     {
-        return $this->artistRepository->getAllArtists($searchTerm);
+        return $this->artistRepository->getAllArtists();
+    }
+
+    public function getAllFilteredArtists(int $page, int $perPage, string $searchTerm): array
+    {
+        return $this->artistRepository->getAllFilteredArtists($page, $perPage, $searchTerm);
+    }
+
+    public function getTotalFilteredArtistsCount(string $searchTerm): int
+    {
+        return $this->artistRepository->getTotalFilteredArtistsCount($searchTerm);
     }
 
     public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void

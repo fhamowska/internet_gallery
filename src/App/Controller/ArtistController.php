@@ -20,17 +20,44 @@ class ArtistController {
     public function listArtists(): void
     {
         $searchTerm = $_GET['searchTerm'] ?? '';
-        $artists = $this->artistService->getAllArtists($searchTerm);
+        $page = max(1, isset($_GET['page']) ? (int)$_GET['page'] : 1);
+
         if (str_contains($_SERVER['REQUEST_URI'], '/~21_hamowska/licencjat/artists_admin.php')) {
-            echo $this->twig->render('artists_admin.twig', ['artists' => $artists]);
-        }
-        else {
+            $perPage = 4;
+            $totalArtists = $this->artistService->getTotalFilteredArtistsCount($searchTerm);
+            $totalPages = ceil($totalArtists / $perPage);
+            $artists = $this->artistService->getAllFilteredArtists($page, $perPage, $searchTerm);
+            if (!isset($_GET['page'])) {
+                header("Location: artists_admin.php?page=1&searchTerm=$searchTerm");
+                exit();
+            }
+            echo $this->twig->render('artists_admin.twig', [
+                'artists' => $artists,
+                'currentPage' => $page,
+                'totalPages' => $totalPages,
+                'searchTerm' => $searchTerm,
+            ]);
+        } else {
+            $perPage = 4;
+            $totalArtists = $this->artistService->getTotalFilteredArtistsCount($searchTerm);
+            $totalPages = ceil($totalArtists / $perPage);
+            $artists = $this->artistService->getAllFilteredArtists($page, $perPage, $searchTerm);
             foreach ($artists as $key => $artist) {
                 $totalArtworks = $this->artistService->getTotalArtworksByArtistId($artist['id']);
                 $artists[$key]['total_artworks'] = $totalArtworks;
             }
 
-            echo $this->twig->render('artists.twig', ['artists' => $artists, 'searchTerm' => $searchTerm]);
+            if (!isset($_GET['page'])) {
+                header("Location: artists.php?page=1&searchTerm=$searchTerm");
+                exit();
+            }
+
+            echo $this->twig->render('artists.twig', [
+                'artists' => $artists,
+                'currentPage' => $page,
+                'totalPages' => $totalPages,
+                'searchTerm' => $searchTerm,
+            ]);
         }
     }
 

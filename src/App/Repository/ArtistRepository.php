@@ -13,15 +13,39 @@ class ArtistRepository {
         $this->pdo = $pdo;
     }
 
-    public function getAllArtists(string $searchTerm): bool|array
+    public function getAllArtists(): bool|array
+    {
+        $stmt = $this->pdo->query("SELECT * FROM Artists");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllFilteredArtists(int $page, int $perPage, string $searchTerm): array
+    {
+        $offset = ($page - 1) * $perPage;
+
+        if ($searchTerm) {
+            $stmt = $this->pdo->prepare("SELECT * FROM Artists WHERE first_name LIKE :searchTerm OR last_name LIKE :searchTerm LIMIT :perPage OFFSET :offset");
+            $stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
+        } else {
+            $stmt = $this->pdo->prepare("SELECT * FROM Artists LIMIT :perPage OFFSET :offset");
+        }
+
+        $stmt->bindValue(':perPage', $perPage, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTotalFilteredArtistsCount(string $searchTerm): int
     {
         if ($searchTerm) {
-            $stmt = $this->pdo->prepare("SELECT * FROM Artists WHERE first_name LIKE :searchTerm OR last_name LIKE :searchTerm");
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM Artists WHERE first_name LIKE :searchTerm OR last_name LIKE :searchTerm");
             $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
         } else {
-            $stmt = $this->pdo->query("SELECT * FROM Artists");
+            $stmt = $this->pdo->query("SELECT COUNT(*) FROM Artists");
         }
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return (int) $stmt->fetchColumn();
     }
 
     public function getArtistById(int $artistId): ?array

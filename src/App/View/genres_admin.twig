@@ -19,7 +19,7 @@
             <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
+                    <th class="d-none d-lg-table-cell">ID</th>
                     <th>Nazwa</th>
                     <th>Akcje</th>
                 </tr>
@@ -27,7 +27,7 @@
                 <tbody>
                 {% for genre in genres %}
                     <tr>
-                        <td>{{ genre.id }}</td>
+                        <td class="d-none d-lg-table-cell">{{ genre.id }}</td>
                         <td>{{ genre.name }}</td>
                         <td class="text-center">
                             <a href="genre_edit.php?id={{ genre.id }}" class="btn btn-outline-success btn-md mr-2">Edytuj</a>
