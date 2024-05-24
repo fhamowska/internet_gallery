@@ -326,6 +326,28 @@ body {
     width: 24vw;
 }
 
+.artwork-container {
+    height: 102vh;
+}
+
+.artwork-container-inner {
+    height: 85%;
+}
+
+.artwork-card {
+    max-width: fit-content !important;
+    max-height: 100vh !important;
+}
+
+.artwork-card-image {
+    max-height: 65vh;
+    width: auto;
+}
+
+#filterForm {
+    display: none;
+}
+
 @media all and (max-width: 768px) {
 
     .footer {

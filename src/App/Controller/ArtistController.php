@@ -23,7 +23,7 @@ class ArtistController {
         $page = max(1, isset($_GET['page']) ? (int)$_GET['page'] : 1);
 
         if (str_contains($_SERVER['REQUEST_URI'], '/~21_hamowska/licencjat/artists_admin.php')) {
-            $perPage = 4;
+            $perPage = 5;
             $totalArtists = $this->artistService->getTotalFilteredArtistsCount($searchTerm);
             $totalPages = ceil($totalArtists / $perPage);
             $artists = $this->artistService->getAllFilteredArtists($page, $perPage, $searchTerm);

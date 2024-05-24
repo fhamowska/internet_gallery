@@ -158,6 +158,19 @@ body {
     padding-right: 10vw !important;
 }
 
+#imagePreview {
+    display: none;
+    max-width: 300px;
+}
+
+#currentImage {
+    max-width: 300px;
+}
+
+.word-break {
+    word-break: break-word;
+}
+
 @media all and (max-width: 768px) {
     .footer {
         font-size: 3vw !important;

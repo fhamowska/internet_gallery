@@ -138,4 +138,12 @@ class ArtistRepository {
         $stmt = $this->pdo->query('SELECT COUNT(*) FROM Artists');
         return $stmt->fetchColumn();
     }
+
+    public function getArtistByName(string $firstName, string $lastName): ?array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM Artists WHERE first_name = :first_name AND last_name = :last_name');
+        $stmt->execute(['first_name' => $firstName, 'last_name' => $lastName]);
+        $artist = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $artist ?: null;
+    }
 }

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid mt-4" style="height: 102vh;">
+    <div class="container-fluid mt-4 artwork-container">
         <div class="mx-auto pt-3 col-md-9 px-0">
             <div class="breadcrumb my-breadcrumb pt-4 px-1">
                 <a class="my-a me-3 mr-3 text-white" href="/~21_hamowska/licencjat">Strona główna</a><span class="text-white">></span>
@@ -13,12 +13,12 @@
                 <div class="ml-3 text-white">{{ artwork.title }}</div>
             </div>
         </div>
-        <div class="row justify-content-center align-items-center pb-5" style="height: 85%;">
+        <div class="row justify-content-center align-items-center pb-5 artwork-container-inner">
             <div class="col-md-8">
-                <div class="card card-single mx-auto" style="max-width: fit-content; max-height: 100vh;">
+                <div class="card card-single mx-auto artwork-card">
                     <div class="w-100 position-relative">
                         <a href="{{ artwork.imagePath }}" target="_blank">
-                            <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" style="max-height: 65vh; width: auto;">
+                            <img class="card-img-top img-fluid artwork-card-image" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                         </a>
                     </div>
                     <div class="card-body pb-2 pt-2">

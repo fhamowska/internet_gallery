@@ -11,7 +11,7 @@
     </div>
     <div class="container-search ml-3 mr-3">
         <form class="search ml-3" action="artworks_admin.php" method="GET">
-            <div class="row mb-3 align-items-end">
+            <div class="row align-items-end">
                 <div class="form-group col-md-6">
                     <label for="searchTerm" class="sr-only">Szukaj:</label>
                     <div class="d-flex align-items-end">
@@ -28,7 +28,7 @@
                 <div class="row mb-3 align-items-end filters">
                     <div class="form-group col-md-4 col-sm-6 mr-2">
                         <label for="genre" class="sr-only">Genre:</label>
-                        <select class="form-control" name="genre[]" id="genre" multiple style="width: 100%;">
+                        <select class="form-control mr-1" name="genre[]" id="genre" multiple>
                             {% for genre in genres %}
                                 <option value="{{ genre.id }}" {% if genre.id in filters.genre %} selected {% endif %}>{{ genre.name }}</option>
                             {% endfor %}
@@ -58,37 +58,37 @@
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                     <tr>
-                        <th class="d-none d-sm-table-cell">Zdjęcie</th>
-                        <th>Title</th>
-                        <th class="d-none d-sm-table-cell">Twórca</th>
-                        <th class="d-none d-sm-table-cell">Kategoria</th>
-                        <th class="d-none d-md-table-cell">Rok powstania</th>
-                        <th class="d-none d-md-table-cell">Wymiary</th>
-                        <th class="d-none d-lg-table-cell">Medium</th>
-                        <th class="d-none d-lg-table-cell">Autor</th>
-                        <th>Akcje</th>
+                        <th id="header-image" class="d-none d-sm-table-cell">Zdjęcie</th>
+                        <th id="header-title">Tytuł</th>
+                        <th id="header-artist" class="d-none d-sm-table-cell">Twórca</th>
+                        <th id="header-genre" class="d-none d-sm-table-cell">Kategoria</th>
+                        <th id="header-year" class="d-none d-md-table-cell">Rok powstania</th>
+                        <th id="header-dimensions" class="d-none d-md-table-cell">Wymiary</th>
+                        <th id="header-medium" class="d-none d-lg-table-cell">Medium</th>
+                        <th id="header-username" class="d-none d-lg-table-cell">Autor</th>
+                        <th id="header-actions">Akcje</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for artwork in artworks %}
                         <tr>
-                            <td class="d-none d-sm-table-cell artwork-image">
+                            <td headers="header-image" class="d-none d-sm-table-cell artwork-image">
                                 <div class="img-column">
                                     <img src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" class="img-fluid small-image">
                                 </div>
                             </td>
-                            <td class = "title-width">{{ artwork.title }}</td>
-                            <td class="d-none d-sm-table-cell">
+                            <td headers="header-title" class="title-width">{{ artwork.title }}</td>
+                            <td headers="header-artist" class="d-none d-sm-table-cell">
                                 <a href="artworks_admin.php?searchTerm={{ artwork.artistName|url_encode }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
                                     {{ artwork.artistName }}
                                 </a>
                             </td>
-                            <td class="d-none d-sm-table-cell">{{ artwork.genreName }}</td>
-                            <td class="d-none d-md-table-cell">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
-                            <td class="d-none d-md-table-cell">{{ artwork.dimensions }}</td>
-                            <td class="d-none d-lg-table-cell">{{ artwork.medium }}</td>
-                            <td class="d-none d-lg-table-cell">{{ artwork.username }}</td>
-                            <td class="actions">
+                            <td headers="header-genre" class="d-none d-sm-table-cell">{{ artwork.genreName }}</td>
+                            <td headers="header-year" class="d-none d-md-table-cell">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
+                            <td headers="header-dimensions" class="d-none d-md-table-cell">{{ artwork.dimensions }}</td>
+                            <td headers="header-medium" class="d-none d-lg-table-cell">{{ artwork.medium }}</td>
+                            <td headers="header-username" class="d-none d-lg-table-cell">{{ artwork.username }}</td>
+                            <td headers="header-actions" class="actions">
                                 <div class="text-center">
                                     <a class="btn btn-md btn-outline-primary m-1" href="artwork_show.php?id={{ artwork.id }}">Pokaż</a>
                                     <a class="btn btn-md btn-outline-success m-1" href="artwork_edit.php?id={{ artwork.id }}">Edytuj</a>

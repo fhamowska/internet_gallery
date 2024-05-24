@@ -40,7 +40,7 @@ class LoginController
                 header("Location: artworks_admin.php");
                 exit();
             } else {
-                $error = "Invalid username or password.";
+                $error = "Nieprawidłowa nazwa użytkownika lub hasło.";
             }
         }
 

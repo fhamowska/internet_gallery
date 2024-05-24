@@ -33,12 +33,13 @@ class ArtistService {
 
     public function editArtist(int $artistId, string $firstName, string $lastName, ?string $yearOfBirth, ?string $yearOfDeath): void
     {
+        var_dump($firstName, $lastName);
         if ($yearOfBirth !== null && ($yearOfDeath !== null && $yearOfDeath !== '' && $yearOfDeath < $yearOfBirth)) {
             throw new Exception("Rok śmierci nie może być wcześniej niż rok urodzenia.");
         }
-        $existingArtist = $this->artistRepository->getArtistById($artistId);
-        if ($existingArtist && ($existingArtist['first_name'] !== $firstName || $existingArtist['last_name'] !== $lastName)) {
-            $artistName = $existingArtist['first_name'] . ' ' . $existingArtist['last_name'];
+        $duplicateArtist = $this->artistRepository->getArtistByName($firstName, $lastName);
+        if ($duplicateArtist && $duplicateArtist['id'] !== $artistId) {
+            $artistName = $duplicateArtist['first_name'] . ' ' . $duplicateArtist['last_name'];
             throw new Exception("Artysta '$artistName' już istnieje.");
         }
         $this->artistRepository->editArtist($artistId, $firstName, $lastName, $yearOfBirth, (int)$yearOfDeath);

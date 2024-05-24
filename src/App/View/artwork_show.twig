@@ -18,7 +18,7 @@
         </div>
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-3 mt-md-0 text-md-right">
             <a href="artwork_edit.php?id={{ artwork.id }}" class="btn btn-outline-success btn-md ml-3 mb-md-0 mr-2">Edytuj</a>
-            <form action="artwork_delete.php" method="post" style="display: inline-block;">
+            <form action="artwork_delete.php" method="post" class="d-inline-block">
                 <input type="hidden" name="artwork_id" value="{{ artwork.id }}">
                 <button type="submit" class="btn btn-outline-danger btn-md" onclick="return confirm('Czy na pewno chcesz usunąć to dzieło?');">Usuń</button>
             </form>
@@ -32,19 +32,19 @@
                 </a>
             </div>
             <div class="col-xl-6 d-flex align-items-center">
-                <table class="table table-bordered table-sm mb-0" style="height: 100%;">
+                <table class="table table-bordered table-sm mb-0 h-100">
                     <tbody>
                     <tr>
                         <th class="w-25" scope="row">ID:</th>
-                        <td style="word-break: break-word;">{{ artwork.id }}</td>
+                        <td class="word-break">{{ artwork.id }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Tytuł:</th>
-                        <td style="word-break: break-word;">{{ artwork.title }}</td>
+                        <td class="word-break">{{ artwork.title }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Twórca:</th>
-                        <td style="word-break: break-word;">
+                        <td class="word-break">
                             <a href="artworks_admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
                                 {{ artwork.artistName }}
                             </a>
@@ -52,39 +52,39 @@
                     </tr>
                     <tr>
                         <th scope="row">Kategoria:</th>
-                        <td style="word-break: break-word;">{{ artwork.genreName }}</td>
+                        <td class="word-break">{{ artwork.genreName }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Rok powstania:</th>
-                        <td style="word-break: break-word;">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
+                        <td class="word-break">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
                     </tr>
                     <tr>
                         <th scope="row">Wymiary:</th>
-                        <td style="word-break: break-word;">{{ artwork.dimensions }}</td>
+                        <td class="word-break">{{ artwork.dimensions }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Medium:</th>
-                        <td style="word-break: break-word;">{{ artwork.medium }}</td>
+                        <td class="word-break">{{ artwork.medium }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Utworzono:</th>
-                        <td style="word-break: break-word;">{{ artwork.createdAt }}</td>
+                        <td class="word-break">{{ artwork.createdAt }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Edytowano:</th>
-                        <td style="word-break: break-word;">{{ artwork.editedAt }}</td>
+                        <td class="word-break">{{ artwork.editedAt }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Tekst alternatywny:</th>
-                        <td style="word-break: break-word;">{{ artwork.altText }}</td>
+                        <td class="word-break">{{ artwork.altText }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Opis:</th>
-                        <td style="word-break: break-word;">{{ artwork.description }}</td>
+                        <td class="word-break">{{ artwork.description }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Autor:</th>
-                        <td style="word-break: break-word;">{{ artwork.username }}</td>
+                        <td class="word-break">{{ artwork.username }}</td>
                     </tr>
                     </tbody>
                 </table>
