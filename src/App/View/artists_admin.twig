@@ -43,10 +43,13 @@
                         <td headers="header-last-name">{{ artist.last_name }}</td>
                         <td headers="header-year-of-birth" class="d-none d-sm-table-cell">{{ artist.year_of_birth }}</td>
                         <td headers="header-year-of-death" class="d-none d-sm-table-cell">{% if artist.year_of_death != 0 %}{{ artist.year_of_death }}{% endif %}</td>
-                        <td headers="header-actions" class="text-center">
-                            <a href="artist_edit.php?id={{ artist.id }}" class="btn btn-outline-success btn-md mr-2">Edytuj</a>
-                            <button type="button" class="btn btn-outline-danger btn-md" onclick="confirmDelete({{ artist.id }}, '{{ artist.first_name }} {{ artist.last_name }}')">Usuń</button>
+                        <td headers="header-actions align-top" class="text-center">
+                            <div class="d-flex justify-content-center flex-column flex-md-row">
+                                <a href="artist_edit.php?id={{ artist.id }}" class="btn btn-outline-success btn-md m-1 my-md-0"><i class="fas fa-edit"></i> Edytuj</a>
+                                <button type="button" class="btn btn-outline-danger btn-md m-1 my-md-0" onclick="confirmDelete({{ artist.id }}, '{{ artist.first_name }} {{ artist.last_name }}')"><i class="fas fa-trash-alt"></i> Usuń</button>
+                            </div>
                         </td>
+
                     </tr>
                 {% endfor %}
                 </tbody>

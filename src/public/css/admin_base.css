@@ -171,6 +171,14 @@ body {
     word-break: break-word;
 }
 
+.actions {
+    width: 320px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
 @media all and (max-width: 768px) {
     .footer {
         font-size: 3vw !important;
@@ -187,5 +195,14 @@ body {
 
     .filters {
         width: 100% !important;
+    }
+
+    .actions {
+        width: 100px;
+    }
+
+    .actions .btn {
+        width: 90%;
+        margin-left: 0;
     }
 }

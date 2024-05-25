@@ -63,8 +63,8 @@
                         <th id="header-artist" class="d-none d-sm-table-cell" data-sortable="true">Twórca</th>
                         <th id="header-genre" class="d-none d-sm-table-cell" data-sortable="true">Kategoria</th>
                         <th id="header-year" class="d-none d-md-table-cell" data-sortable="true">Rok powstania</th>
-                        <th id="header-dimensions" class="d-none d-md-table-cell" data-sortable="true">Wymiary</th>
-                        <th id="header-medium" class="d-none d-lg-table-cell" data-sortable="true">Medium</th>
+                        <th id="header-dimensions" class="d-none d-lg-table-cell">Wymiary</th>
+                        <th id="header-medium" class="d-none d-lg-table-cell">Medium</th>
                         <th id="header-username" class="d-none d-lg-table-cell" data-sortable="true">Autor</th>
                         <th id="header-actions">Akcje</th>
                     </tr>
@@ -77,22 +77,22 @@
                                     <img src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}" class="img-fluid small-image">
                                 </div>
                             </td>
-                            <td headers="header-title" class="title-width">{{ artwork.title }}</td>
-                            <td headers="header-artist" class="d-none d-sm-table-cell">
+                            <td headers="header-title" class="title-width align-top">{{ artwork.title }}</td>
+                            <td headers="header-artist" class="d-none d-sm-table-cell align-top">
                                 <a href="artworks_admin.php?searchTerm={{ artwork.artistName|url_encode }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
                                     {{ artwork.artistName }}
                                 </a>
                             </td>
-                            <td headers="header-genre" class="d-none d-sm-table-cell">{{ artwork.genreName }}</td>
-                            <td headers="header-year" class="d-none d-md-table-cell">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
-                            <td headers="header-dimensions" class="d-none d-md-table-cell">{{ artwork.dimensions }}</td>
-                            <td headers="header-medium" class="d-none d-lg-table-cell">{{ artwork.medium }}</td>
-                            <td headers="header-username" class="d-none d-lg-table-cell">{{ artwork.username }}</td>
-                            <td headers="header-actions" class="actions">
+                            <td headers="header-genre" class="d-none d-sm-table-cell align-top">{{ artwork.genreName }}</td>
+                            <td headers="header-year" class="d-none d-md-table-cell align-top">{% if artwork.creationYear != 0 %}{{ artwork.creationYear }}{% endif %}</td>
+                            <td headers="header-dimensions" class="d-none d-lg-table-cell align-top nowrap">{{ artwork.dimensions }}</td>
+                            <td headers="header-medium" class="d-none d-lg-table-cell align-top">{{ artwork.medium }}</td>
+                            <td headers="header-username" class="d-none d-lg-table-cell align-top">{{ artwork.username }}</td>
+                            <td headers="header-actions" class="actions align-top">
                                 <div class="text-center">
-                                    <a class="btn btn-md btn-outline-primary m-1" href="artwork_show.php?id={{ artwork.id }}">Pokaż</a>
-                                    <a class="btn btn-md btn-outline-success m-1" href="artwork_edit.php?id={{ artwork.id }}">Edytuj</a>
-                                    <button class="btn btn-md btn-outline-danger m-1" onclick="confirmDelete('{{ artwork.id }}', '{{ artwork.title }}')">Usuń</button>
+                                    <a class="btn btn-md btn-outline-primary m-1" href="artwork_show.php?id={{ artwork.id }}"><i class="fas fa-eye"></i> Pokaż</a>
+                                    <a class="btn btn-md btn-outline-success m-1" href="artwork_edit.php?id={{ artwork.id }}"><i class="fas fa-edit"></i> Edytuj</a>
+                                    <button class="btn btn-md btn-outline-danger m-1" onclick="confirmDelete('{{ artwork.id }}', '{{ artwork.title }}')"><i class="fas fa-trash-alt"></i> Usuń</button>
                                 </div>
                             </td>
                         </tr>
