@@ -17,14 +17,14 @@
             <div class="col-md-8">
                 <div class="card card-single mx-auto artwork-card">
                     <div class="w-100 position-relative">
-                        <a href="{{ artwork.imagePath }}" target="_blank">
+                        <a href="{{ artwork.imagePath }}" target="_blank" class="artwork-card">
                             <img class="card-img-top img-fluid artwork-card-image" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                         </a>
                     </div>
                     <div class="card-body pb-2 pt-2">
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title mb-2 text-dark">{{ artwork.title }}</h4>
-                            <button type="button" class="btn btn-sm btn-light alt-button mx-1 my-1" data-toggle="modal" data-target="#descriptionModal" data-alt="{{ artwork.description }}">opis</button>
+                            <button type="button" class="btn btn-sm btn-light alt-button mx-1 my-1 artwork-card" data-toggle="modal" data-target="#descriptionModal" data-alt="{{ artwork.description }}">opis</button>
                         </div>
                         <p class="card-text">Autor: <a href="artworks.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="btn btn-primary py-0 px-1 text-white">{{ artwork.artistName }}</a>
                             ({% if artwork.artistYearOfBirth %}{{ artwork.artistYearOfBirth }}{% else %}nieznany{% endif %} - {% if artwork.artistYearOfDeath %}{{ artwork.artistYearOfDeath }}{% else %}obecnie{% endif %})</p>

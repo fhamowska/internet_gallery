@@ -1,7 +1,7 @@
 {% extends 'base_admin.twig' %}
 
 {% block title %}
-    Internetowa Galeria Sztuki - Lista Kategotii
+    Internetowa Galeria Sztuki - Lista Kategorii
 {% endblock %}
 
 {% block content %}
@@ -16,20 +16,18 @@
             </div>
         {% endif %}
         <div class="admin-table">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="genre-table">
                 <thead class="thead-dark">
                 <tr>
-                    <th class="d-none d-lg-table-cell">ID</th>
-                    <th>Nazwa</th>
-                    <th>Akcje</th>
+                    <th id="header-name" data-field="name" data-sortable="true">Nazwa</th>
+                    <th id="header-actions">Akcje</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for genre in genres %}
                     <tr>
-                        <td class="d-none d-lg-table-cell">{{ genre.id }}</td>
-                        <td>{{ genre.name }}</td>
-                        <td class="text-center">
+                        <td headers="header-name">{{ genre.name }}</td>
+                        <td headers="header-actions" class="text-center">
                             <a href="genre_edit.php?id={{ genre.id }}" class="btn btn-outline-success btn-md mr-2">Edytuj</a>
                             <button type="button" class="btn btn-outline-danger btn-md" onclick="confirmDelete({{ genre.id }}, '{{ genre.name }}')">Usuń</button>
                         </td>

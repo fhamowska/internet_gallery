@@ -29,23 +29,21 @@
             <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr>
-                    <th class="d-none d-md-table-cell">ID</th>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
-                    <th class="d-none d-lg-table-cell">Rok urodzenia</th>
-                    <th class="d-none d-lg-table-cell">Rok śmierci</th>
-                    <th>Akcje</th>
+                    <th id="header-first-name">Imię</th>
+                    <th id="header-last-name">Nazwisko</th>
+                    <th id="header-year-of-birth" class="d-none d-sm-table-cell">Rok urodzenia</th>
+                    <th id="header-year-of-death" class="d-none d-sm-table-cell">Rok śmierci</th>
+                    <th id="header-actions">Akcje</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for artist in artists %}
                     <tr>
-                        <td class="d-none d-md-table-cell">{{ artist.id }}</td>
-                        <td>{{ artist.first_name }}</td>
-                        <td>{{ artist.last_name }}</td>
-                        <td class="d-none d-lg-table-cell">{{ artist.year_of_birth }}</td>
-                        <td class="d-none d-lg-table-cell">{% if artist.year_of_death != 0 %}{{ artist.year_of_death }}{% endif %}</td>
-                        <td class="text-center">
+                        <td headers="header-first-name">{{ artist.first_name }}</td>
+                        <td headers="header-last-name">{{ artist.last_name }}</td>
+                        <td headers="header-year-of-birth" class="d-none d-sm-table-cell">{{ artist.year_of_birth }}</td>
+                        <td headers="header-year-of-death" class="d-none d-sm-table-cell">{% if artist.year_of_death != 0 %}{{ artist.year_of_death }}{% endif %}</td>
+                        <td headers="header-actions" class="text-center">
                             <a href="artist_edit.php?id={{ artist.id }}" class="btn btn-outline-success btn-md mr-2">Edytuj</a>
                             <button type="button" class="btn btn-outline-danger btn-md" onclick="confirmDelete({{ artist.id }}, '{{ artist.first_name }} {{ artist.last_name }}')">Usuń</button>
                         </td>
@@ -55,8 +53,8 @@
             </table>
         </div>
     </div>
-<div class="pagination d-flex justify-content-center">
-{% if totalPages > 1 %}
+    <div class="pagination d-flex justify-content-center">
+        {% if totalPages > 1 %}
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     {% if currentPage > 1 %}
@@ -89,8 +87,8 @@
                     {% endif %}
                 </ul>
             </nav>
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
 
     <script>
         function confirmDelete(artistId, artistName) {

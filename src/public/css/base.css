@@ -348,6 +348,10 @@ body {
     display: none;
 }
 
+.artwork-card:focus {
+    outline: 4px solid #486293;
+}
+
 @media all and (max-width: 768px) {
 
     .footer {
