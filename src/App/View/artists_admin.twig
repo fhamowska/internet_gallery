@@ -26,13 +26,13 @@
             </div>
         </div>
         <div class="admin-table">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="admin-table">
                 <thead class="thead-dark">
                 <tr>
-                    <th id="header-first-name">Imię</th>
-                    <th id="header-last-name">Nazwisko</th>
-                    <th id="header-year-of-birth" class="d-none d-sm-table-cell">Rok urodzenia</th>
-                    <th id="header-year-of-death" class="d-none d-sm-table-cell">Rok śmierci</th>
+                    <th id="header-first-name" data-sortable="true">Imię</th>
+                    <th id="header-last-name" data-sortable="true">Nazwisko</th>
+                    <th id="header-year-of-birth" class="d-none d-sm-table-cell" data-sortable="true">Rok urodzenia</th>
+                    <th id="header-year-of-death" class="d-none d-sm-table-cell" data-sortable="true">Rok śmierci</th>
                     <th id="header-actions">Akcje</th>
                 </tr>
                 </thead>
@@ -53,7 +53,7 @@
             </table>
         </div>
     </div>
-    <div class="pagination d-flex justify-content-center">
+    <div class="pagination d-flex justify-content-center mt-3">
         {% if totalPages > 1 %}
             <nav aria-label="Page navigation">
                 <ul class="pagination">

@@ -55,17 +55,17 @@
     <div class="gallery ml-3 mr-3">
         {% if artworks %}
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="admin-table">
                     <thead class="thead-dark">
                     <tr>
                         <th id="header-image" class="d-none d-sm-table-cell">Zdjęcie</th>
-                        <th id="header-title">Tytuł</th>
-                        <th id="header-artist" class="d-none d-sm-table-cell">Twórca</th>
-                        <th id="header-genre" class="d-none d-sm-table-cell">Kategoria</th>
-                        <th id="header-year" class="d-none d-md-table-cell">Rok powstania</th>
-                        <th id="header-dimensions" class="d-none d-md-table-cell">Wymiary</th>
-                        <th id="header-medium" class="d-none d-lg-table-cell">Medium</th>
-                        <th id="header-username" class="d-none d-lg-table-cell">Autor</th>
+                        <th id="header-title" data-sortable="true">Tytuł</th>
+                        <th id="header-artist" class="d-none d-sm-table-cell" data-sortable="true">Twórca</th>
+                        <th id="header-genre" class="d-none d-sm-table-cell" data-sortable="true">Kategoria</th>
+                        <th id="header-year" class="d-none d-md-table-cell" data-sortable="true">Rok powstania</th>
+                        <th id="header-dimensions" class="d-none d-md-table-cell" data-sortable="true">Wymiary</th>
+                        <th id="header-medium" class="d-none d-lg-table-cell" data-sortable="true">Medium</th>
+                        <th id="header-username" class="d-none d-lg-table-cell" data-sortable="true">Autor</th>
                         <th id="header-actions">Akcje</th>
                     </tr>
                     </thead>
@@ -101,7 +101,7 @@
                 </table>
             </div>
 
-            <div class="pagination d-flex justify-content-center">
+            <div class="pagination d-flex justify-content-center mt-3">
                 {% if totalPages > 1 %}
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
