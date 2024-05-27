@@ -7,7 +7,7 @@
 {% block content %}
     <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Lista dzieł</h1>
     <div class="add-artwork ml-3 mb-2 mr-3">
-        <a href="artwork_add.php"><button class="btn btn-primary add-artwork-button">Dodaj dzieło</button></a>
+        <a href="artwork_add.php"><button class="btn btn-primary add-button"><i class="fas fa-plus-square">&nbsp</i> Dodaj dzieło</button></a>
     </div>
     <div class="container-search ml-3 mr-3">
         <form class="search ml-3" action="artworks_admin.php" method="GET">
@@ -15,7 +15,7 @@
                 <div class="form-group col-md-6">
                     <label for="searchTerm" class="sr-only">Szukaj:</label>
                     <div class="d-flex align-items-end">
-                        <input type="text" class="form-control" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
+                        <input type="text" class="form-control border border-dark" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
                         <button type="submit" class="btn btn-primary mt-2 ml-2">Szukaj</button>
                         <button id="toggleFilterBtn" type="button" class="btn btn-primary mt-2 ml-2 mr-3">Filtry</button>
                     </div>
@@ -28,7 +28,7 @@
                 <div class="row mb-3 align-items-end filters">
                     <div class="form-group col-md-4 col-sm-6 mr-2">
                         <label for="genre" class="sr-only">Genre:</label>
-                        <select class="form-control mr-1" name="genre[]" id="genre" multiple>
+                        <select class="form-control mr-1 border border-dark" name="genre[]" id="genre" multiple>
                             {% for genre in genres %}
                                 <option value="{{ genre.id }}" {% if genre.id in filters.genre %} selected {% endif %}>{{ genre.name }}</option>
                             {% endfor %}
@@ -36,11 +36,11 @@
                     </div>
                     <div class="form-group col-md-2 col-sm-6 mr-2">
                         <label for="creationYearFrom" class="sr-only">Od roku:</label>
-                        <input type="number" class="form-control" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}" placeholder="Od roku">
+                        <input type="number" class="form-control border border-dark" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}" placeholder="Od roku">
                     </div>
                     <div class="form-group col-md-2 col-sm-6 mr-2">
                         <label for="creationYearTo" class="sr-only">Do roku:</label>
-                        <input type="number" class="form-control" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}" placeholder="Do roku">
+                        <input type="number" class="form-control border border-dark" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}" placeholder="Do roku">
                     </div>
                     <div class="form-group col-md-2 d-flex align-items-end mr-2">
                         <input type="hidden" name="searchTerm" value="{{ filters.searchTerm ?? '' }}">
@@ -55,7 +55,7 @@
     <div class="gallery ml-3 mr-3">
         {% if artworks %}
             <div class="table-responsive">
-                <table class="table table-bordered" id="admin-table">
+                <table class="table table-bordered table-light" id="admin-table">
                     <thead class="thead-dark">
                     <tr>
                         <th id="header-image" class="d-none d-sm-table-cell">Zdjęcie</th>
@@ -104,14 +104,14 @@
             <div class="pagination d-flex justify-content-center mt-3">
                 {% if totalPages > 1 %}
                     <nav aria-label="Page navigation">
-                        <ul class="pagination">
+                        <ul class="pagination border border-dark">
                             {% if currentPage > 1 %}
                                 <li class="page-item">
-                                    <a class="page-link" href="artworks_admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ currentPage - 1 }}">« Poprzednia</a>
+                                    <a class="page-link" href="artworks_admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ currentPage - 1 }}">‹ Poprzednia</a>
                                 </li>
                             {% else %}
                                 <li class="page-item disabled">
-                                    <span class="page-link">&laquo;&nbsp;Poprzednia</span>
+                                    <span class="page-link">‹&nbsp;Poprzednia</span>
                                 </li>
                             {% endif %}
 
@@ -126,11 +126,11 @@
 
                             {% if currentPage < totalPages %}
                                 <li class="page-item">
-                                    <a class="page-link" href="artworks_admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ currentPage + 1 }}">Następna&nbsp;»</a>
+                                    <a class="page-link" href="artworks_admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ currentPage + 1 }}">Następna&nbsp;›</a>
                                 </li>
                             {% else %}
                                 <li class="page-item disabled">
-                                    <span class="page-link">Następna&nbsp;»</span>
+                                    <span class="page-link">Następna&nbsp;›</span>
                                 </li>
                             {% endif %}
                         </ul>

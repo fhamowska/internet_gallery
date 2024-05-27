@@ -7,7 +7,7 @@
 {% block content %}
     <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Lista kategorii</h1>
     <div class="add-artwork ml-3 mb-3 mr-3">
-        <a href="genre_add.php"><button class="btn btn-primary add-artwork-button">Dodaj kategorię</button></a>
+        <a href="genre_add.php"><button class="btn btn-primary add-button"><i class="fas fa-plus-square">&nbsp</i> Dodaj kategorię</button></a>
     </div>
     <div class="container-search ml-3 mr-3">
         {% if error %}
@@ -16,7 +16,7 @@
             </div>
         {% endif %}
         <div class="admin-table">
-            <table class="table table-bordered" id="admin-table">
+            <table class="table table-bordered table-light" id="admin-table">
                 <thead class="thead-dark">
                 <tr>
                     <th id="header-name" data-field="name" data-sortable="true">Nazwa</th>

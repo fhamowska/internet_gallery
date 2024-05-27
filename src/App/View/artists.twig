@@ -48,11 +48,11 @@
                 <ul class="pagination justify-content-center">
                     {% if currentPage > 1 %}
                         <li class="page-item">
-                            <a class="page-link" href="artists.php?page={{ currentPage - 1 }}{% if searchTerm %}&searchTerm={{ searchTerm }}{% endif %}">« Poprzednia</a>
+                            <a class="page-link" href="artists.php?page={{ currentPage - 1 }}{% if searchTerm %}&searchTerm={{ searchTerm }}{% endif %}">‹ Poprzednia</a>
                         </li>
                     {% else %}
                         <li class="page-item disabled">
-                            <span class="page-link">&laquo;&nbsp;Poprzednia</span>
+                            <span class="page-link">‹&nbsp;Poprzednia</span>
                         </li>
                     {% endif %}
 
@@ -67,11 +67,11 @@
 
                     {% if currentPage < totalPages %}
                         <li class="page-item">
-                            <a class="page-link" href="artists.php?page={{ currentPage + 1 }}{% if searchTerm %}&searchTerm={{ searchTerm }}{% endif %}">Następna&nbsp;»</a>
+                            <a class="page-link" href="artists.php?page={{ currentPage + 1 }}{% if searchTerm %}&searchTerm={{ searchTerm }}{% endif %}">Następna&nbsp;›</a>
                         </li>
                     {% else %}
                         <li class="page-item disabled">
-                            <span class="page-link">Następna&nbsp;»</span>
+                            <span class="page-link">Następna&nbsp;›</span>
                         </li>
                     {% endif %}
                 </ul>

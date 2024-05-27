@@ -17,12 +17,12 @@
         <form action="artwork_add.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Tytuł:</label>
-                <input type="text" class="form-control" name="title" id="title" value="{{ inputValues.title }}" required>
+                <input type="text" class="form-control border border-dark" name="title" id="title" value="{{ inputValues.title }}" required>
             </div>
 
             <div class="form-group">
                 <label for="artistId">Twórca:</label>
-                <select class="form-control" name="artistId" id="artistId" required>
+                <select class="form-control border border-dark" name="artistId" id="artistId" required>
                     <option value=""></option>
                     {% for artist in artists %}
                         <option value="{{ artist.id }}" {% if artist.id == inputValues.artistId %} selected {% endif %}>{{ artist.first_name }} {{ artist.last_name }}</option>
@@ -32,7 +32,7 @@
 
             <div class="form-group">
                 <label for="genreId">Kategoria:</label>
-                <select class="form-control" name="genreId" id="genreId" required>
+                <select class="form-control border border-dark" name="genreId" id="genreId" required>
                     <option value=""></option>
                     {% for genre in genres %}
                         <option value="{{ genre.id }}" {% if genre.id == inputValues.genreId %} selected {% endif %}>{{ genre.name }}</option>
@@ -42,35 +42,35 @@
 
             <div class="form-group">
                 <label for="creationYear">Rok utworzenia:</label>
-                <input type="number" class="form-control" name="creationYear" id="creationYear" min="0" value="{{ inputValues.creationYear }}">
+                <input type="number" class="form-control border border-dark" name="creationYear" id="creationYear" min="0" value="{{ inputValues.creationYear }}">
             </div>
 
             <div class="form-group">
                 <label for="dimensions">Wymiary (wysokość × szerokość w cm):</label>
-                <input type="text" class="form-control" name="dimensions" id="dimensions" value="{{ inputValues.dimensions }}" required>
+                <input type="text" class="form-control border border-dark" name="dimensions" id="dimensions" value="{{ inputValues.dimensions }}" required>
             </div>
 
             <div class="form-group">
                 <label for="medium">Medium:</label>
-                <input type="text" class="form-control" name="medium" id="medium" value="{{ inputValues.medium }}" required>
+                <input type="text" class="form-control border border-dark" name="medium" id="medium" value="{{ inputValues.medium }}" required>
             </div>
 
             <div class="form-group">
                 <label for="altText">Tekst alternatywny:</label>
-                <textarea id="altText" name="altText" class="form-control" required>{{ inputValues.altText }}</textarea>
+                <textarea id="altText" name="altText" class="form-control border border-dark" required>{{ inputValues.altText }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="description">Opis dzieła:</label>
-                <textarea id="description" name="description" class="form-control" required>{{ artwork.description ?? '' }}</textarea>
+                <textarea id="description" name="description" class="form-control border border-dark" required>{{ artwork.description ?? '' }}</textarea>
             </div>
 
             <div class="form-group mb-3">
                 <label for="image" class="form-label">Zdjęcie:</label><br>
                 <div class="input-group mb-3">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImage(event)" accept="image/*" required>
-                        <label class="custom-file-label" for="image">Wybierz zdjęcie</label>
+                        <input type="file" id="image" name="image" onchange="previewImage(event)" accept="image/*" required>
+                        <label class="custom-file-label border border-dark" for="image">Wybierz zdjęcie</label>
                     </div>
                 </div>
                 <img id="imagePreview" src="#" alt="Image Preview" class="img-thumbnail">

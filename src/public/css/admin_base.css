@@ -3,6 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #eaeeee;
 }
 
 .navbar {
@@ -73,7 +74,7 @@ body {
     padding: 0;
 }
 
-.add-artwork-button {
+.add-button {
     width: 15vw;
 }
 .artwork-image {
@@ -183,7 +184,7 @@ body {
     .footer {
         font-size: 3vw !important;
     }
-    .add-artwork-button {
+    .add-button {
         width: 32vw;
     }
 }
@@ -204,5 +205,10 @@ body {
     .actions .btn {
         width: 90%;
         margin-left: 0;
+    }
+    .add-button {
+        width: 100%;
+        padding-top: 8px;
+        padding-bottom: 8px;
     }
 }
