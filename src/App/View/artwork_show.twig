@@ -27,7 +27,7 @@
     <div class="mt-4 ml-3 mr-3 d-flex justify-content-center">
         <div class="row">
             <div class="col-xl-6 text-center">
-                <a href="{{ artwork.imagePath }}" target="_blank">
+                <a href="{{ artwork.imagePath }}" target="_blank" class="text-dark">
                     <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                 </a>
             </div>
@@ -45,7 +45,7 @@
                     <tr>
                         <th scope="row">Twórca:</th>
                         <td class="word-break">
-                            <a href="artworks_admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
+                            <a href="artworks_admin.php?searchTerm={{ artwork.artistName }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="text-dark text-underlined">
                                 {{ artwork.artistName }}
                             </a>
                         </td>

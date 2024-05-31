@@ -28,7 +28,7 @@ body {
 }
 
 .navbar a {
-    color: #b9c8cb;
+    color: #b9c8cb !important;
 }
 
 .navbar-nav .nav-link:hover {
@@ -48,6 +48,7 @@ body {
 
 .footer {
     width: 100%;
+    color: #b9c8cb;
 }
 
 .card-text a {
@@ -356,6 +357,10 @@ body {
     min-width: 153px;
 }
 
+.text-underlined {
+    text-decoration: underline !important;
+}
+
 @media all and (max-width: 768px) {
 
     .footer {
@@ -402,6 +407,10 @@ body {
         padding-right: 0;
         margin-top: 10vw;
     }
+
+    .collection-info {
+        margin-right: 10px;
+    }
 }
 
 @media all and (max-width: 576px) {
@@ -446,6 +455,10 @@ body {
 
     .gallery-container {
         padding-bottom: 65vw;
+    }
+
+    .collection-info {
+        margin-right: 20px;
     }
 }
 

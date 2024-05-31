@@ -1,6 +1,6 @@
 {% extends 'base.twig' %}
 
-{% block title %}Internetowa Galeria Sztuki - Strona Główna{% endblock %}
+{% block title %}Internetowa Galeria Sztuki | Strona Główna{% endblock %}
 
 {% block content %}
     <div class="gallery-container">
@@ -12,7 +12,7 @@
             <ul class="list-unstyled">
                 <li class="d-flex align-items-stretch">
                     <form class="d-flex flex-fill" action="artworks.php" method="get">
-                        <label for="search-input" class="sr-only">Wpisz tytuł dzieła lub artystę</label>
+                        <label for="search-input" class="sr-only text-light">Wpisz tytuł dzieła lub artystę</label>
                         <input id="search-input" class="form-control gallery-input mr-2 py-4" type="text" name="searchTerm" placeholder="Wpisz tytuł dzieła lub artystę">
                         <button class="btn btn-primary gallery-button px-4 py-3" type="submit">Szukaj</button>
                     </form>

@@ -26,7 +26,7 @@
             <div class="row mb-2 align-items-end">
                 <div class="form-group col-md-8 mb-2">
                     <div class="d-flex align-items-end">
-                        <label for="searchTerm" class="sr-only">Szukaj:</label>
+                        <label for="searchTerm" class="sr-only text-light">Szukaj:</label>
                         <input type="search" class="form-control" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
                         <button type="submit" class="btn btn-primary ml-2">Szukaj</button>
                         <button id="toggleFilterBtn" type="button" class="btn btn-primary ml-2">Filtry i sortowanie</button>
@@ -81,7 +81,7 @@
             {% else %}
                 {% for artwork in artworks %}
                     <div class="card card-artworks">
-                        <a href="artwork.php?id={{ artwork.id }}">
+                        <a href="artwork.php?id={{ artwork.id }}" class="text-dark">
                             <img class="card-img-top img-fluid" src="{{ artwork.imagePath }}" alt="{{ artwork.altText }}">
                         </a>
                         <button type="button" class="btn btn-sm btn-light alt-button mx-1 my-1" data-toggle="modal" data-target="#descriptionModal" data-alt="{{ artwork.description }}">opis</button>

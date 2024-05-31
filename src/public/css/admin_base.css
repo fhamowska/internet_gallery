@@ -184,6 +184,10 @@ body {
     min-width: 153px;
 }
 
+.text-underlined {
+    text-decoration: underline !important;
+}
+
 @media all and (max-width: 768px) {
     .footer {
         font-size: 3vw !important;

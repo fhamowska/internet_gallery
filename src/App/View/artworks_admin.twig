@@ -91,7 +91,7 @@
                             </td>
                             <td headers="header-title" class="title-width align-top">{{ artwork.title }}</td>
                             <td headers="header-artist" class="d-none d-sm-table-cell align-top">
-                                <a href="artworks_admin.php?searchTerm={{ artwork.artistName|url_encode }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}">
+                                <a href="artworks_admin.php?searchTerm={{ artwork.artistName|url_encode }}{% if filters %}{% for key, value in filters %}{% if value is iterable %}{% set value = value|join(',') %}{% endif %}{% if value is not empty %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="text-dark text-underlined">
                                     {{ artwork.artistName }}
                                 </a>
                             </td>
