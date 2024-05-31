@@ -6,23 +6,22 @@
 
 {% block content %}
     <h1 class="mb-4 mt-4 pt-5 ml-3 pl-4">Lista dzieł</h1>
-    <div class="add-artwork ml-3 mb-2 mr-3">
+    <div class="add-artwork ml-3 mb-4 mr-3">
         <a href="artwork_add.php"><button class="btn btn-primary add-button"><i class="fas fa-plus-square">&nbsp</i> Dodaj dzieło</button></a>
     </div>
-    <div class="container-search ml-3 mr-3">
-        <form class="search ml-3" action="artworks_admin.php" method="GET">
+    <div class="container-search ml-3 mr-md-3">
+        <form class="search ml-3" action="artworks_admin.php?{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}&{% endif %}{% if filters.sortOrder %}sortOrder={{ filters.sortOrder }}&{% endif %}" method="GET">
             <div class="row align-items-end">
-                <div class="form-group col-md-6 mb-2">
-                    <label for="searchTerm" class="sr-only">Szukaj:</label>
+                <div class="form-group pr-md-0 col-md-4 col-11 mb-2">
                     <div class="d-flex align-items-end">
-                        <input type="text" class="form-control border border-dark" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
-                        <input type="hidden" name="genre" value="{{ filters.genre|join(',') }}">
-                        <input type="hidden" name="creationYearFrom" value="{{ filters.creationYearFrom ?? '' }}">
-                        <input type="hidden" name="creationYearTo" value="{{ filters.creationYearTo ?? '' }}">
-                        <input type="hidden" name="sortOrder" value="{{ filters.sortOrder ?? '' }}">
-                        <button type="submit" class="btn btn-primary mt-2 ml-2">Szukaj</button>
-                        <button id="toggleFilterBtn" type="button" class="btn btn-primary mt-2 ml-2 mr-3">Filtry i sortowanie</button>
+                        <label for="searchTerm" class="sr-only">Szukaj:</label>
+                        <input type="search" class="form-control" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
+                        <button type="submit" class="btn btn-primary ml-2">Szukaj</button>
                     </div>
+                </div>
+                <div class="form-group col-md-4 col-11 mb-2 mt-md-0 mt-2">
+                    <button id="toggleFilterBtn" type="button" class="btn btn-primary w-100 d-sm-block d-md-none">Filtry i sortowanie</button>
+                    <button id="toggleFilterBtnMd" type="button" class="btn btn-primary d-none d-md-inline-block ml-2 mb-md-0 mb-3">Filtry i sortowanie</button>
                 </div>
             </div>
         </form>
@@ -57,7 +56,7 @@
                     <div class="form-group col-md-2 col-sm-6 d-flex align-items-end">
                         <input type="hidden" name="searchTerm" value="{{ filters.searchTerm ?? '' }}">
                         <button type="submit" class="btn btn-primary">Zastosuj</button>
-                        <a href="artworks_admin.php?searchTerm={{ filters.searchTerm ?? '' }}" class="btn btn-primary ml-2">Wyczyść</a>
+                        <a href="artworks_admin.php" class="btn btn-primary ml-2">Wyczyść</a>
                     </div>
                 </div>
             </form>

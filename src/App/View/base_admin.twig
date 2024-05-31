@@ -74,6 +74,14 @@
                     allowClear: true
                 });
             });
+            $("#toggleFilterBtnMd").click(function() {
+                $("#filterForm").toggle();
+                $('#genre').select2('destroy').select2({
+                    width: '100%',
+                    placeholder: "Wybierz kategorie",
+                    allowClear: true
+                });
+            });
         });
         $(function() {
             $('#admin-table').bootstrapTable();

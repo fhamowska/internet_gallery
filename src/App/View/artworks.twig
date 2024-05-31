@@ -16,22 +16,30 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-3 mt-3">
-            <div class="col-md-9">
-                <a href="artwork.php?id=random" class="btn btn-primary btn-md random-button mt-3 px-5">Losuj dzieło</a>
+        <div class="row mb-4 mt-3">
+            <div class="col-md-9 mr-3">
+                <a href="artwork.php?id=random" class="btn btn-primary btn-md random-button mt-3 w-100 d-md-none">Losuj dzieło</a>
+                <a href="artwork.php?id=random" class="btn btn-primary btn-md random-button mt-3 px-5 d-none d-md-inline-block">Losuj dzieło</a>
             </div>
         </div>
 
         <form class="search" action="artworks.php" method="GET">
-            <div class="row mb-2 align-items-end">
-                <div class="form-group col-md-8 mb-2">
+            <div class="row align-items-end">
+                <div class="form-group pr-md-0 col-md-8 col-12">
                     <div class="d-flex align-items-end">
                         <label for="searchTerm" class="sr-only text-light">Szukaj:</label>
                         <input type="search" class="form-control" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
                         <button type="submit" class="btn btn-primary ml-2">Szukaj</button>
-                        <button id="toggleFilterBtn" type="button" class="btn btn-primary ml-2">Filtry i sortowanie</button>
                     </div>
                 </div>
+                <div class="form-group col-md-4 col-12 mb-2 mt-md-0 pl-md-0 mt-2">
+                    <button id="toggleFilterBtn" type="button" class="btn btn-primary w-100 d-md-none pr-0">Filtry i sortowanie</button>
+                    <button id="toggleFilterBtnMd" type="button" class="btn btn-primary d-none d-md-inline-block ml-2 mb-md-0 mb-3">Filtry i sortowanie</button>
+                </div>
+                <input type="hidden" name="genre" value="{{ filters.genre|join(',') }}">
+                <input type="hidden" name="creationYearFrom" value="{{ filters.creationYearFrom ?? '' }}">
+                <input type="hidden" name="creationYearTo" value="{{ filters.creationYearTo ?? '' }}">
+                <input type="hidden" name="sortOrder" value="{{ filters.sortOrder ?? '' }}">
             </div>
         </form>
 
@@ -65,14 +73,14 @@
                     <div class="form-group col-md-2 d-flex align-items-end">
                         <input type="hidden" name="searchTerm" value="{{ filters.searchTerm ?? '' }}">
                         <button type="submit" class="btn btn-primary">Zastosuj</button>
-                        <a href="artworks.php{% if filters.searchTerm %}?searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.genre %}&genre={{ filters.genre|join(',') }}{% endif %}{% if filters.creationYearFrom %}&creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearTo %}&creationYearTo={{ filters.creationYearTo }}{% endif %}{% if filters.sortOrder %}&sortOrder={{ filters.sortOrder }}{% endif %}" class="btn btn-primary ml-2{% if not filters.searchTerm and not filters.genre and not filters.creationYearFrom and not filters.creationYearTo and not filters.sortOrder %} d-none{% endif %}">Wyczyść</a>
+                        <a href="artworks.php{% if filters.searchTerm %}?searchTerm={{ filters.searchTerm }}{% endif %}" class="btn btn-primary ml-2{% if not filters.searchTerm %} d-none{% endif %}">Wyczyść</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-        <div class="container">
+        <div class="container mt-3">
         <div class="card-columns">
             {% if artworks is empty %}
                 <div class="no-results">
