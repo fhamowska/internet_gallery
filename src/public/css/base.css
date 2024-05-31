@@ -12,14 +12,14 @@ body {
 }
 
 .skip-nav {
-    background-color: #947a94;
     position: fixed;
     transform: translateY(-444%);
     transition: transform 300ms ease-in;
+    z-index: 1000000;
 }
 
 .skip-nav:focus {
-    top: 4vw;
+    top: 60px;
     transform: translate(0);
 }
 
@@ -350,6 +350,10 @@ body {
 
 .artwork-card:focus {
     outline: 4px solid #486293;
+}
+
+#toggleFilterBtn {
+    min-width: 153px;
 }
 
 @media all and (max-width: 768px) {

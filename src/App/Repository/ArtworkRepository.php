@@ -84,9 +84,15 @@ class ArtworkRepository
             $query .= " AND $searchCondition";
         }
 
+        $sortOrder = !empty($filters['sortOrder']) && strtolower($filters['sortOrder']) === 'desc' ? 'DESC' : 'ASC';
+        if (empty($filters['sortOrder'])) {
+            $query .= " ORDER BY Artworks.created_at DESC";
+        } else {
+            $query .= " ORDER BY Artworks.creation_year $sortOrder";
+        }
 
         $offset = ($page - 1) * $perPage;
-        $query .= " ORDER BY Artworks.created_at DESC LIMIT :limit OFFSET :offset";
+        $query .= " LIMIT :limit OFFSET :offset";
 
         $stmt = $this->pdo->prepare($query);
 

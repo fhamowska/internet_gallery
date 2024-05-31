@@ -12,22 +12,26 @@
     <div class="container-search ml-3 mr-3">
         <form class="search ml-3" action="artworks_admin.php" method="GET">
             <div class="row align-items-end">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-6 mb-2">
                     <label for="searchTerm" class="sr-only">Szukaj:</label>
                     <div class="d-flex align-items-end">
                         <input type="text" class="form-control border border-dark" name="searchTerm" id="searchTerm" placeholder="Wpisz tytuł lub artystę" value="{{ filters.searchTerm ?? '' }}">
+                        <input type="hidden" name="genre" value="{{ filters.genre|join(',') }}">
+                        <input type="hidden" name="creationYearFrom" value="{{ filters.creationYearFrom ?? '' }}">
+                        <input type="hidden" name="creationYearTo" value="{{ filters.creationYearTo ?? '' }}">
+                        <input type="hidden" name="sortOrder" value="{{ filters.sortOrder ?? '' }}">
                         <button type="submit" class="btn btn-primary mt-2 ml-2">Szukaj</button>
-                        <button id="toggleFilterBtn" type="button" class="btn btn-primary mt-2 ml-2 mr-3">Filtry</button>
+                        <button id="toggleFilterBtn" type="button" class="btn btn-primary mt-2 ml-2 mr-3">Filtry i sortowanie</button>
                     </div>
                 </div>
             </div>
         </form>
 
-        <div id="filterForm" class="container ml-3">
+        <div id="filterForm" class="container ml-3 mr-3">
             <form action="artworks_admin.php" method="GET">
                 <div class="row mb-3 align-items-end filters">
                     <div class="form-group col-md-4 col-sm-6 mr-2">
-                        <label for="genre" class="sr-only">Genre:</label>
+                        <label for="genre">Genre:</label>
                         <select class="form-control mr-1 border border-dark" name="genre[]" id="genre" multiple>
                             {% for genre in genres %}
                                 <option value="{{ genre.id }}" {% if genre.id in filters.genre %} selected {% endif %}>{{ genre.name }}</option>
@@ -35,24 +39,32 @@
                         </select>
                     </div>
                     <div class="form-group col-md-2 col-sm-6 mr-2">
-                        <label for="creationYearFrom" class="sr-only">Od roku:</label>
+                        <label for="creationYearFrom">Od roku:</label>
                         <input type="number" class="form-control border border-dark" name="creationYearFrom" id="creationYearFrom" min="0" value="{{ filters.creationYearFrom ?? '' }}" placeholder="Od roku">
                     </div>
                     <div class="form-group col-md-2 col-sm-6 mr-2">
-                        <label for="creationYearTo" class="sr-only">Do roku:</label>
+                        <label for="creationYearTo">Do roku:</label>
                         <input type="number" class="form-control border border-dark" name="creationYearTo" id="creationYearTo" min="0" value="{{ filters.creationYearTo ?? '' }}" placeholder="Do roku">
                     </div>
-                    <div class="form-group col-md-2 d-flex align-items-end mr-2">
+                    <div class="form-group col-md-2 col-sm-6 mr-2">
+                        <label for="sortOrder">Sortowanie:</label>
+                        <select class="form-control border border-dark" name="sortOrder" id="sortOrder">
+                            <option value="" {% if filters.sortOrder is empty %} selected {% endif %}></option>
+                            <option value="asc" {% if filters.sortOrder == 'asc' %} selected {% endif %}>sortuj rosnąco wg. roku powstania</option>
+                            <option value="desc" {% if filters.sortOrder == 'desc' %} selected {% endif %}>sortuj malejąco wg. roku powstania</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2 col-sm-6 d-flex align-items-end">
                         <input type="hidden" name="searchTerm" value="{{ filters.searchTerm ?? '' }}">
-                        <button type="submit" class="btn btn-primary">Filtruj</button>
-                        <a href="artworks_admin.php{% if filters.searchTerm %}?searchTerm={{ filters.searchTerm }}{% endif %}" class="btn btn-primary ml-2{% if not filters.searchTerm and not filters.genre and not filters.creationYearFrom and not filters.creationYearTo %} d-none{% endif %}">Wyczyść</a>
+                        <button type="submit" class="btn btn-primary">Zastosuj</button>
+                        <a href="artworks_admin.php?searchTerm={{ filters.searchTerm ?? '' }}" class="btn btn-primary ml-2">Wyczyść</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="gallery ml-3 mr-3">
+    <div class="gallery ml-3 mr-3 mt-3">
         {% if artworks %}
             <div class="table-responsive">
                 <table class="table table-bordered table-light" id="admin-table">
@@ -107,7 +119,7 @@
                         <ul class="pagination border border-dark">
                             {% if currentPage > 1 %}
                                 <li class="page-item">
-                                    <a class="page-link" href="artworks_admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ currentPage - 1 }}">‹ Poprzednia</a>
+                                    <a class="page-link" href="artworks_admin.php?{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}&{% endif %}{% if filters.sortOrder %}sortOrder={{ filters.sortOrder }}&{% endif %}page={{ currentPage - 1 }}">‹ Poprzednia</a>
                                 </li>
                             {% else %}
                                 <li class="page-item disabled">
@@ -120,13 +132,13 @@
 
                             {% for page in range(startPage, endPage) %}
                                 <li class="page-item {% if currentPage == page %}active{% endif %}">
-                                    <a class="page-link pagination-text" href="artworks_admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ page }}">{{ page }}</a>
+                                    <a class="page-link pagination-text" href="artworks_admin.php?{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}&{% endif %}{% if filters.sortOrder %}sortOrder={{ filters.sortOrder }}&{% endif %}page={{ page }}">{{ page }}</a>
                                 </li>
                             {% endfor %}
 
                             {% if currentPage < totalPages %}
                                 <li class="page-item">
-                                    <a class="page-link" href="artworks_admin.php{% if filters %}?{% endif %}{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}{% endif %}{% if filters.searchTerm and (filters.genre or filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}{% endif %}{% if filters.genre and (filters.creationYearFrom or filters.creationYearTo) %}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}{% endif %}{% if filters.creationYearFrom and filters.creationYearTo %}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}{% endif %}&page={{ currentPage + 1 }}">Następna&nbsp;›</a>
+                                    <a class="page-link" href="artworks_admin.php?{% if filters.searchTerm %}searchTerm={{ filters.searchTerm }}&{% endif %}{% if filters.genre %}genre={{ filters.genre|join(',') }}&{% endif %}{% if filters.creationYearFrom %}creationYearFrom={{ filters.creationYearFrom }}&{% endif %}{% if filters.creationYearTo %}creationYearTo={{ filters.creationYearTo }}&{% endif %}{% if filters.sortOrder %}sortOrder={{ filters.sortOrder }}&{% endif %}page={{ currentPage + 1 }}">Następna ›</a>
                                 </li>
                             {% else %}
                                 <li class="page-item disabled">

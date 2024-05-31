@@ -48,6 +48,7 @@ body {
 #filterForm {
     margin: 0;
     padding: 0;
+    width: 100% !important;
     display: none;
 }
 
@@ -130,7 +131,6 @@ body {
 }
 
 .skip-nav {
-    background-color: white;
     position: fixed;
     transform: translateY(-444%);
     transition: transform 300ms ease-in;
@@ -178,6 +178,10 @@ body {
 
 .nowrap {
     white-space: nowrap;
+}
+
+#toggleFilterBtn {
+    min-width: 153px;
 }
 
 @media all and (max-width: 768px) {

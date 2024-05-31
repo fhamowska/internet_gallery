@@ -8,11 +8,12 @@
             <h1>Internetowa Galeria Sztuki</h1>
             <p class="mb-5">Odkrywaj twórczość z całego świata.</p>
         </header>
-        <div class="gallery-index mx-auto my-auto col-lg-5 col-md-7 col-sm-9">
+        <div class="gallery-index mx-auto my-auto col-lg-5 col-md-7 col-sm-9 color-light">
             <ul class="list-unstyled">
                 <li class="d-flex align-items-stretch">
                     <form class="d-flex flex-fill" action="artworks.php" method="get">
-                        <input class="form-control gallery-input mr-2 py-4" type="text" placeholder="Wpisz tytuł dzieła lub artystę">
+                        <label for="search-input" class="sr-only">Wpisz tytuł dzieła lub artystę</label>
+                        <input id="search-input" class="form-control gallery-input mr-2 py-4" type="text" name="searchTerm" placeholder="Wpisz tytuł dzieła lub artystę">
                         <button class="btn btn-primary gallery-button px-4 py-3" type="submit">Szukaj</button>
                     </form>
                 </li>

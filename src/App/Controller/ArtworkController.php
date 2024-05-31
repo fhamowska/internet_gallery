@@ -38,10 +38,11 @@ class ArtworkController
         }
 
         $filters = [
-            'genre' => $genreArray,
-            'creationYearFrom' => $_GET['creationYearFrom'] ?? null,
-            'creationYearTo' => $_GET['creationYearTo'] ?? null,
-            'searchTerm' => $_GET['searchTerm'] ?? null,
+            'searchTerm' => $_GET['searchTerm'] ?? '',
+            'genre' => $_GET['genre'] ?? [],
+            'creationYearFrom' => $_GET['creationYearFrom'] ?? '',
+            'creationYearTo' => $_GET['creationYearTo'] ?? '',
+            'sortOrder' => $_GET['sortOrder'] ?? null,
         ];
 
         $queryString = http_build_query($filters);
@@ -67,7 +68,7 @@ class ArtworkController
                 'searchTerm' => $filters['searchTerm'],
             ]);
         } else {
-            $perPage = 6;
+            $perPage = 3;
             $artworks = $this->artworkService->getFilteredArtworksWithDetails($page, $perPage, $filters);
             $totalArtworks = $this->artworkService->getTotalFilteredArtworksCount($filters);
             $totalPages = ceil($totalArtworks / $perPage);
